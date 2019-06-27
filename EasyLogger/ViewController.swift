@@ -11,10 +11,25 @@ import UIKit
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
+        logger.entered(self)
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        
+        logger.debug("example for debug log.")
+        logger.info("example for info log.")
+        logger.warn("example for warn log.")
+        logger.error("example for error log.")
+        
+        // assert from your app
+        //logger.fatal("example for fatal log.")
+        
+        DispatchQueue.global().async {
+            logger.entered(self)
+            logger.debug("example for debug log. in global queue")
+            logger.info("example for info log. in global queue")
+            logger.warn("example for warn log. in global queue")
+            logger.error("example for error log. in global queue")
+        }
     }
-
-
 }
 

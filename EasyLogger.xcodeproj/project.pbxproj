@@ -12,6 +12,8 @@
 		5286A0DA22C50A3C00FEABFE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5286A0D822C50A3C00FEABFE /* Main.storyboard */; };
 		5286A0DC22C50A3E00FEABFE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5286A0DB22C50A3E00FEABFE /* Assets.xcassets */; };
 		5286A0DF22C50A3E00FEABFE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5286A0DD22C50A3E00FEABFE /* LaunchScreen.storyboard */; };
+		5286A0E722C50A6C00FEABFE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286A0E622C50A6C00FEABFE /* Logger.swift */; };
+		5286A0E922C50D5300FEABFE /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5286A0E822C50D5300FEABFE /* Date+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		5286A0DB22C50A3E00FEABFE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5286A0DE22C50A3E00FEABFE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5286A0E022C50A3E00FEABFE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5286A0E622C50A6C00FEABFE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		5286A0E822C50D5300FEABFE /* Date+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				5286A0D422C50A3C00FEABFE /* AppDelegate.swift */,
 				5286A0D622C50A3C00FEABFE /* ViewController.swift */,
+				5286A0E622C50A6C00FEABFE /* Logger.swift */,
+				5286A0E822C50D5300FEABFE /* Date+Ext.swift */,
 				5286A0D822C50A3C00FEABFE /* Main.storyboard */,
 				5286A0DB22C50A3E00FEABFE /* Assets.xcassets */,
 				5286A0DD22C50A3E00FEABFE /* LaunchScreen.storyboard */,
@@ -136,7 +142,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5286A0D722C50A3C00FEABFE /* ViewController.swift in Sources */,
+				5286A0E722C50A6C00FEABFE /* Logger.swift in Sources */,
 				5286A0D522C50A3C00FEABFE /* AppDelegate.swift in Sources */,
+				5286A0E922C50D5300FEABFE /* Date+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +221,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -268,7 +276,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
