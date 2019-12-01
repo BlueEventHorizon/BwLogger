@@ -1,58 +1,22 @@
 //
 //  Logger.swift
-//  BwFramework
+//  BwTools
 //
-//  Created by Katsuhiko Terada on 2017/08/18.
-//  Copyright (c) 2017 Katsuhiko Terada. All rights reserved.
+//  Created by k2moons on 2017/08/18.
+//  Copyright (c) 2017 k2moons. All rights reserved.
 //
 
-import UIKit // For CGPoint
+import Foundation
 
-// =============================================================================
-// MARK: - Identifiable
-// =============================================================================
-
-// protocol for identifier of classes
-public protocol Identifiable: class {
-    var identifier: String { get }
-    static var identifier: String { get }
-    
-    var classIdentifier: String { get }
-    static var classIdentifier: String { get }
-}
-
-// protocol extension for identifier of classes, return class name.
-extension Identifiable {
-    public var identifier: String { return classIdentifier }
-    public static var identifier: String { return classIdentifier }
-    
-    public var classIdentifier: String { return String(describing: type(of: self)) }
-    public static var classIdentifier: String { return String(describing: Self.self) }
-}
-
-// =============================================================================
-// MARK: - LoggerOutput
-// =============================================================================
-
-public protocol LoggerOutput {
+protocol LoggerDependencies {
     func log(_ formedMessage: String, original: String, level: Logger.Level)
-}
-
-private final class DefaultLoggerOutput: LoggerOutput {
-    public func log(_ formedMessage: String, original: String, level: Logger.Level) {
-        print(formedMessage)
-    }
-}
-
-// =============================================================================
-// MARK: - LoggerControllable
-// =============================================================================
-
-public protocol LoggerControllable {
     func isEnabled(_ level: Logger.Level) -> Bool
 }
 
-private final class DefaultLoggerController: LoggerControllable {
+class DefaultLoggerDependencies: LoggerDependencies {
+    public func log(_ formedMessage: String, original: String, level: Logger.Level) {
+        print(formedMessage)
+    }
     public func isEnabled(_ level: Logger.Level) -> Bool {
         #if DEBUG
         return true
@@ -66,22 +30,17 @@ private final class DefaultLoggerController: LoggerControllable {
 // MARK: - Logger
 // =============================================================================
 
-/// You can make another instances in your own files
-/// And choose level for output by each instances with levels parameter
-public let logger = Logger(levels: nil)
-
 public final class Logger
 {
-    /// Injectable for output target.
-    public var output: LoggerOutput = DefaultLoggerOutput()
-    /// Injectable for output level.
-    public var controller: LoggerControllable = DefaultLoggerController()
+    var dep: LoggerDependencies = DefaultLoggerDependencies()
 
     private var levels: [Level]?
+    private var prefix: String = ""
 
     public init() {}
-    public init(levels: [Level]? = nil) {
+    public init(levels: [Level]? = nil, prefix: String = "") {
         self.levels = levels
+        self.prefix = prefix
     }
 
     /// Format message and other metrics for log output.
@@ -115,7 +74,7 @@ public final class Logger
         }
 
         // Log Date
-        var result: String = "\(shifterString)\(level.presentation()) [\(Date().string(dateFormat: "yyyy-MM-dd HH:mm:ss"))]"
+        var result: String = "\(prefix)\(shifterString)\(level.presentation()) [\(Date().string(dateFormat: "yyyy-MM-dd HH:mm:ss"))]"
         if level.isEnabledThread() {
             result += " [\(threadName)]"
         }
@@ -133,21 +92,10 @@ public final class Logger
 
         // Log Class/Function
         if level.isEnabledFunctionName() {
-            if let identifierGettableObject = instance as? Identifiable {
-                classNameLocal = identifierGettableObject.identifier
+            if let _ = instance as? AnyClass {
+                classNameLocal = String(describing: type(of: self))
             } else if let stringObject = instance as? String {
-                if stringObject.hasSuffix(".swift") {
-                    // remove ".swift" from file name
-                    let path: [String] = stringObject.components(separatedBy: "/")
-                    if let last = path.last {
-                        let a: [String] = last.components(separatedBy: ".")
-                        if let b = a.first {
-                            classNameLocal = b
-                        }
-                    }
-                } else {
-                    classNameLocal = stringObject
-                }
+                classNameLocal = stringObject.getSwiftFileName() ?? stringObject
             }
 
             if classNameLocal.isEmpty {
@@ -186,17 +134,17 @@ public final class Logger
     ///   - file: automatically added file name
     ///   - line: automatically added line number
     static private let semaphore  = DispatchSemaphore(value: 1)
-    private func log(_ original: String, postMessage: String = "", shifter: Int = 0, level: Level, instance: Any, function: String, file: String, line: Int) {
+    internal func log(_ original: String, postMessage: String = "", shifter: Int = 0, level: Level, instance: Any, function: String, file: String, line: Int) {
         Logger.semaphore.wait()
         defer {
             Logger.semaphore.signal()
         }
 
-        guard controller.isEnabled(level) else { return }
+        guard dep.isEnabled(level) else { return }
         guard levels?.contains(level) ?? false || levels == nil else { return }
 
         let formedMessage = formatter(original, postMessage: postMessage, shifter: shifter, level: level, instance: instance, function: function, file: file, line: line)
-        self.output.log(formedMessage, original: original, level: level)
+        dep.log(formedMessage, original: original, level: level)
 
         if level == .fatal {
             assert(false, formedMessage)
@@ -306,43 +254,36 @@ public extension Logger {
     }
 }
 
-// =============================================================================
-// MARK: - extension
-// =============================================================================
-
-public extension Logger {
-    func pointString(_ point: CGPoint) -> String {
-        return "x=" + String(describing: point.x) + ", y=" + String(describing: point.y)
-    }
-
-    func point(_ point: CGPoint, message: String = "", instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
-        let msg = "\(pointString(point)) \(message)"
-        self.log(msg, level: .info, instance: instance, function: function, file: file, line: line)
-    }
-
-    func frameString(_ frame: CGRect) -> String {
-        return "x= \(String(describing: frame.origin.x)), y= \(String(describing: frame.origin.y)), w= \(String(describing: frame.size.width)), h= \(String(describing: frame.size.height))"
-    }
-
-    func frame(_ frame: CGRect, message: String = "", instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
-        let msg = "\(frameString(frame)) \(message)"
-        self.log(msg, level: .info, instance: instance, function: function, file: file, line: line)
-    }
-
-    func url(_ url: URL) {
-        self.info("url : \(url.absoluteString)")
-
-        if let _scheme = url.scheme {
-            self.info("scheme : \(_scheme)")
+private extension String {
+    
+    func getSwiftFileName() -> String? {
+        var fileName: String?
+        guard self.hasSuffix(".swift") else { return fileName }
+        let path: [String] = self.components(separatedBy: "/")
+        if let last = path.last {
+            let components: [String] = last.components(separatedBy: ".")
+            fileName = components.first
         }
-        if let _host = url.host {
-            self.info("host : \(_host)")
-        }
-        if let _port = url.port {
-            self.info("port : \(_port)")
-        }
-        if let _query = url.query {
-            self.info("query : \(_query)")
-        }
+        return fileName
+    }
+}
+
+private extension DateFormatter {
+    // Standard formatter for current timezone.
+    static let standard: DateFormatter = {
+        let formatter: DateFormatter = DateFormatter()
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .gregorian)
+        return formatter
+    }()
+}
+
+private extension Date {
+    // Date → String
+    func string(dateFormat: String) -> String {
+        let formatter = DateFormatter.standard
+        formatter.dateFormat = dateFormat
+        return formatter.string(from: self)
     }
 }

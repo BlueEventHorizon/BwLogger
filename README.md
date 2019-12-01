@@ -1,3 +1,3 @@
-You can use this code to output the log really easily. 
+# Logger
 
-This logger can also display threads as well as class names and function names.
+A description of this package.
