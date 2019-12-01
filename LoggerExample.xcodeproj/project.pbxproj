@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5215279B2393B6710002CC47 /* Logger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; };
+		521527A22393B6710002CC47 /* LoggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527A12393B6710002CC47 /* LoggerTests.swift */; };
+		521527A42393B6710002CC47 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 521527942393B6710002CC47 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		521527A72393B6710002CC47 /* Logger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; };
+		521527A82393B6710002CC47 /* Logger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		521527B12393B68C0002CC47 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B02393B68C0002CC47 /* Logger.swift */; };
+		521527B62393E0F80002CC47 /* Filer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B52393E0F80002CC47 /* Filer.swift */; };
+		521527B82393E1690002CC47 /* LoggerDependencyFiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */; };
 		52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110C2393AECA0053F533 /* AppDelegate.swift */; };
 		52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110E2393AECA0053F533 /* SceneDelegate.swift */; };
 		52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511102393AECA0053F533 /* ExampleViewController.swift */; };
@@ -17,6 +25,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		5215279C2393B6710002CC47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52C511012393AECA0053F533 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 521527912393B6710002CC47;
+			remoteInfo = Logger;
+		};
+		5215279E2393B6710002CC47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52C511012393AECA0053F533 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52C511082393AECA0053F533;
+			remoteInfo = LoggerExample;
+		};
+		521527A52393B6710002CC47 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 52C511012393AECA0053F533 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 521527912393B6710002CC47;
+			remoteInfo = Logger;
+		};
 		52C511202393AECB0053F533 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 52C511012393AECA0053F533 /* Project object */;
@@ -26,7 +55,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		521527A92393B6710002CC47 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				521527A82393B6710002CC47 /* Logger.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		521527922393B6710002CC47 /* Logger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Logger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		521527942393B6710002CC47 /* Logger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logger.h; sourceTree = "<group>"; };
+		521527952393B6710002CC47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5215279A2393B6710002CC47 /* LoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		521527A12393B6710002CC47 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
+		521527A32393B6710002CC47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		521527B02393B68C0002CC47 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Sources/Logger/Logger.swift; sourceTree = SOURCE_ROOT; };
+		521527B52393E0F80002CC47 /* Filer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filer.swift; sourceTree = "<group>"; };
+		521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerDependencyFiler.swift; sourceTree = "<group>"; };
 		52C511092393AECA0053F533 /* LoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C5110C2393AECA0053F533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52C5110E2393AECA0053F533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -41,10 +93,26 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5215278F2393B6710002CC47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521527972393B6710002CC47 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5215279B2393B6710002CC47 /* Logger.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52C511062393AECA0053F533 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				521527A72393B6710002CC47 /* Logger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,11 +126,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		521527932393B6710002CC47 /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				521527942393B6710002CC47 /* Logger.h */,
+				521527B02393B68C0002CC47 /* Logger.swift */,
+				521527B52393E0F80002CC47 /* Filer.swift */,
+				521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */,
+				521527952393B6710002CC47 /* Info.plist */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		521527A02393B6710002CC47 /* LoggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				521527A12393B6710002CC47 /* LoggerTests.swift */,
+				521527A32393B6710002CC47 /* Info.plist */,
+			);
+			path = LoggerTests;
+			sourceTree = "<group>";
+		};
 		52C511002393AECA0053F533 = {
 			isa = PBXGroup;
 			children = (
 				52C5110B2393AECA0053F533 /* LoggerExample */,
 				52C511222393AECB0053F533 /* LoggerExampleTests */,
+				521527932393B6710002CC47 /* Logger */,
+				521527A02393B6710002CC47 /* LoggerTests */,
 				52C5110A2393AECA0053F533 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -72,6 +163,8 @@
 			children = (
 				52C511092393AECA0053F533 /* LoggerExample.app */,
 				52C5111F2393AECB0053F533 /* LoggerExampleTests.xctest */,
+				521527922393B6710002CC47 /* Logger.framework */,
+				5215279A2393B6710002CC47 /* LoggerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,7 +194,55 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		5215278D2393B6710002CC47 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				521527A42393B6710002CC47 /* Logger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		521527912393B6710002CC47 /* Logger */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 521527AE2393B6710002CC47 /* Build configuration list for PBXNativeTarget "Logger" */;
+			buildPhases = (
+				5215278D2393B6710002CC47 /* Headers */,
+				5215278E2393B6710002CC47 /* Sources */,
+				5215278F2393B6710002CC47 /* Frameworks */,
+				521527902393B6710002CC47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Logger;
+			productName = Logger;
+			productReference = 521527922393B6710002CC47 /* Logger.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		521527992393B6710002CC47 /* LoggerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 521527AF2393B6710002CC47 /* Build configuration list for PBXNativeTarget "LoggerTests" */;
+			buildPhases = (
+				521527962393B6710002CC47 /* Sources */,
+				521527972393B6710002CC47 /* Frameworks */,
+				521527982393B6710002CC47 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5215279D2393B6710002CC47 /* PBXTargetDependency */,
+				5215279F2393B6710002CC47 /* PBXTargetDependency */,
+			);
+			name = LoggerTests;
+			productName = LoggerTests;
+			productReference = 5215279A2393B6710002CC47 /* LoggerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		52C511082393AECA0053F533 /* LoggerExample */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52C511282393AECB0053F533 /* Build configuration list for PBXNativeTarget "LoggerExample" */;
@@ -109,10 +250,12 @@
 				52C511052393AECA0053F533 /* Sources */,
 				52C511062393AECA0053F533 /* Frameworks */,
 				52C511072393AECA0053F533 /* Resources */,
+				521527A92393B6710002CC47 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				521527A62393B6710002CC47 /* PBXTargetDependency */,
 			);
 			name = LoggerExample;
 			productName = LoggerExample;
@@ -147,6 +290,14 @@
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Katsuhiko Terada";
 				TargetAttributes = {
+					521527912393B6710002CC47 = {
+						CreatedOnToolsVersion = 11.2.1;
+						LastSwiftMigration = 1120;
+					};
+					521527992393B6710002CC47 = {
+						CreatedOnToolsVersion = 11.2.1;
+						TestTargetID = 52C511082393AECA0053F533;
+					};
 					52C511082393AECA0053F533 = {
 						CreatedOnToolsVersion = 11.2.1;
 					};
@@ -171,11 +322,27 @@
 			targets = (
 				52C511082393AECA0053F533 /* LoggerExample */,
 				52C5111E2393AECB0053F533 /* LoggerExampleTests */,
+				521527912393B6710002CC47 /* Logger */,
+				521527992393B6710002CC47 /* LoggerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		521527902393B6710002CC47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521527982393B6710002CC47 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52C511072393AECA0053F533 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -196,6 +363,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5215278E2393B6710002CC47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				521527B62393E0F80002CC47 /* Filer.swift in Sources */,
+				521527B12393B68C0002CC47 /* Logger.swift in Sources */,
+				521527B82393E1690002CC47 /* LoggerDependencyFiler.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		521527962393B6710002CC47 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				521527A22393B6710002CC47 /* LoggerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		52C511052393AECA0053F533 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -217,6 +402,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		5215279D2393B6710002CC47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 521527912393B6710002CC47 /* Logger */;
+			targetProxy = 5215279C2393B6710002CC47 /* PBXContainerItemProxy */;
+		};
+		5215279F2393B6710002CC47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 52C511082393AECA0053F533 /* LoggerExample */;
+			targetProxy = 5215279E2393B6710002CC47 /* PBXContainerItemProxy */;
+		};
+		521527A62393B6710002CC47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 521527912393B6710002CC47 /* Logger */;
+			targetProxy = 521527A52393B6710002CC47 /* PBXContainerItemProxy */;
+		};
 		52C511212393AECB0053F533 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 52C511082393AECA0053F533 /* LoggerExample */;
@@ -244,6 +444,105 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		521527AA2393B6710002CC47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D6A5KP29BP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Logger/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.beowulf-tech.Logger";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		521527AB2393B6710002CC47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = D6A5KP29BP;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Logger/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.beowulf-tech.Logger";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		521527AC2393B6710002CC47 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D6A5KP29BP;
+				INFOPLIST_FILE = LoggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.beowulf-tech.LoggerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LoggerExample.app/LoggerExample";
+			};
+			name = Debug;
+		};
+		521527AD2393B6710002CC47 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = D6A5KP29BP;
+				INFOPLIST_FILE = LoggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.beowulf-tech.LoggerTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LoggerExample.app/LoggerExample";
+			};
+			name = Release;
+		};
 		52C511262393AECB0053F533 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -361,6 +660,7 @@
 		52C511292393AECB0053F533 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -381,6 +681,7 @@
 		52C5112A2393AECB0053F533 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -445,6 +746,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		521527AE2393B6710002CC47 /* Build configuration list for PBXNativeTarget "Logger" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				521527AA2393B6710002CC47 /* Debug */,
+				521527AB2393B6710002CC47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		521527AF2393B6710002CC47 /* Build configuration list for PBXNativeTarget "LoggerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				521527AC2393B6710002CC47 /* Debug */,
+				521527AD2393B6710002CC47 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		52C511042393AECA0053F533 /* Build configuration list for PBXProject "LoggerExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
