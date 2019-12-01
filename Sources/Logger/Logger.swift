@@ -1,6 +1,6 @@
 //
 //  Logger.swift
-//  BwTools
+//  Logger
 //
 //  Created by k2moons on 2017/08/18.
 //  Copyright (c) 2017 k2moons. All rights reserved.
@@ -8,22 +8,58 @@
 
 import Foundation
 
-protocol LoggerDependencies {
+public protocol LoggerDependency {
     func log(_ formedMessage: String, original: String, level: Logger.Level)
+    func preFix(_ level: Logger.Level) -> String
     func isEnabled(_ level: Logger.Level) -> Bool
+    func isEnabledThreadName(_ level: Logger.Level) -> Bool             // Thread Information
+    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Bool     // Class/Function Information
+    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool      // File/Line Information
 }
 
-class DefaultLoggerDependencies: LoggerDependencies {
-    public func log(_ formedMessage: String, original: String, level: Logger.Level) {
+public extension LoggerDependency {
+    func log(_ formedMessage: String, original: String, level: Logger.Level) {
         print(formedMessage)
     }
-    public func isEnabled(_ level: Logger.Level) -> Bool {
+    func preFix(_ level: Logger.Level) -> String {
+        switch level {
+        case .enter:    return "========>"
+        case .exit:     return "<========"
+
+        case .debug:    return "[🔸DEBUG]"
+        case .info:     return "[🔹INFO ]"
+        case .warn:     return "[⚠️WARN ]"
+        case .error:    return "[❌ERROR]"
+        case .fatal:    return "[❌FATAL]"
+        }
+    }
+    func isEnabled(_ level: Logger.Level) -> Bool {
         #if DEBUG
         return true
         #else
         return false
         #endif
     }
+    func isEnabledThreadName(_ level: Logger.Level) -> Bool {
+        switch level {
+        case .info:     return false
+        default:        return true
+        }
+    }
+    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Bool {
+        switch level {
+        case .info:     return false
+        default:        return true
+        }
+    }
+    // true: Add file name and line number at the end of log
+    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool {
+        return false
+    }
+}
+
+public final class DefaultLoggerDependency: LoggerDependency {
+    public init() { }
 }
 
 // =============================================================================
@@ -32,15 +68,13 @@ class DefaultLoggerDependencies: LoggerDependencies {
 
 public final class Logger
 {
-    var dep: LoggerDependencies = DefaultLoggerDependencies()
+    public var dep: LoggerDependency = DefaultLoggerDependency()
 
     private var levels: [Level]?
-    private var prefix: String = ""
 
     public init() {}
-    public init(levels: [Level]? = nil, prefix: String = "") {
+    public init(levels: [Level]? = nil) {
         self.levels = levels
-        self.prefix = prefix
     }
 
     /// Format message and other metrics for log output.
@@ -56,12 +90,13 @@ public final class Logger
     ///   - line: line number
     /// - Returns: formatted strings for log
     private func formatter(_ message: String, postMessage: String = "", shifter: Int = 0, level: Level, instance: Any, function: String, file: String, line: Int) -> String {
+        // Space Shifter
         var shifterString: String = ""
         if shifter > 0 {
             shifterString = String(repeating: " ", count: shifter)
         }
 
-        // Log Thread
+        // Thread Information
         var threadName: String = "main"
         if !Thread.isMainThread {
             if let _threadName = Thread.current.name, !_threadName.isEmpty {
@@ -73,35 +108,29 @@ public final class Logger
             }
         }
 
-        // Log Date
-        var result: String = "\(prefix)\(shifterString)\(level.presentation()) [\(Date().string(dateFormat: "yyyy-MM-dd HH:mm:ss"))]"
-        if level.isEnabledThread() {
+        // Date
+        var result: String = "\(shifterString)\(dep.preFix(level)) [\(Date().string(dateFormat: "yyyy-MM-dd HH:mm:ss"))]"
+        if dep.isEnabledThreadName(level) {
             result += " [\(threadName)]"
         }
         var sep1 = ""
 
         // Log File
         let fileName = URL(fileURLWithPath: file).lastPathComponent
-        var classNameLocal: String = ""
 
-        // Log Message
+        // Message
         if !message.isEmpty {
             result += " \(message)"
-            sep1 = " __"
+            sep1 = " <<"
         }
 
-        // Log Class/Function
-        if level.isEnabledFunctionName() {
-            if let _ = instance as? AnyClass {
-                classNameLocal = String(describing: type(of: self))
-            } else if let stringObject = instance as? String {
-                classNameLocal = stringObject.getSwiftFileName() ?? stringObject
-            }
-
-            if classNameLocal.isEmpty {
+        // Class/Function Information
+        if dep.isEnabledClassAndMethodName(level) {
+            let className = String(describing: type(of: instance))
+            if className.isEmpty {
                 result += "\(sep1) \(function)"
             } else {
-                result += "\(sep1) \(classNameLocal):\(function)"
+                result += "\(sep1) \(className):\(function)"
             }
         }
 
@@ -111,7 +140,7 @@ public final class Logger
         }
 
         // File/Line Information
-        if level.isEnabledLineNumber() {
+        if dep.isEnabledFileAndLineNumber(level) {
             result += " \(fileName):\(line)"
         }
 
@@ -158,51 +187,14 @@ public final class Logger
 
 public extension Logger {
     enum Level: String, CaseIterable {
-        case enter      // enter into method
-        case exit       // exit from method
-        case screen     // screen appeared
         case debug      // for debug
         case info       // for generic information
         case warn       // for warning
         case error      // for error
         case fatal      // for fatal error (assert)
-
-        public func presentation() -> String {
-            switch self {
-            case .enter:    return "========>"
-            case .exit:     return "<========"
-            case .screen:   return "[⏩SCREN]"
-            case .debug:    return "[🔸DEBUG]"
-            case .info:     return "[🔹INFO ]"
-            case .warn:     return "[⚠️WARN ]"
-            case .error:    return "[❌ERROR]"
-            case .fatal:    return "[❌FATAL]"
-            }
-        }
-
-        // true: Add file name and line number at the end of log
-        fileprivate func isEnabledLineNumber() -> Bool {
-            switch self {
-            case .enter:    return false
-            case .exit:     return false
-            case .info:     return false
-            default:        return true
-            }
-        }
-
-        fileprivate func isEnabledThread() -> Bool {
-            switch self {
-            case .info:     return false
-            default:        return true
-            }
-        }
-
-        fileprivate func isEnabledFunctionName() -> Bool {
-            switch self {
-            case .info, .screen:    return false
-            default:                return true
-            }
-        }
+        
+        case enter      // enter into method
+        case exit       // exit from method
     }
 }
 
@@ -211,27 +203,6 @@ public extension Logger {
 // =============================================================================
 
 public extension Logger {
-    /// Method Entered Log
-    ///
-    /// - Parameters:
-    ///   - instance: if you don't add instance object, file name will be used, but if you add instance object that has Identifiable protocol, you can see class name instead of file name.
-    ///   - message: sub message
-    ///   - shifter: if function is nested, tihs log will be shifted by this count
-    ///   - function: automatically added function name
-    ///   - file: automatically added file name
-    ///   - line: automatically added line number
-    func entered(_ instance: Any = #file, message: String = "", shifter: Int = 0, function: String = #function, file: String = #file, line: Int = #line) {
-        self.log("", postMessage: message, shifter: shifter, level: .enter, instance: instance, function: function, file: file, line: line)
-    }
-
-    // Method Exit Log
-    func exit(_ instance: Any = #file, message: String = "", shifter: Int = 0, function: String = #function, file: String = #file, line: Int = #line) {
-        self.log("", postMessage: message, shifter: shifter, level: .exit, instance: instance, function: function, file: file, line: line)
-    }
-
-    func screen(_ message: String, instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
-        self.log(message, level: .screen, instance: instance, function: function, file: file, line: line)
-    }
 
     func debug(_ message: String, instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
         self.log(message, level: .debug, instance: instance, function: function, file: file, line: line)
@@ -252,19 +223,23 @@ public extension Logger {
     func fatal(_ message: String, instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
         self.log(message, level: .fatal, instance: instance, function: function, file: file, line: line)
     }
-}
-
-private extension String {
     
-    func getSwiftFileName() -> String? {
-        var fileName: String?
-        guard self.hasSuffix(".swift") else { return fileName }
-        let path: [String] = self.components(separatedBy: "/")
-        if let last = path.last {
-            let components: [String] = last.components(separatedBy: ".")
-            fileName = components.first
-        }
-        return fileName
+    /// Method Entered Log
+    ///
+    /// - Parameters:
+    ///   - instance: if you don't add instance object, file name will be used, but if you add instance object that has Identifiable protocol, you can see class name instead of file name.
+    ///   - message: sub message
+    ///   - shifter: if function is nested, tihs log will be shifted by this count
+    ///   - function: automatically added function name
+    ///   - file: automatically added file name
+    ///   - line: automatically added line number
+    func entered(_ instance: Any = #file, message: String = "", shifter: Int = 0, function: String = #function, file: String = #file, line: Int = #line) {
+        self.log("", postMessage: message, shifter: shifter, level: .enter, instance: instance, function: function, file: file, line: line)
+    }
+
+    // Method Exit Log
+    func exit(_ instance: Any = #file, message: String = "", shifter: Int = 0, function: String = #function, file: String = #file, line: Int = #line) {
+        self.log("", postMessage: message, shifter: shifter, level: .exit, instance: instance, function: function, file: file, line: line)
     }
 }
 
