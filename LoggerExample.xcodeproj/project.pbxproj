@@ -13,8 +13,8 @@
 		521527A72393B6710002CC47 /* Logger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; };
 		521527A82393B6710002CC47 /* Logger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		521527B12393B68C0002CC47 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B02393B68C0002CC47 /* Logger.swift */; };
-		521527B62393E0F80002CC47 /* Filer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B52393E0F80002CC47 /* Filer.swift */; };
-		521527B82393E1690002CC47 /* LoggerDependencyFiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */; };
+		521527BB2393EB8F0002CC47 /* Filer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527B92393EB8F0002CC47 /* Filer.swift */; };
+		521527BC2393EB8F0002CC47 /* LoggerDependencyFiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 521527BA2393EB8F0002CC47 /* LoggerDependencyFiler.swift */; };
 		52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110C2393AECA0053F533 /* AppDelegate.swift */; };
 		52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110E2393AECA0053F533 /* SceneDelegate.swift */; };
 		52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511102393AECA0053F533 /* ExampleViewController.swift */; };
@@ -77,8 +77,8 @@
 		521527A12393B6710002CC47 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		521527A32393B6710002CC47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		521527B02393B68C0002CC47 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = Sources/Logger/Logger.swift; sourceTree = SOURCE_ROOT; };
-		521527B52393E0F80002CC47 /* Filer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filer.swift; sourceTree = "<group>"; };
-		521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerDependencyFiler.swift; sourceTree = "<group>"; };
+		521527B92393EB8F0002CC47 /* Filer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Filer.swift; path = Sources/Logger/Filer.swift; sourceTree = SOURCE_ROOT; };
+		521527BA2393EB8F0002CC47 /* LoggerDependencyFiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggerDependencyFiler.swift; path = Sources/Logger/LoggerDependencyFiler.swift; sourceTree = SOURCE_ROOT; };
 		52C511092393AECA0053F533 /* LoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C5110C2393AECA0053F533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52C5110E2393AECA0053F533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -131,8 +131,8 @@
 			children = (
 				521527942393B6710002CC47 /* Logger.h */,
 				521527B02393B68C0002CC47 /* Logger.swift */,
-				521527B52393E0F80002CC47 /* Filer.swift */,
-				521527B72393E1690002CC47 /* LoggerDependencyFiler.swift */,
+				521527B92393EB8F0002CC47 /* Filer.swift */,
+				521527BA2393EB8F0002CC47 /* LoggerDependencyFiler.swift */,
 				521527952393B6710002CC47 /* Info.plist */,
 			);
 			path = Logger;
@@ -367,9 +367,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				521527B62393E0F80002CC47 /* Filer.swift in Sources */,
+				521527BB2393EB8F0002CC47 /* Filer.swift in Sources */,
 				521527B12393B68C0002CC47 /* Logger.swift in Sources */,
-				521527B82393E1690002CC47 /* LoggerDependencyFiler.swift in Sources */,
+				521527BC2393EB8F0002CC47 /* LoggerDependencyFiler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

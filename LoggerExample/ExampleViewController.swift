@@ -29,6 +29,13 @@ class ExampleViewController: UIViewController {
         log.dep = MyLoggerDependency()
         log.entered()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        log.dep = LoggerDependencyFiler()
+        log.entered()
+    }
 }
 
 struct TestStruct {
