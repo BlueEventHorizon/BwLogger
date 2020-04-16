@@ -24,6 +24,7 @@
 		52C511192393AECB0053F533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C511172393AECB0053F533 /* LaunchScreen.storyboard */; };
 		52C511242393AECB0053F533 /* LoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511232393AECB0053F533 /* LoggerExampleTests.swift */; };
 		76D67D1424489D7200F3BB60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D1324489D7200F3BB60 /* Extensions.swift */; };
+		76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,6 +95,7 @@
 		52C511232393AECB0053F533 /* LoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExampleTests.swift; sourceTree = "<group>"; };
 		52C511252393AECB0053F533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76D67D1324489D7200F3BB60 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoggerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,9 +137,9 @@
 			children = (
 				521527942393B6710002CC47 /* Logger.h */,
 				521527952393B6710002CC47 /* Info.plist */,
-				523C087123941A8D001C3F3B /* Logger+Filer.swift */,
 				523C087223941A8D001C3F3B /* Logger.swift */,
 				523C087323941A8D001C3F3B /* Logger+Ext.swift */,
+				523C087123941A8D001C3F3B /* Logger+Filer.swift */,
 				523C087023941A8D001C3F3B /* LoggerDependencyFiler.swift */,
 				76D67D1324489D7200F3BB60 /* Extensions.swift */,
 			);
@@ -181,6 +183,7 @@
 				52C5110C2393AECA0053F533 /* AppDelegate.swift */,
 				52C5110E2393AECA0053F533 /* SceneDelegate.swift */,
 				52C511102393AECA0053F533 /* ExampleViewController.swift */,
+				76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */,
 				52C511122393AECA0053F533 /* Main.storyboard */,
 				52C511152393AECB0053F533 /* Assets.xcassets */,
 				52C511172393AECB0053F533 /* LaunchScreen.storyboard */,
@@ -393,6 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */,
 				52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */,
 				52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */,
 				52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */,

@@ -12,61 +12,38 @@ import Logger
 public let log = Logger(levels: nil)
 
 class ExampleViewController: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        log.entered(self)
-        DispatchQueue.global().async {
-            log.debug("in DispatchQueue.global().async", instance: self)
-        }
-        log.error("xxxxx is failed")
-        let _ = TestStruct()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        log.dep = MyLoggerDependency()
-        log.entered()
-    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+
+        showLogger(title: "Normal Logger")
+        
+        log.dep = CustomLoggerExtension()
+        showLogger(title: "CustomLoggerExtension")
         
         log.dep = LoggerDependencyFiler()
-        log.entered()
+        showLogger(title: "Output to file Logger")
+    }
+    
+    func showLogger(title: String) {
+        log.info("--------------------------------------------")
+        log.info(title)
+        log.info("--------------------------------------------")
+        log.entered(self, message: "log.entered()")
+        log.warn("log.warn()")
+        DispatchQueue.global().async {
+            log.debug("log.debug() in DispatchQueue.global().async", instance: self)
+        }
+        log.error("log.error()")
+        let _ = TestStruct()
     }
 }
 
 struct TestStruct {
     init() {
         log.entered(self)
-        log.error("xxxxx is failed")
+        log.error("log.error()")
     }
 }
 
-class MyLoggerDependency: LoggerDependency {
-    public func log(_ formedMessage: String, original: String, level: Logger.Level) {
-        print(formedMessage)
-    }
-    public func preFix(_ level: Logger.Level) -> String {
-        switch level {
-        case .enter:    return "❤️❤️❤️❤️"
-        case .exit:     return "♠️♠️♠️♠️"
 
-        case .error:    return "[🔥ERROR]"
-        case .fatal:    return "[🔥FATAL]"
-        default: return DefaultLoggerDependencies().preFix(level)
-        }
-    }
-    public func isEnabledClassAndMethodName(_ level: Logger.Level) -> Bool {
-        return false
-    }
-    // true: Add file name and line number at the end of log
-    public func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool {
-        switch level {
-        case .info:     return false
-        default:        return true
-        }
-    }
-}
