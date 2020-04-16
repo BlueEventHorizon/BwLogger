@@ -2,8 +2,8 @@
 //  ExampleViewController.swift
 //  LoggerExample
 //
-//  Created by Katsuhiko Terada on 2019/12/01.
-//  Copyright © 2019 Katsuhiko Terada. All rights reserved.
+//  Created by k2moons on 2019/12/01.
+//  Copyright © 2019 k2moons. All rights reserved.
 //
 
 import UIKit
@@ -56,7 +56,7 @@ class MyLoggerDependency: LoggerDependency {
 
         case .error:    return "[🔥ERROR]"
         case .fatal:    return "[🔥FATAL]"
-        default: return DefaultLoggerDependency().preFix(level)
+        default: return DefaultLoggerDependencies().preFix(level)
         }
     }
     public func isEnabledClassAndMethodName(_ level: Logger.Level) -> Bool {

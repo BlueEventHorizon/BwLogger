@@ -2,14 +2,14 @@
 //  LoggerDependencyFiler.swift
 //  Logger
 //
-//  Created by Katsuhiko Terada on 2019/12/01.
-//  Copyright © 2019 Katsuhiko Terada. All rights reserved.
+//  Created by k2moons on 2019/12/01.
+//  Copyright © 2019 k2moons. All rights reserved.
 //
 
 import Foundation
 
 public class LoggerDependencyFiler: LoggerDependency {
-    private static let filer = Filer()
+    private static let filer = LoggerFiler()
     public init() {}
     public func log(_ formedMessage: String, original: String, level: Logger.Level) {
         LoggerDependencyFiler.filer.open()
