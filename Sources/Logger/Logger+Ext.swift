@@ -1,6 +1,6 @@
 //
 //  Logger+Ext.swift
-//  BwTools
+//  Logger
 //
 //  Created by k2moons on 2019/10/18.
 //  Copyright © 2019 k2moons. All rights reserved.
@@ -44,3 +44,4 @@ public extension Logger {
         }
     }
 }
+
