@@ -23,7 +23,7 @@
 		52C511162393AECB0053F533 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52C511152393AECB0053F533 /* Assets.xcassets */; };
 		52C511192393AECB0053F533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C511172393AECB0053F533 /* LaunchScreen.storyboard */; };
 		52C511242393AECB0053F533 /* LoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511232393AECB0053F533 /* LoggerExampleTests.swift */; };
-		76D67D1424489D7200F3BB60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D1324489D7200F3BB60 /* Extensions.swift */; };
+		76C6D205244AC53B003C591E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76C6D204244AC53B003C591E /* Extensions.swift */; };
 		76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */; };
 /* End PBXBuildFile section */
 
@@ -94,7 +94,7 @@
 		52C5111F2393AECB0053F533 /* LoggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C511232393AECB0053F533 /* LoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExampleTests.swift; sourceTree = "<group>"; };
 		52C511252393AECB0053F533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76D67D1324489D7200F3BB60 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		76C6D204244AC53B003C591E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = ../../Sources/Logger/Extensions.swift; sourceTree = "<group>"; };
 		76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoggerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -138,10 +138,10 @@
 				521527942393B6710002CC47 /* Logger.h */,
 				521527952393B6710002CC47 /* Info.plist */,
 				523C087223941A8D001C3F3B /* Logger.swift */,
+				76C6D204244AC53B003C591E /* Extensions.swift */,
 				523C087323941A8D001C3F3B /* Logger+Ext.swift */,
 				523C087123941A8D001C3F3B /* Logger+Filer.swift */,
 				523C087023941A8D001C3F3B /* LoggerDependencyFiler.swift */,
-				76D67D1324489D7200F3BB60 /* Extensions.swift */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -376,7 +376,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D67D1424489D7200F3BB60 /* Extensions.swift in Sources */,
+				76C6D205244AC53B003C591E /* Extensions.swift in Sources */,
 				523C087523941A8D001C3F3B /* Logger+Filer.swift in Sources */,
 				523C087623941A8D001C3F3B /* Logger.swift in Sources */,
 				523C087423941A8D001C3F3B /* LoggerDependencyFiler.swift in Sources */,
