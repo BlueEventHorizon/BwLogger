@@ -1,6 +1,6 @@
 //
-//  Logger.swift
-//  Logger
+//  LoggerCore.swift
+//  LoggerCore
 //
 //  Created by k2moons on 2017/08/18.
 //  Copyright (c) 2017 k2moons. All rights reserved.
@@ -10,27 +10,27 @@ import Foundation
 
 // MARK: - Global Instanse
 
-public let log = Logger(levels: nil)
+public let log = LoggerCore(levels: nil)
 
 // MARK: - LoggerDependency
 
 public protocol LoggerDependency {
-    func log(_ formedMessage: String, original: String, level: Logger.Level)
-    func preFix(_ level: Logger.Level) -> String
-    func isEnabled(_ level: Logger.Level) -> Bool
-    func getDateType(_ level: Logger.Level) -> Logger.TimeStampType
-    func isEnabledThreadName(_ level: Logger.Level) -> Bool                             // Thread Information
-    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Logger.DescriptionType   // Class/Function Information
-    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool                      // File/Line Information
+    func log(_ formedMessage: String, message: String, level: LoggerCore.Level)
+    func preFix(_ level: LoggerCore.Level) -> String
+    func isEnabled(_ level: LoggerCore.Level) -> Bool
+    func getDateType(_ level: LoggerCore.Level) -> LoggerCore.TimeStampType
+    func isEnabledThreadName(_ level: LoggerCore.Level) -> Bool                             // Thread Information
+    func isEnabledClassAndMethodName(_ level: LoggerCore.Level) -> LoggerCore.DescriptionType   // Class/Function Information
+    func isEnabledFileAndLineNumber(_ level: LoggerCore.Level) -> Bool                      // File/Line Information
     func sepalator() -> String
     func sepalator2() -> String
 }
 
 public extension LoggerDependency {
-    func log(_ formedMessage: String, original: String, level: Logger.Level) {
+    func log(_ formedMessage: String, message: String, level: LoggerCore.Level) {
         print(formedMessage)
     }
-    func preFix(_ level: Logger.Level) -> String {
+    func preFix(_ level: LoggerCore.Level) -> String {
         switch level {
         case .enter:    return "➡️"
         case .exit:     return "⬅️"
@@ -42,14 +42,14 @@ public extension LoggerDependency {
         case .fatal:    return "🔥"
         }
     }
-    func isEnabled(_ level: Logger.Level) -> Bool {
+    func isEnabled(_ level: LoggerCore.Level) -> Bool {
         #if DEBUG
         return true
         #else
         return false
         #endif
     }
-    func getDateType(_ level: Logger.Level) -> Logger.TimeStampType {
+    func getDateType(_ level: LoggerCore.Level) -> LoggerCore.TimeStampType {
         switch level {
         case .enter:    return .none
         case .exit:     return .none
@@ -57,13 +57,13 @@ public extension LoggerDependency {
         default:        return .msec
         }
     }
-    func isEnabledThreadName(_ level: Logger.Level) -> Bool {
+    func isEnabledThreadName(_ level: LoggerCore.Level) -> Bool {
         switch level {
         case .info:     return false
         default:        return true
         }
     }
-    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Logger.DescriptionType {
+    func isEnabledClassAndMethodName(_ level: LoggerCore.Level) -> LoggerCore.DescriptionType {
         switch level {
         case .enter, .exit: return .normal
         case .info:         return .none
@@ -71,7 +71,7 @@ public extension LoggerDependency {
         }
     }
     // true: Add file name and line number at the end of log
-    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool {
+    func isEnabledFileAndLineNumber(_ level: LoggerCore.Level) -> Bool {
         switch level {
         case .enter:    return false
         case .exit:     return false
@@ -93,9 +93,57 @@ public final class DefaultLoggerDependencies: LoggerDependency {
     public init() { }
 }
 
-// MARK: - Logger
+// MARK: - LoggerCore
 
-public final class Logger {
+public final class LoggerCore: LogHandler {
+
+    public var metadata: Logger.Metadata
+    
+    public var logLevel: Logger.Level
+    
+    /// Output log
+    ///
+    /// - Parameters:
+    ///   - message: original message
+    ///   - postMessage: sub message added after
+    ///   - shifter: if function is nested, tihs log will be shifted by this count
+    ///   - level: log level
+    ///   - instance: if you don't add instance object, file name will be used, but if you add instance object that has Identifiable protocol, you can see class name instead of file name.
+    ///   - function: automatically added function name
+    ///   - file: automatically added file name
+    ///   - line: automatically added line number
+    static private let semaphore  = DispatchSemaphore(value: 1)
+    internal func log(_ message: String, postMessage: String = "", shifter: Int = 0, level: Level, instance: Any, function: String, file: String, line: Int) {
+        LoggerCore.semaphore.wait()
+        defer {
+            LoggerCore.semaphore.signal()
+        }
+
+        guard dep.isEnabled(level) else { return }
+        guard levels?.contains(level) ?? false || levels == nil else { return }
+
+        let formedMessage = formatter(message, postMessage: postMessage, shifter: shifter, level: level, instance: instance, function: function, file: file, line: line)
+        dep.log(formedMessage, message: message, level: level)
+
+        if level == .fatal {
+            assert(false, formedMessage)
+        }
+    }
+
+    public func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, file: String, function: String, line: UInt) {
+        let formedMessage = formatter(message, postMessage: postMessage, shifter: shifter, level: level, instance: instance, function: function, file: file, line: line)
+        dep.log(formedMessage, message: message, level: level)
+    }
+    
+    public subscript(metadataKey _: String) -> Logger.Metadata.Value? {
+        get {
+            <#code#>
+        }
+        set {
+            <#code#>
+        }
+    }
+    
     public var dep: LoggerDependency = DefaultLoggerDependencies()
 
     private var levels: [Level]?
@@ -190,40 +238,11 @@ public final class Logger {
 
         return result
     }
-
-    /// Output log
-    ///
-    /// - Parameters:
-    ///   - original: original message
-    ///   - postMessage: sub message added after
-    ///   - shifter: if function is nested, tihs log will be shifted by this count
-    ///   - level: log level
-    ///   - instance: if you don't add instance object, file name will be used, but if you add instance object that has Identifiable protocol, you can see class name instead of file name.
-    ///   - function: automatically added function name
-    ///   - file: automatically added file name
-    ///   - line: automatically added line number
-    static private let semaphore  = DispatchSemaphore(value: 1)
-    internal func log(_ original: String, postMessage: String = "", shifter: Int = 0, level: Level, instance: Any, function: String, file: String, line: Int) {
-        Logger.semaphore.wait()
-        defer {
-            Logger.semaphore.signal()
-        }
-
-        guard dep.isEnabled(level) else { return }
-        guard levels?.contains(level) ?? false || levels == nil else { return }
-
-        let formedMessage = formatter(original, postMessage: postMessage, shifter: shifter, level: level, instance: instance, function: function, file: file, line: line)
-        dep.log(formedMessage, original: original, level: level)
-
-        if level == .fatal {
-            assert(false, formedMessage)
-        }
-    }
 }
 
-// MARK: - Logger.Level
+// MARK: - LoggerCore.Level
 
-public extension Logger {
+public extension LoggerCore {
     enum Level: String, CaseIterable {
         case enter      // enter into method
         case exit       // exit from method
@@ -236,9 +255,9 @@ public extension Logger {
     }
 }
 
-// MARK: - Logger.TimeStampType
+// MARK: - LoggerCore.TimeStampType
 
-public extension Logger {
+public extension LoggerCore {
     enum TimeStampType {
         case none
         case sec
@@ -246,9 +265,9 @@ public extension Logger {
     }
 }
 
-// MARK: - Logger.DescriptionType
+// MARK: - LoggerCore.DescriptionType
 
-public extension Logger {
+public extension LoggerCore {
     enum DescriptionType {
         case none
         case normal
@@ -256,11 +275,11 @@ public extension Logger {
     }
 }
 
-// MARK: - Logger Standard API
+// MARK: - LoggerCore Standard API
 
-public extension Logger {
+public extension LoggerCore {
 
-    /// Public Interface for Logger
+    /// Public Interface for LoggerCore
     ///
     /// - Parameters:
     ///   - message: sub message
@@ -291,7 +310,7 @@ public extension Logger {
 
 // MARK: - For entering into/exiting from method
 
-public extension Logger {
+public extension LoggerCore {
     func entered(_ instance: Any = "", message: String = "", shifter: Int = 0, function: String = #function, file: String = #file, line: Int = #line) {
         self.log("", postMessage: message, shifter: shifter, level: .enter, instance: instance, function: function, file: file, line: line)
     }
@@ -303,7 +322,7 @@ public extension Logger {
 
 // MARK: - For deinit()
 
-public extension Logger {
+public extension LoggerCore {
     func dispose(_ obj: Any) {
         print("❎ \(String(describing: type(of: obj)))")
     }

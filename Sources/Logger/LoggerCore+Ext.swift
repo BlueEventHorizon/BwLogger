@@ -1,6 +1,6 @@
 //
-//  Logger+Ext.swift
-//  Logger
+//  LoggerCore+Ext.swift
+//  LoggerCore
 //
 //  Created by k2moons on 2019/10/18.
 //  Copyright © 2019 k2moons. All rights reserved.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-public extension Logger {
+public extension LoggerCore {
     func pointString(_ point: CGPoint) -> String {
         return "x=" + String(describing: point.x) + ", y=" + String(describing: point.y)
     }

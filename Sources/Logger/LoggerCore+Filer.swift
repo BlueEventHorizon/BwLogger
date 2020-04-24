@@ -1,6 +1,6 @@
 //
-//  Logger+File.swift
-//  Logger
+//  LoggerCore+File.swift
+//  LoggerCore
 //
 //  Created by k2moons on 2019/12/01.
 //  Copyright © 2019 k2moons. All rights reserved.

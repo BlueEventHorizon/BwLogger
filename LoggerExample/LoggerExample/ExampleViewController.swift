@@ -7,22 +7,22 @@
 //
 
 import UIKit
-import Logger
+import LoggerCore
 
-public let log = Logger(levels: nil)
+public let log = LoggerCore(levels: nil)
 
 class ExampleViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showLogger(title: "Normal Logger")
+        showLogger(title: "Normal LoggerCore")
         
         log.dep = CustomLoggerExtension()
         showLogger(title: "CustomLoggerExtension")
         
         log.dep = LoggerDependencyFiler()
-        showLogger(title: "Output to file Logger")
+        showLogger(title: "Output to file LoggerCore")
     }
     
     func showLogger(title: String) {

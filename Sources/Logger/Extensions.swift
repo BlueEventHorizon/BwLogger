@@ -1,6 +1,6 @@
 //
 //  Extensions.swift
-//  Logger
+//  LoggerCore
 //
 //  Created by k_terada on 2020/04/16.
 //  Copyright © 2020 k2moons. All rights reserved.
