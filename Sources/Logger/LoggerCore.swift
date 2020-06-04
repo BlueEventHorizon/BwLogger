@@ -131,16 +131,16 @@ public final class LoggerCore: LogHandler {
     }
 
     public func log(level: Logger.Level, message: Logger.Message, metadata: Logger.Metadata?, file: String, function: String, line: UInt) {
-        let formedMessage = formatter(message, postMessage: postMessage, shifter: shifter, level: level, instance: instance, function: function, file: file, line: line)
+        let formedMessage = formatter(message.description, postMessage: "", shifter: 0, level: level, instance: nil, function: function, file: file, line: line)
         dep.log(formedMessage, message: message, level: level)
     }
     
     public subscript(metadataKey _: String) -> Logger.Metadata.Value? {
         get {
-            <#code#>
+            //
         }
         set {
-            <#code#>
+            //
         }
     }
     
