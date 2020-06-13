@@ -1,3 +1,9 @@
 # Logger
 
-A description of this package.
+**Logger** is made by simple code, so you could modefy easlly it.
+
+You could customize Logger with **protocol LoggerDependency** .
+
+
+
+

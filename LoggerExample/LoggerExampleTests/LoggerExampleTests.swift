@@ -2,8 +2,8 @@
 //  LoggerExampleTests.swift
 //  LoggerExampleTests
 //
-//  Created by Katsuhiko Terada on 2019/12/01.
-//  Copyright © 2019 Katsuhiko Terada. All rights reserved.
+//  Created by k2moons on 2019/12/01.
+//  Copyright © 2019 k2moons. All rights reserved.
 //
 
 import XCTest

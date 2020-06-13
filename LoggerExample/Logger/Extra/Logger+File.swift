@@ -1,14 +1,14 @@
 //
-//  Filer.swift
+//  Logger+File.swift
 //  Logger
 //
 //  Created by Katsuhiko Terada on 2019/12/01.
-//  Copyright © 2019 Katsuhiko Terada. All rights reserved.
+//  Copyright © 2019 k2moons. All rights reserved.
 //
 
 import Foundation
 
-public final class Filer {
+public final class LoggerFiler {
     var fileURL: URL?
     var fileHandle: FileHandle?
 
@@ -21,7 +21,7 @@ public final class Filer {
             FileManager.default.createFile(atPath: _url.path, contents: nil, attributes: nil)
         }
     }
-    
+
     public func open() {
         guard let _url = fileURL else { return }
         do {
@@ -31,15 +31,14 @@ public final class Filer {
             print("\("🔥") couldn't write log file \(error).")
         }
     }
-    
+
     public func close() {
         fileHandle?.closeFile()
         fileHandle = nil
     }
-    
+
     public func write(_ text: String) {
         guard let _fileHandle = fileHandle, let data = (text+"\n").data(using: String.Encoding.utf8) else { return }
         _fileHandle.write(data)
     }
 }
-
