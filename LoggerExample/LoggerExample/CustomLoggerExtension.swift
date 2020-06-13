@@ -14,9 +14,7 @@ class CustomLoggerExtension: LoggerDependency {
     }
     public func preFix(_ level: Logger.Level) -> String {
         switch level {
-        case .enter:    return "❤️❤️❤️❤️"
-        case .exit:     return "♠️♠️♠️♠️"
-
+        case .trace:    return "❤️❤️❤️❤️"
         case .error:    return "[🔥ERROR]"
         case .fatal:    return "[🔥FATAL]"
         default: return DefaultLoggerDependencies().preFix(level)

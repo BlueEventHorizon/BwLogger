@@ -15,7 +15,7 @@ public extension Logger {
 
     func point(_ point: CGPoint, message: String = "", instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
         let msg = "\(pointString(point)) \(message)"
-        self.log(msg, level: .info, instance: instance, function: function, file: file, line: line)
+        self.log( level: .info, message: msg, instance: instance, file: file, function: function, line: line)
     }
 
     func frameString(_ frame: CGRect) -> String {
@@ -24,7 +24,7 @@ public extension Logger {
 
     func frame(_ frame: CGRect, message: String = "", instance: Any = #file, function: String = #function, file: String = #file, line: Int = #line) {
         let msg = "\(frameString(frame)) \(message)"
-        self.log(msg, level: .info, instance: instance, function: function, file: file, line: line)
+        self.log(level: .info, message: msg, instance: instance, file: file, function: function, line: line)
     }
 
     func url(_ url: URL) {
@@ -44,4 +44,3 @@ public extension Logger {
         }
     }
 }
-

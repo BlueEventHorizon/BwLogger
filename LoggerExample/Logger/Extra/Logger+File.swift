@@ -2,7 +2,7 @@
 //  Logger+File.swift
 //  Logger
 //
-//  Created by k2moons on 2019/12/01.
+//  Created by Katsuhiko Terada on 2019/12/01.
 //  Copyright © 2019 k2moons. All rights reserved.
 //
 
@@ -42,4 +42,3 @@ public final class LoggerFiler {
         _fileHandle.write(data)
     }
 }
-

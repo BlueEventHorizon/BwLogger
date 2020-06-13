@@ -12,8 +12,6 @@
 		521527A42393B6710002CC47 /* Logger.h in Headers */ = {isa = PBXBuildFile; fileRef = 521527942393B6710002CC47 /* Logger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		521527A72393B6710002CC47 /* Logger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; };
 		521527A82393B6710002CC47 /* Logger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 521527922393B6710002CC47 /* Logger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		523C087423941A8D001C3F3B /* LoggerDependencyFiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C087023941A8D001C3F3B /* LoggerDependencyFiler.swift */; };
-		523C087523941A8D001C3F3B /* Logger+Filer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C087123941A8D001C3F3B /* Logger+Filer.swift */; };
 		523C087623941A8D001C3F3B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C087223941A8D001C3F3B /* Logger.swift */; };
 		523C087723941A8D001C3F3B /* Logger+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523C087323941A8D001C3F3B /* Logger+Ext.swift */; };
 		52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110C2393AECA0053F533 /* AppDelegate.swift */; };
@@ -25,6 +23,7 @@
 		52C511242393AECB0053F533 /* LoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511232393AECB0053F533 /* LoggerExampleTests.swift */; };
 		76D67D1424489D7200F3BB60 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D1324489D7200F3BB60 /* Extensions.swift */; };
 		76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */; };
+		76FC0D632488BA3E009F5811 /* Logger+File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FC0D622488BA3E009F5811 /* Logger+File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,10 +78,8 @@
 		5215279A2393B6710002CC47 /* LoggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		521527A12393B6710002CC47 /* LoggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerTests.swift; sourceTree = "<group>"; };
 		521527A32393B6710002CC47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		523C087023941A8D001C3F3B /* LoggerDependencyFiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggerDependencyFiler.swift; path = ../../Sources/Logger/LoggerDependencyFiler.swift; sourceTree = "<group>"; };
-		523C087123941A8D001C3F3B /* Logger+Filer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Logger+Filer.swift"; path = "../../Sources/Logger/Logger+Filer.swift"; sourceTree = "<group>"; };
 		523C087223941A8D001C3F3B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Logger.swift; path = ../../Sources/Logger/Logger.swift; sourceTree = "<group>"; };
-		523C087323941A8D001C3F3B /* Logger+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Logger+Ext.swift"; path = "../../Sources/Logger/Logger+Ext.swift"; sourceTree = "<group>"; };
+		523C087323941A8D001C3F3B /* Logger+Ext.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+Ext.swift"; sourceTree = "<group>"; };
 		52C511092393AECA0053F533 /* LoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C5110C2393AECA0053F533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52C5110E2393AECA0053F533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +93,7 @@
 		52C511252393AECB0053F533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		76D67D1324489D7200F3BB60 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoggerExtension.swift; sourceTree = "<group>"; };
+		76FC0D622488BA3E009F5811 /* Logger+File.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Logger+File.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,9 +136,7 @@
 				521527942393B6710002CC47 /* Logger.h */,
 				521527952393B6710002CC47 /* Info.plist */,
 				523C087223941A8D001C3F3B /* Logger.swift */,
-				523C087323941A8D001C3F3B /* Logger+Ext.swift */,
-				523C087123941A8D001C3F3B /* Logger+Filer.swift */,
-				523C087023941A8D001C3F3B /* LoggerDependencyFiler.swift */,
+				76FC0D642488BA4F009F5811 /* Extra */,
 				76D67D1324489D7200F3BB60 /* Extensions.swift */,
 			);
 			path = Logger;
@@ -199,6 +195,15 @@
 				52C511252393AECB0053F533 /* Info.plist */,
 			);
 			path = LoggerExampleTests;
+			sourceTree = "<group>";
+		};
+		76FC0D642488BA4F009F5811 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				76FC0D622488BA3E009F5811 /* Logger+File.swift */,
+				523C087323941A8D001C3F3B /* Logger+Ext.swift */,
+			);
+			path = Extra;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,9 +382,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				76D67D1424489D7200F3BB60 /* Extensions.swift in Sources */,
-				523C087523941A8D001C3F3B /* Logger+Filer.swift in Sources */,
 				523C087623941A8D001C3F3B /* Logger.swift in Sources */,
-				523C087423941A8D001C3F3B /* LoggerDependencyFiler.swift in Sources */,
+				76FC0D632488BA3E009F5811 /* Logger+File.swift in Sources */,
 				523C087723941A8D001C3F3B /* Logger+Ext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
