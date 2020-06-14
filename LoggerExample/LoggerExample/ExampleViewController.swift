@@ -16,10 +16,11 @@ class ExampleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showLogger(title: "Normal Logger")
+        showLogger(title: "Standard Logger")
         
         log.dep = CustomLoggerExtension()
-        showLogger(title: "CustomLoggerExtension")
+
+        showLogger(title: "Cunstomized Logger")
 
     }
     
@@ -27,12 +28,16 @@ class ExampleViewController: UIViewController {
         log.info("--------------------------------------------")
         log.info(title)
         log.info("--------------------------------------------")
+
         log.entered(self, message: "log.entered()")
         log.warning("log.warn()")
+
         DispatchQueue.global().async {
             log.debug("log.debug() in DispatchQueue.global().async", instance: self)
         }
+
         log.error("log.error()")
+
         let _ = TestStruct()
     }
 }
