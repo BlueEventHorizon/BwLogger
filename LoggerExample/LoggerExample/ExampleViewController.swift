@@ -17,7 +17,9 @@ class ExampleViewController: UIViewController {
         super.viewDidAppear(animated)
 
         showLogger(title: "Standard Logger")
-        
+
+        print("\n")
+
         log.dep = CustomLoggerExtension()
 
         showLogger(title: "Cunstomized Logger")
