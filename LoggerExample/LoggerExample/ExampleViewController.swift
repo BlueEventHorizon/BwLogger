@@ -20,9 +20,7 @@ class ExampleViewController: UIViewController {
         
         log.dep = CustomLoggerExtension()
         showLogger(title: "CustomLoggerExtension")
-        
-        log.dep = LoggerDependencyFiler()
-        showLogger(title: "Output to file Logger")
+
     }
     
     func showLogger(title: String) {
