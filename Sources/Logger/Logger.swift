@@ -15,7 +15,7 @@ public let log = Logger()
 
 public final class Logger {
 
-    public private(set) var dep: LoggerDependency = DefaultLoggerDependencies()
+    public var dep: LoggerDependency = DefaultLoggerDependencies()
 
     private var levels: [Level]?
 
@@ -63,7 +63,6 @@ public final class Logger {
         // Date
 
         let timestamp: String = Date().string(dateFormat: dep.getTimeStampType(level).style)
-
         if timestamp.isNotEmpty {
             string = "\(string) [\(timestamp)]"
         }
@@ -72,25 +71,7 @@ public final class Logger {
         // Thread
 
         if dep.isEnabledThreadName(level) {
-
-            var threadName: String = "main"
-
-            if !Thread.isMainThread {
-
-                if let _threadName = Thread.current.name, !_threadName.isEmpty {
-
-                    threadName = _threadName
-
-                } else if let _queueName = String(validatingUTF8: __dispatch_queue_get_label(nil)), !_queueName.isEmpty {
-
-                    threadName = _queueName
-
-                } else {
-
-                    threadName = Thread.current.description
-                }
-            }
-            string += " [\(threadName)]"
+            string += " [\(getThreadName())]"
         }
 
         // ----------------------
@@ -150,6 +131,29 @@ public final class Logger {
         }
 
         return string
+    }
+
+    private func getThreadName() -> String {
+
+        var threadName: String = "main"
+
+        if !Thread.isMainThread {
+
+            if let _threadName = Thread.current.name, !_threadName.isEmpty {
+
+                threadName = _threadName
+
+            } else if let _queueName = String(validatingUTF8: __dispatch_queue_get_label(nil)), !_queueName.isEmpty {
+
+                threadName = _queueName
+
+            } else {
+
+                threadName = Thread.current.description
+            }
+        }
+
+        return threadName
     }
 
     public func isEnabled(with level: Level) -> Bool {
@@ -462,7 +466,7 @@ public extension LoggerDependency {
 }
 
 // Default Logger Dependency
-private final class DefaultLoggerDependencies: LoggerDependency {
+public final class DefaultLoggerDependencies: LoggerDependency {
 
     public init() { }
 }
