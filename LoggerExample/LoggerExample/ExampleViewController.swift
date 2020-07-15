@@ -16,25 +16,30 @@ class ExampleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showLogger(title: "Normal Logger")
-        
+        showLogger(title: "Standard Logger")
+
+        print("\n")
+
         log.dep = CustomLoggerExtension()
-        showLogger(title: "CustomLoggerExtension")
-        
-        log.dep = LoggerDependencyFiler()
-        showLogger(title: "Output to file Logger")
+
+        showLogger(title: "Cunstomized Logger")
+
     }
     
     func showLogger(title: String) {
         log.info("--------------------------------------------")
         log.info(title)
         log.info("--------------------------------------------")
+
         log.entered(self, message: "log.entered()")
         log.warning("log.warn()")
+
         DispatchQueue.global().async {
             log.debug("log.debug() in DispatchQueue.global().async", instance: self)
         }
+
         log.error("log.error()")
+
         let _ = TestStruct()
     }
 }
