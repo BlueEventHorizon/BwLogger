@@ -26,6 +26,11 @@ public final class Logger {
         self.dep = dependency
     }
 
+    public func setDependency(_ dependency: LoggerDependency) -> Logger {
+        self.dep = dependency
+        return self
+    }
+
     public func setLevel(_ levels: [Level]) -> Logger {
         self.levels = levels
         return self

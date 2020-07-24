@@ -9,7 +9,7 @@
 import UIKit
 import Logger
 
-public let log = Logger(levels: nil)
+public let log = Logger.default
 
 class ExampleViewController: UIViewController {
     
@@ -20,7 +20,7 @@ class ExampleViewController: UIViewController {
 
         print("\n")
 
-        log.dep = CustomLoggerExtension()
+        log.setDependency(CustomLoggerExtension())
 
         showLogger(title: "Cunstomized Logger")
 
