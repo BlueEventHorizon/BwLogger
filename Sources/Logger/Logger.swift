@@ -329,10 +329,11 @@ public struct LogContext {
 // MARK: - LoggerDependency
 
 public protocol LoggerDependency {
-    func preFix(_ level: Logger.Level) -> String
-
     // if return false, Logger does not execute log(_ message: String)
     func log(_ context: LogContext) -> Bool
+
+    // prefix is used `func log(_ message: String)`
+    func preFix(_ level: Logger.Level) -> String
 
     func log(_ message: String)
 }
@@ -340,6 +341,11 @@ public protocol LoggerDependency {
 // MARK: - protocol extension LoggerDependency
 
 public extension LoggerDependency {
+    // if return false, Logger does not execute log(_ message: String)
+    func log(_ context: LogContext) -> Bool {
+        true
+    }
+
     func preFix(_ level: Logger.Level) -> String {
         switch level {
             case .trace: return "===>"
@@ -351,10 +357,6 @@ public extension LoggerDependency {
             case .fatal: return "[🔥 FATAL]"
             case .deinit: return "[❎ DEINIT]"
         }
-    }
-
-    func log(_ context: LogContext) -> Bool {
-        true
     }
 
     func log(_ message: String) {
@@ -426,6 +428,7 @@ public class OsLogger: LoggerDependency {
 
         os_log("%s", formattedMessage)
 
+        // if return false, Logger does not execute log(_ message: String)
         return false
     }
 }
@@ -466,3 +469,4 @@ extension DateFormatter {
 }
 
 #endif
+
