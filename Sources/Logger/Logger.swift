@@ -9,6 +9,8 @@
 import Foundation
 import os
 
+//internal let glog = Logger()
+
 // MARK: - Logger
 
 public final class Logger {
@@ -36,152 +38,68 @@ public final class Logger {
         return self
     }
 
-    private func formatter(
-        level: Level,
-        message: String,
-        instance: Any, // instance which has sent this log/message
-        file: String,
-        function: String,
-        line: Int
-
-    ) -> String {
-        // ----------------------
-        // PreFix
-
-        var string: String = "\(dep.preFix(level))"
-
-        // ----------------------
-        // Date
-
-        let timestampType = dep.getTimeStampType(level)
-        if timestampType != .none {
-            let timestamp: String = Date().string(dateFormat: timestampType.style)
-            if timestamp.isNotEmpty {
-                string = "\(string) [\(timestamp)]"
-            }
-        }
-
-        // ----------------------
-        // Thread
-
-        if dep.isEnabledThreadName(level) {
-            string += " [\(getThreadName())]"
-        }
-
-        // ----------------------
-        // Message
-
-        var classInfoSepalator = ""
-
-        if message.isNotEmpty, level != .trace {
-            string = "\(string) \(message)"
-            classInfoSepalator = dep.classInfoSepalator()
-        }
-
-        // ----------------------
-        // Class Name /Function Name
-
-        let fileName = URL(fileURLWithPath: file).lastPathComponent
-        let nameType = dep.isEnabledClassAndMethodName(level)
-
-        if nameType != .none {
-            let className = String(describing: instance)
-
-            if className.isEmpty, let _fileName = fileName.components(separatedBy: ".").first {
-                string = "\(string) \(classInfoSepalator) \(_fileName):\(function)"
+    public var isDisabled: Bool {
+        set {
+            if newValue {
+                self.levels = []
             }
             else {
-                switch nameType {
-                    case .normal:
-                        string += "\(classInfoSepalator) \(String(describing: type(of: instance))):\(function)"
-                    case .detail:
-                        string += "\(classInfoSepalator) \(className):\(function)"
-                    case .none:
-                        break // never
-                }
+                self.levels = nil
             }
         }
+        get {
+            guard let levels = self.levels else { return false }
 
-        // ----------------------
-        // Postfix
-
-        if message.isNotEmpty, level == .trace {
-            string += dep.postSepalator() + " \(message)"
+            return (levels.count == 0)
         }
-
-        // ----------------------
-        // File Name / Line Number
-
-        if dep.isEnabledFileAndLineNumber(level) {
-            string += " \(fileName):\(line)"
-        }
-
-        return string
     }
 
-    private func getThreadName() -> String {
-        var threadName: String = "main"
+    public var assertWhenFatal: Bool = true
 
-        if !Thread.isMainThread {
-            if let _threadName = Thread.current.name, !_threadName.isEmpty {
-                threadName = _threadName
-            }
-            else if let _queueName = String(validatingUTF8: __dispatch_queue_get_label(nil)), !_queueName.isEmpty {
-                threadName = _queueName
-            }
-            else {
-                threadName = Thread.current.description
-            }
-        }
-
-        return threadName
-    }
-
-    public func isEnabled(with level: Level) -> Bool {
-        guard dep.isEnabled(.notice) else { return false }
-
+    public func isEnabled(_ level: Level) -> Bool {
         guard levels?.contains(level) ?? false || levels == nil else { return false }
 
         return true
     }
 
-    /// log
-    /// - Parameters:
-    ///   - level: log level
-    ///   - message: main message
-    ///   - postfix: postfix message
-    ///   - instance: if you don't add instance message, file name will be used, but if you add instance message that has ClassIdentifiable protocol, you can see class name instead of file name.
-    ///   - file: automatically added file name
-    ///   - function: automatically added function name
-    ///   - line: automatically added line number
-
-    public func log(
-        level: Level,
-        message: Any,
-        instance: Any,
-        file: String,
-        function: String,
-        line: Int
-    ) {
+    public func log(_ context: LogContext) {
         Logger.semaphore.wait()
         defer {
             Logger.semaphore.signal()
         }
 
-        let _message: String = (message as? String) ?? String(describing: message)
+        let preFix = dep.preFix(context.level)
+        var formattedMessage = ""
 
-        let formattedMessage = formatter(
-            level: level,
-            message: _message,
-            instance: instance,
-            file: file,
-            function: function,
-            line: line
-        )
+        guard dep.log(context) else {
+            if context.level == .fatal, assertWhenFatal {
+                formattedMessage = "\(preFix) [\(context.timestamp())] [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+                assert(false, formattedMessage)
+            }
+            return
+        }
 
-        dep.log(level: level, message: _message, formattedMessage: formattedMessage)
+        switch context.level {
+            case .trace:
+                formattedMessage = "\(preFix) \(context.methodName())\(context.addSpacer(" -- ", to: context.message))"
+            case .debug:
+                formattedMessage = "\(preFix) [\(context.timestamp())] [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+            case .info:
+                formattedMessage = "\(preFix) [\(context.timestamp())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .notice:
+                formattedMessage = "\(preFix) [\(context.timestamp())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+            case .warning:
+                formattedMessage = "\(preFix) [\(context.timestamp())] [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+            case .error:
+                formattedMessage = "\(preFix) [\(context.timestamp())] [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+            case .fatal:
+                formattedMessage = "\(preFix) [\(context.timestamp())] [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName()) \(context.lineInfo())"
+            case .deinit:
+                formattedMessage = "\(preFix) [\(context.timestamp())]\(context.addSpacer(" -- ", to: context.message)) -- \(context.lineInfo())"
+        }
+        dep.log(formattedMessage)
 
-        if level == .fatal {
+        if context.level == .fatal, assertWhenFatal {
             assert(false, formattedMessage)
         }
     }
@@ -215,6 +133,8 @@ public extension Logger {
         /// Appropriate for critical error conditions that usually require immediate
         /// attention.
         case fatal
+
+        case `deinit`
     }
 }
 
@@ -255,221 +175,258 @@ public extension Logger {
     }
 }
 
-// MARK: - Logger Standard API
-
 public extension Logger {
     @inlinable
     func entered(_ instance: Any = "", message: String = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.trace) else { return }
+        guard isEnabled(.trace) else { return }
 
-        self.log(level: .trace, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .trace, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func info(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.info) else { return }
+        guard isEnabled(.info) else { return }
 
-        self.log(level: .info, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .info, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func debug(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.debug) else { return }
+        guard isEnabled(.debug) else { return }
 
-        self.log(level: .debug, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .debug, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func notice(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.notice) else { return }
+        guard isEnabled(.notice) else { return }
 
-        self.log(level: .notice, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .notice, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func warning(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.warning) else { return }
+        guard isEnabled(.warning) else { return }
 
-        self.log(level: .warning, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .warning, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func error(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.error) else { return }
+        guard isEnabled(.error) else { return }
 
-        self.log(level: .error, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .error, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 
     @inlinable
     func fatal(_ message: Any, instance: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
-        guard dep.isEnabled(.fatal) else { return }
+        guard isEnabled(.fatal) else { return }
 
-        self.log(level: .fatal, message: message, instance: instance, file: file, function: function, line: line)
+        let context = LogContext(level: .fatal, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
+    }
+
+    @inlinable
+    func `deinit`(_ instance: Any = "", message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
+        guard isEnabled(.deinit) else { return }
+
+        let context = LogContext(level: .deinit, message: message, instance: instance, function: function, file: file, line: line)
+        log(context)
     }
 }
 
-// MARK: - For deinit()
+// MARK: - LogContext
 
-public extension Logger {
-    func `deinit`(_ obj: Any) {
-        print("[❎ deinit] \(String(describing: type(of: obj)))")
+public struct LogContext {
+    public let level: Logger.Level
+    public let message: String
+    public let instance: Any
+    public let function: String
+    public let file: String
+    public let line: Int
+
+    public init(
+        level: Logger.Level,
+        message: Any,
+        instance: Any,
+        function: String,
+        file: String,
+        line: Int
+
+    ) {
+        self.level = level
+        self.message = (message as? String) ?? String(describing: message)
+        self.instance = instance
+        self.function = function
+        self.file = file
+        self.line = line
+    }
+
+    public func timestamp(_ timestampType: Logger.TimeStampType = .full) -> String {
+        Date().string(dateFormat: timestampType.style)
+    }
+
+    public func threadName() -> String {
+        var threadName: String = "main"
+
+        if !Thread.isMainThread {
+            if let _threadName = Thread.current.name, !_threadName.isEmpty {
+                threadName = _threadName
+            }
+            else if let _queueName = String(validatingUTF8: __dispatch_queue_get_label(nil)), !_queueName.isEmpty {
+                threadName = _queueName
+            }
+            else {
+                threadName = Thread.current.description
+            }
+        }
+
+        return threadName
+    }
+
+    public func methodName(_ descriptionType: Logger.DescriptionType = .normal) -> String {
+        guard descriptionType != .none else { return "" }
+
+        var methodName: String = ""
+        let fileName = URL(fileURLWithPath: file).lastPathComponent
+        let className = String(describing: instance)
+
+        if className.isEmpty, let _fileName = fileName.components(separatedBy: ".").first {
+            methodName = "\(_fileName):\(function)"
+        }
+        else {
+            switch descriptionType {
+                case .normal:
+                    methodName = "\(String(describing: type(of: instance))):\(function)"
+                case .detail:
+                    methodName = "\(className):\(function)"
+                case .none:
+                    break // never
+            }
+        }
+
+        return methodName
+    }
+
+    public func lineInfo() -> String {
+        let fileName = URL(fileURLWithPath: file).lastPathComponent
+        return "\(fileName):\(line)"
+    }
+
+    public func addSpacer(_ spacer: String, to string: String) -> String {
+        guard string.isNotEmpty else { return "" }
+
+        return "\(spacer)\(string)"
     }
 }
 
 // MARK: - LoggerDependency
 
 public protocol LoggerDependency {
-    func log(level: Logger.Level, message: String, formattedMessage: String)
     func preFix(_ level: Logger.Level) -> String
-    func isEnabled(_ level: Logger.Level) -> Bool
-    func getTimeStampType(_ level: Logger.Level) -> Logger.TimeStampType
-    func isEnabledThreadName(_ level: Logger.Level) -> Bool // Thread Information
-    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Logger.DescriptionType // Class/Function Information
-    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool // File/Line Information
-    func classInfoSepalator() -> String
-    func postSepalator() -> String
+
+    // if return false, Logger does not execute log(_ message: String)
+    func log(_ context: LogContext) -> Bool
+
+    func log(_ message: String)
 }
 
 // MARK: - protocol extension LoggerDependency
 
 public extension LoggerDependency {
-    func log(level: Logger.Level, message: String, formattedMessage: String) {
-        print(formattedMessage)
-    }
-
     func preFix(_ level: Logger.Level) -> String {
         switch level {
             case .trace: return "===>"
-            case .debug: return "[🟡 DEBG]"
+            case .debug: return "[🟠 DEBG]"
             case .info: return "[🔵 INFO]"
             case .notice: return "[🟢 NOTE]"
-            case .warning: return "⚠️⚠️⚠️"
-            case .error: return "❌❌❌"
-            case .fatal: return "🔥🔥🔥"
+            case .warning: return "[⚠️ WARN]"
+            case .error: return "[❌ ERRR]"
+            case .fatal: return "[🔥 FATAL]"
+            case .deinit: return "[❎ DEINIT]"
         }
     }
 
-    func isEnabled(_ level: Logger.Level) -> Bool {
-        #if DEBUG
-
-        return true
-
-        #else
-
-        return false
-
-        #endif
+    func log(_ context: LogContext) -> Bool {
+        true
     }
 
-    func getTimeStampType(_ level: Logger.Level) -> Logger.TimeStampType {
-        #if DEBUG
-
-        switch level {
-            case .trace: return .none
-            case .debug: return .detail
-            case .info: return .detail
-            case .notice: return .detail
-            case .warning: return .detail
-            case .error: return .detail
-            case .fatal: return .detail
-        }
-
-        #else
-
-        switch level {
-            case .trace: return .none
-            case .debug: return .full
-            case .info: return .none
-            case .notice: return .full
-            case .warning: return .full
-            case .error: return .full
-            case .fatal: return .full
-        }
-
-        #endif
-    }
-
-    func isEnabledThreadName(_ level: Logger.Level) -> Bool {
-        switch level {
-            case .trace: return false
-            case .info: return false
-            default: return true
-        }
-    }
-
-    func isEnabledClassAndMethodName(_ level: Logger.Level) -> Logger.DescriptionType {
-        switch level {
-            case .trace: return .normal
-            case .info: return .none
-            default: return .detail
-        }
-    }
-
-    // true: Add file name and line number at the end of log
-    func isEnabledFileAndLineNumber(_ level: Logger.Level) -> Bool {
-        switch level {
-            case .trace: return false
-            case .info: return false
-            default: return true
-        }
-    }
-
-    func classInfoSepalator() -> String {
-        " --"
-    }
-
-    func postSepalator() -> String {
-        " --"
+    func log(_ message: String) {
+        print(message)
     }
 }
 
 #if LOGGER_iOS14_ENABLED
 @available(iOS 14.0, *)
-class SystemLogger: LoggerDependency {
+public class SystemLogger: LoggerDependency {
     private var oslog: os.Logger
-    init(subsystem: String, category: String) {
+
+    public init(subsystem: String, category: String) {
         oslog = os.Logger(subsystem: subsystem, category: category)
     }
 
-    func preFix(_ level: Logger.Level) -> String {
+    public func preFix(_ level: Logger.Level) -> String {
         ""
     }
 
-    func getTimeStampType(_ level: Logger.Level) -> Logger.TimeStampType {
-        .none
-    }
-
-    func log(level: Logger.Level, message: String, formattedMessage: String) {
+    public func log(_ message: String) {
         switch level {
             case .trace:
-                oslog.log("\(formattedMessage)")
+                oslog.log("\(message)")
             case .debug:
-                oslog.debug("\(formattedMessage)")
+                oslog.debug("\(message)")
             case .info:
-                oslog.info("\(formattedMessage)")
+                oslog.info("\(message)")
             case .notice:
-                oslog.notice("\(formattedMessage)")
+                oslog.notice("\(message)")
             case .warning:
-                oslog.warning("\(formattedMessage)")
+                oslog.warning("\(message)")
             case .error:
-                oslog.error("\(formattedMessage)")
+                oslog.error("\(message)")
             case .fatal:
-                oslog.critical("\(formattedMessage)")
+                oslog.critical("\(message)")
+            case .deinit:
+                oslog.critical("\(message)")
         }
     }
 }
 #endif
 
-class OsLogger: LoggerDependency {
-    func getTimeStampType(_ level: Logger.Level) -> Logger.TimeStampType {
-        .none
-    }
+// https://developer.apple.com/documentation/os/logging
+// https://developer.apple.com/documentation/os/os_log
+public class OsLogger: LoggerDependency {
+    public init() {}
 
-    func log(level: Logger.Level, message: String, formattedMessage: String) {
-        // https://developer.apple.com/documentation/os/logging
-        // https://developer.apple.com/documentation/os/os_log
+    public func log(_ context: LogContext) -> Bool {
+        var formattedMessage = ""
+        switch context.level {
+            case .trace:
+                formattedMessage = "\("➡️") \(context.methodName())\(context.addSpacer(" -- ", to: context.message))"
+            case .debug:
+                formattedMessage = "\("🟠") [\(context.threadName())]\(context.message) -- \(context.lineInfo())"
+            case .info:
+                formattedMessage = "\("🔵")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .notice:
+                formattedMessage = "\("🟢")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .warning:
+                formattedMessage = "\("⚠️") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .error:
+                formattedMessage = "\("❌") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .fatal:
+                formattedMessage = "\("🔥") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+            case .deinit:
+                formattedMessage = "\("❎ DEINIT")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+        }
 
         os_log("%s", formattedMessage)
+
+        return false
     }
 }
 
@@ -509,4 +466,3 @@ extension DateFormatter {
 }
 
 #endif
-
