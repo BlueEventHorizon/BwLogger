@@ -14,8 +14,7 @@
 		52C511162393AECB0053F533 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52C511152393AECB0053F533 /* Assets.xcassets */; };
 		52C511192393AECB0053F533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C511172393AECB0053F533 /* LaunchScreen.storyboard */; };
 		52C511242393AECB0053F533 /* LoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511232393AECB0053F533 /* LoggerExampleTests.swift */; };
-		76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */; };
-		76E237E82496089A00E4B02F /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 76E237E72496089A00E4B02F /* Logger */; };
+		7683AD5A24CC905700F09289 /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 7683AD5924CC905700F09289 /* Logger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +52,6 @@
 		52C5111F2393AECB0053F533 /* LoggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C511232393AECB0053F533 /* LoggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerExampleTests.swift; sourceTree = "<group>"; };
 		52C511252393AECB0053F533 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoggerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76E237E82496089A00E4B02F /* Logger in Frameworks */,
+				7683AD5A24CC905700F09289 /* Logger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,7 +97,6 @@
 				52C5110C2393AECA0053F533 /* AppDelegate.swift */,
 				52C5110E2393AECA0053F533 /* SceneDelegate.swift */,
 				52C511102393AECA0053F533 /* ExampleViewController.swift */,
-				76D67D152448A3F200F3BB60 /* CustomLoggerExtension.swift */,
 				52C511122393AECA0053F533 /* Main.storyboard */,
 				52C511152393AECB0053F533 /* Assets.xcassets */,
 				52C511172393AECB0053F533 /* LaunchScreen.storyboard */,
@@ -135,7 +132,7 @@
 			);
 			name = LoggerExample;
 			packageProductDependencies = (
-				76E237E72496089A00E4B02F /* Logger */,
+				7683AD5924CC905700F09289 /* Logger */,
 			);
 			productName = LoggerExample;
 			productReference = 52C511092393AECA0053F533 /* LoggerExample.app */;
@@ -188,7 +185,7 @@
 			);
 			mainGroup = 52C511002393AECA0053F533;
 			packageReferences = (
-				76E237E62496089A00E4B02F /* XCRemoteSwiftPackageReference "Logger" */,
+				7683AD5824CC905700F09289 /* XCRemoteSwiftPackageReference "Logger" */,
 			);
 			productRefGroup = 52C5110A2393AECA0053F533 /* Products */;
 			projectDirPath = "";
@@ -225,7 +222,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76D67D162448A3F200F3BB60 /* CustomLoggerExtension.swift in Sources */,
 				52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */,
 				52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */,
 				52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */,
@@ -503,20 +499,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		76E237E62496089A00E4B02F /* XCRemoteSwiftPackageReference "Logger" */ = {
+		7683AD5824CC905700F09289 /* XCRemoteSwiftPackageReference "Logger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:BlueEventHorizon/Logger.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		76E237E72496089A00E4B02F /* Logger */ = {
+		7683AD5924CC905700F09289 /* Logger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 76E237E62496089A00E4B02F /* XCRemoteSwiftPackageReference "Logger" */;
+			package = 7683AD5824CC905700F09289 /* XCRemoteSwiftPackageReference "Logger" */;
 			productName = Logger;
 		};
 /* End XCSwiftPackageProductDependency section */

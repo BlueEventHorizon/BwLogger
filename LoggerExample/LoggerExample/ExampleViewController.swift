@@ -16,38 +16,67 @@ class ExampleViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showLogger(title: "Standard Logger")
+        showLog(title: "Standard Logger")
 
-        print("\n")
 
-        log.setDependency(CustomLoggerExtension())
-
-        showLogger(title: "Cunstomized Logger")
+        log.setDependency(OsLogger())
+        showLog(title: "Logger with os_log")
 
     }
     
-    func showLogger(title: String) {
-        log.info("--------------------------------------------")
-        log.info(title)
-        log.info("--------------------------------------------")
+    func showLog(title: String) {
+        print("--------------------------------------------")
+        print("\(title)")
+        print("--------------------------------------------\n")
 
-        log.entered(self, message: "log.entered()")
-        log.warning("log.warn()")
+        log.info("----- メッセージあり（自インスタンス有無） ----")
 
-        DispatchQueue.global().async {
-            log.debug("log.debug() in DispatchQueue.global().async", instance: self)
-        }
+        log.entered()
+        log.entered(self)
+        log.entered(message: "Hello World!")
+        log.entered(self, message: "Hello World!")
 
-        log.error("log.error()")
+        log.info("Hello World!")
+        log.info("Hello World!", instance: self)
 
-        let _ = TestStruct()
+        log.notice("Hello World!")
+        log.notice("Hello World!", instance: self)
+
+        log.debug("Hello World!")
+        log.debug("Hello World!", instance: self)
+        log.debug(CGSize(width: 500, height: 256))
+        log.debug(CGSize(width: 500, height: 256), instance: self)
+
+        log.warning(URL(fileURLWithPath: "Hello World!"))
+        log.warning(URL(fileURLWithPath: "Hello World!"), instance: self)
+
+        log.error("Hello World!")
+        log.error("Hello World!", instance: self)
+
+        log.deinit()
+        log.deinit(self)
+
+        log.info("----- メッセージなし ----")
+
+        log.entered()
+        log.info("")
+        log.notice("")
+        log.debug("")
+        log.warning("")
+        log.error("")
+        log.deinit()
+
+        print("\n")
     }
 }
 
-struct TestStruct {
+class TestClass {
     init() {
-        log.entered(self)
+        log.entered()
         log.error("log.error()")
+    }
+    deinit {
+        log.deinit()
     }
 }
 
