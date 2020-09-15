@@ -2,6 +2,16 @@
 
 **Simple and customizable Logging API package for Swift**
 
+When Xcode < 12.0
+
+  **Please choose 2.x.x**
+
+Else
+
+ **Please chosse 3.x.x**
+
+
+
 APIs are
 
 ```swift
@@ -73,7 +83,7 @@ public class OsLogger: LoggerDependency {
 
     public init() {}
 
-    public func log(_ context: LogContext) -> Bool {
+    public func log(_ context: LogContext) {
 
         var formattedMessage = ""
 
@@ -97,8 +107,6 @@ public class OsLogger: LoggerDependency {
         }
 
         os_log("%s", formattedMessage)
-
-        return false
     }
 }
 
