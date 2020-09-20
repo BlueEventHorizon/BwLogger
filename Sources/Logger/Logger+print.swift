@@ -13,12 +13,12 @@ public class PrintLogger: LoggerDependency {
         var preFix: String = ""
 
         switch context.level {
-            case .trace: preFix = "===>"
-            case .debug: preFix = "[🟠 DEBG]"
+            case .trace: preFix = "➡️"
+            case .debug: preFix = "[🛠 DEBG]"
             case .info: preFix = "[🔵 INFO]"
             case .notice: preFix = "[🟢 NOTE]"
             case .warning: preFix = "[⚠️ WARN]"
-            case .error: preFix = "[❌ ERRR]"
+            case .error: preFix = "[🚫 ERRR]"
             case .fatal: preFix = "[🔥 FATAL]"
             case .deinit: preFix = "[❎ DEINIT]"
         }

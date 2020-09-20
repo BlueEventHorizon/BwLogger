@@ -28,7 +28,7 @@ public class OsLogger: LoggerDependency {
             case .warning:
                 formattedMessage = "\("⚠️") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
             case .error:
-                formattedMessage = "\("❌") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("🚫") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
             case .fatal:
                 formattedMessage = "\("🔥") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
             case .deinit:
