@@ -36,7 +36,7 @@ public class SystemLogger: LoggerDependency {
             case .fatal:
                 oslog.critical("\(context.message)")
             case .deinit:
-                oslog.critical("\(context.message)")
+                oslog.log("\(context.message)")
         }
     }
 }
