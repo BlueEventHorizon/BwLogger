@@ -2,15 +2,13 @@
 
 **Simple and customizable Logging API package for Swift**
 
-When Xcode < 12.0
+You can customize and use BwLogger. You can inject by describing the output format and output destination.
 
-  **Please choose 2.x.x**
-
-Else
-
- **Please chosse 3.x.x**
-
-
+The standard output destination is
+1) print statement
+2) For iOS14 or above, os.Logger
+3) If it is less than iOS14, os_log
+It has become.
 
 APIs are
 
@@ -49,7 +47,7 @@ func `deinit`(_ instance: Any = "", message: Any = "")
 ```swift
 
 // 1) import the logging API package
-import Logger
+import BwLogger
 
 // 2) create a logger
 let log = Logger.default
