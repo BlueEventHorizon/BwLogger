@@ -1,11 +1,11 @@
 import XCTest
-@testable import Logger
+@testable import BwLogger
 
 final class LoggerTests: XCTestCase {
 
 
     func testAll() throws {
-        let log = Logger()
+        let log = Logger(PrintLogger())
 
         log.info("----- 通常Logger【開始】 ----")
 
@@ -19,18 +19,13 @@ final class LoggerTests: XCTestCase {
         log.info("Hello World!")
         log.info("Hello World!", instance: self)
 
-        log.notice("Hello World!")
-        log.notice("Hello World!", instance: self)
-
         log.debug("Hello World!")
         log.debug("Hello World!", instance: self)
         log.debug(CGSize(width: 500, height: 256))
         log.debug(CGSize(width: 500, height: 256), instance: self)
 
-        log.warning(URL(string: "Hello World!")!)
-        log.warning(URL(fileURLWithPath: "Hello World!"))
-        log.warning(URL(string: "Hello World!")!, instance: self)
-        log.warning(URL(fileURLWithPath: "Hello World!"), instance: self)
+        log.warning(URL(string: "http://www.example.com")!)
+        log.warning(URL(string: "http://www.example.com")!, instance: self)
 
         log.error("Hello World!")
         log.error("Hello World!", instance: self)
@@ -41,8 +36,6 @@ final class LoggerTests: XCTestCase {
         log.info("----- メッセージなし ----")
 
         log.entered()
-        log.info("")
-        log.notice("")
         log.debug("")
         log.warning("")
         log.error("")
@@ -52,19 +45,18 @@ final class LoggerTests: XCTestCase {
     }
 
     func testDisable() throws {
-        let log = Logger()
-        log.isDisabled = true
+        let log = Logger(PrintLogger())
 
         log.info("----- NO 自インスタンス 非表示テスト【開始】 ----")
 
         log.entered()
         log.entered(message: "XXXX")
         log.info("日本語も入れてみる")
-        log.notice("これは表示できますか")
+
         log.debug("hello world")
         log.debug(CGSize(width: 500, height: 256))
-        log.warning(URL(string: "www.yahoo.co.jp"))
-        log.warning(URL(fileURLWithPath: "www.yahoo.co.jp"))
+        log.warning(URL(string: "http://www.example.com"))
+        log.warning(URL(fileURLWithPath: "http://www.example.com"))
         log.error("test error")
         log.deinit(self)
 
@@ -79,11 +71,11 @@ final class LoggerTests: XCTestCase {
         log.entered()
         log.entered(message: "XXXX")
         log.info("日本語も入れてみる")
-        log.notice("これは表示できますか")
+
         log.debug("hello world")
         log.debug(CGSize(width: 500, height: 256))
-        log.warning(URL(string: "www.yahoo.co.jp"))
-        log.warning(URL(fileURLWithPath: "www.yahoo.co.jp"))
+        log.warning(URL(string: "http://www.example.com"))
+        log.warning(URL(fileURLWithPath: "http://www.example.com"))
         log.error("test error")
         log.deinit(self)
 
@@ -91,7 +83,6 @@ final class LoggerTests: XCTestCase {
 
         log.entered()
         log.info("")
-        log.notice("")
         log.debug("")
         log.warning("")
         log.error("")

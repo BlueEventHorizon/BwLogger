@@ -2,12 +2,12 @@
   "object": {
     "pins": [
       {
-        "package": "Logger",
-        "repositoryURL": "git@github.com:BlueEventHorizon/Logger.git",
+        "package": "BwLogger",
+        "repositoryURL": "git@github.com:BlueEventHorizon/BwLogger.git",
         "state": {
           "branch": null,
-          "revision": "2ce3aadd8c69428ba44392672b8b9c2a8f76d165",
-          "version": "3.0.3"
+          "revision": "5d30faa6609a056b3efe4f9f2b032258c49c4b04",
+          "version": "4.0.0"
         }
       }
     ]
