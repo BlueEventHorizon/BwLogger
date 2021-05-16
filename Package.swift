@@ -4,15 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "Logger",
+    name: "BwLogger",
     platforms: [
         .iOS(.v10),
     ],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
-            name: "Logger",
-            targets: ["Logger"]),
+            name: "BwLogger",
+            targets: ["BwLogger"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -22,15 +22,15 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "Logger",
+            name: "BwLogger",
             dependencies: [],
             cSettings: nil,
             cxxSettings: nil,
             swiftSettings: [.define("LOGGER_PRIVATE_EXTENSION_ENABLED")],
             linkerSettings: nil),
         .testTarget(
-            name: "LoggerTests",
-            dependencies: ["Logger"],
+            name: "BwLoggerTests",
+            dependencies: ["BwLogger"],
             cSettings: nil,
             cxxSettings: nil,
             swiftSettings: [.define("LOGGER_PRIVATE_EXTENSION_ENABLED")],
