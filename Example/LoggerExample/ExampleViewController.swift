@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Logger
+import BwLogger
 
 public let log = Logger.default
 
