@@ -16,7 +16,7 @@ public protocol LogOutput {
 
 // MARK: - Logger
 
-public class Logger {
+open class Logger {
     public enum Level: String, Codable, CaseIterable {
         case log = "log"
         case debug = "debug"
