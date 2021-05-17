@@ -36,20 +36,15 @@ open class Logger {
     public private(set) var levels: [Level]?
 
     #if DEBUG
-    
-    public init(_ output: LogOutput, levels: [Level]? = nil) {
-        self.output = output
-        self.levels = levels
-    }
-    
+    public static let defaultLevels: [Level]? = nil
     #else
+    public static let defaultLevels: [Level]? = []
+    #endif
     
-    public init(_ output: LogOutput, levels: [Level]? = []) {
+    public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
         self.output = output
         self.levels = levels
     }
-    
-    #endif
 
     /// ログ出力する
     /// - Parameter context: ログの情報を保持する構造体
