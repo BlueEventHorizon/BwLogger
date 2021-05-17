@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5269803926511D9B004798F1 /* BwLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 5269803826511D9B004798F1 /* BwLogger */; };
 		52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110C2393AECA0053F533 /* AppDelegate.swift */; };
 		52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110E2393AECA0053F533 /* SceneDelegate.swift */; };
 		52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511102393AECA0053F533 /* ExampleViewController.swift */; };
@@ -15,6 +14,7 @@
 		52C511162393AECB0053F533 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52C511152393AECB0053F533 /* Assets.xcassets */; };
 		52C511192393AECB0053F533 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52C511172393AECB0053F533 /* LaunchScreen.storyboard */; };
 		52C511242393AECB0053F533 /* LoggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511232393AECB0053F533 /* LoggerExampleTests.swift */; };
+		52F4C80D2651221B00BB43E2 /* BwLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 52F4C80C2651221B00BB43E2 /* BwLogger */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5269803926511D9B004798F1 /* BwLogger in Frameworks */,
+				52F4C80D2651221B00BB43E2 /* BwLogger in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,7 +132,7 @@
 			);
 			name = LoggerExample;
 			packageProductDependencies = (
-				5269803826511D9B004798F1 /* BwLogger */,
+				52F4C80C2651221B00BB43E2 /* BwLogger */,
 			);
 			productName = LoggerExample;
 			productReference = 52C511092393AECA0053F533 /* LoggerExample.app */;
@@ -185,7 +185,7 @@
 			);
 			mainGroup = 52C511002393AECA0053F533;
 			packageReferences = (
-				5269803726511D9B004798F1 /* XCRemoteSwiftPackageReference "BwLogger" */,
+				52F4C80B2651221B00BB43E2 /* XCRemoteSwiftPackageReference "BwLogger" */,
 			);
 			productRefGroup = 52C5110A2393AECA0053F533 /* Products */;
 			projectDirPath = "";
@@ -499,20 +499,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5269803726511D9B004798F1 /* XCRemoteSwiftPackageReference "BwLogger" */ = {
+		52F4C80B2651221B00BB43E2 /* XCRemoteSwiftPackageReference "BwLogger" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "git@github.com:BlueEventHorizon/BwLogger.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.0;
+				minimumVersion = 4.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5269803826511D9B004798F1 /* BwLogger */ = {
+		52F4C80C2651221B00BB43E2 /* BwLogger */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5269803726511D9B004798F1 /* XCRemoteSwiftPackageReference "BwLogger" */;
+			package = 52F4C80B2651221B00BB43E2 /* XCRemoteSwiftPackageReference "BwLogger" */;
 			productName = BwLogger;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -16,7 +16,7 @@ public protocol LogOutput {
 
 // MARK: - Logger
 
-public class Logger {
+open class Logger {
     public enum Level: String, Codable, CaseIterable {
         case log = "log"
         case debug = "debug"
@@ -35,15 +35,21 @@ public class Logger {
     // swiftlint:disable:next discouraged_optional_collection
     public private(set) var levels: [Level]?
 
-    public init(_ output: LogOutput) {
+    #if DEBUG
+    
+    public init(_ output: LogOutput, levels: [Level]? = nil) {
         self.output = output
-    }
-
-    @discardableResult
-    public func setLevel(_ levels: [Level]) -> Logger {
         self.levels = levels
-        return self
     }
+    
+    #else
+    
+    public init(_ output: LogOutput, levels: [Level]? = []) {
+        self.output = output
+        self.levels = levels
+    }
+    
+    #endif
 
     /// ログ出力する
     /// - Parameter context: ログの情報を保持する構造体
@@ -55,7 +61,10 @@ public class Logger {
     /// - Parameter level: ログレベル
     /// - Returns: ログ出力可否
     public func isEnabled(_ level: Level) -> Bool {
+        // 設定なしで全てを出力
         guard let levels = levels else { return true }
+
+        // 設定に含まれていないと出力しない
         guard levels.contains(level) else { return false }
 
         return true

@@ -9,22 +9,18 @@
 import UIKit
 import BwLogger
 
-public let log = Logger.default
-
 class ExampleViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        showLog(title: "Standard Logger")
+        showLog(log: Logger(PrintLogger()), title: "Standard Logger")
+        showLog(log: Logger(OsLogger()), title: "Logger with os_log")
 
-
-        log.setDependency(OsLogger())
-        showLog(title: "Logger with os_log")
-
+        TestClass()
     }
     
-    func showLog(title: String) {
+    func showLog(log: Logger, title: String) {
         print("--------------------------------------------")
         print("\(title)")
         print("--------------------------------------------\n")
@@ -39,16 +35,13 @@ class ExampleViewController: UIViewController {
         log.info("Hello World!")
         log.info("Hello World!", instance: self)
 
-        log.notice("Hello World!")
-        log.notice("Hello World!", instance: self)
-
         log.debug("Hello World!")
         log.debug("Hello World!", instance: self)
         log.debug(CGSize(width: 500, height: 256))
         log.debug(CGSize(width: 500, height: 256), instance: self)
 
-        log.warning(URL(fileURLWithPath: "Hello World!"))
-        log.warning(URL(fileURLWithPath: "Hello World!"), instance: self)
+        log.warning(URL(string: "http://www.example.com")!)
+        log.warning(URL(string: "http://www.example.com")!, instance: self)
 
         log.error("Hello World!")
         log.error("Hello World!", instance: self)
@@ -60,7 +53,6 @@ class ExampleViewController: UIViewController {
 
         log.entered()
         log.info("")
-        log.notice("")
         log.debug("")
         log.warning("")
         log.error("")
@@ -71,9 +63,11 @@ class ExampleViewController: UIViewController {
 }
 
 class TestClass {
+    let log: Logger
     init() {
-        log.entered()
-        log.error("log.error()")
+        log = Logger(PrintLogger())
+        log.entered(self)
+        log.error("log.error()", instance: self)
     }
     deinit {
         log.deinit()
