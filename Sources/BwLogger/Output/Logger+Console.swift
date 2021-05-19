@@ -19,9 +19,11 @@ public class PrintLogger: LogOutput {
             PrintLogger.semaphore.signal()
         }
 
+        let separator: String = context.message.isEmpty ? "" : " --"
+        
         let message = context.level == .info ?
-            "\(context.prefix)\(context.addSpacer(" ", to: context.message)) -- \(context.fileName):\(context.line)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName) \(context.fileName):\(context.line))"
+            "\(context.prefix)\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName)" :
+            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
 
         print(message)
     }
