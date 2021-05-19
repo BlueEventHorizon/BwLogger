@@ -1,5 +1,19 @@
+.DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# ==================================================
+# 一般設定
+# ==================================================
+
 # Xcode
-#
+/*.xcodeproj
+*.xcworkspace/
+
 build/
 Build/
 *.pbxuser
@@ -21,29 +35,39 @@ DerivedData
 
 timeline.xctimeline
 
-# Swift Package Manager
-#
-.build/
-Packages/
+# Info.plist
+Info.plist
 
-# Carthage
-#
-Carthage/Checkouts
-Carthage/Build
-
-# CocoaPods
-#
-Pods
+# RSwift
+R.generated.swift
 
 # MacOS
-#
 .DS_Store
 
 # Linux
-#
 *.swp
 *.swo
 
+# direnv
+.envrc
+
+com.mono0926.LicensePlist
+com.mono0926.LicensePlist.*
+
 # etc.
-#
 infer-out/
+
+# Swift Package Manager
+.build/
+/Packages
+Package.resolved
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+
+# Carthage
+Carthage/
+
+# CocoaPods
+Pods/
+
+# Bundle
+vendor/
