@@ -45,6 +45,16 @@ open class Logger {
         self.output = output
         self.levels = levels
     }
+    
+    /// ログレベルを変更する
+    /// - Parameter levels: ログレベル
+    /// - Returns: Loggerインスタンス
+    /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
+    public func setLevel(_ levels: [Level]?) -> Self {
+        self.levels = levels
+        
+        return self
+    }
 
     /// ログ出力する
     /// - Parameter context: ログの情報を保持する構造体
