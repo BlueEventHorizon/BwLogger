@@ -4,7 +4,7 @@ import XCTest
 final class LoggerTests: XCTestCase {
 
 
-    func testAll() throws {
+    func testPrintLogger() throws {
         let log = Logger(PrintLogger())
 
         log.info("----- 通常Logger【開始】 ----")

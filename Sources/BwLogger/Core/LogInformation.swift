@@ -76,7 +76,8 @@ public struct LogInformation {
         }
 
         // instanceがインスタンス・オブジェクトの場合は、class名を取得する。
-        return "\(String(describing: type(of: instance))):\(function)"
+        let result = "\(String(describing: type(of: instance))):\(function)"
+        return result
     }
 
     public func addSpacer(_ spacer: String, to string: String) -> String {

@@ -75,7 +75,7 @@ public struct LogExtraInformation: CustomStringConvertible {
 
 extension Logger {
     @inlinable
-    public func entered(_ instance: Any = "", message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func entered(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         // LoggerExtraContextをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
@@ -86,7 +86,7 @@ extension Logger {
     }
 
     @inlinable
-    public func `deinit`(_ instance: Any = "", message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func `deinit`(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         let context = LogInformation(level: .log, prefix: "❎", message: message, instance: instance, function: function, file: file, line: line)
