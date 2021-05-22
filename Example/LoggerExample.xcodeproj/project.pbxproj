@@ -504,7 +504,7 @@
 			repositoryURL = "git@github.com:BlueEventHorizon/BwLogger.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.0.1;
+				minimumVersion = 4.0.10;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

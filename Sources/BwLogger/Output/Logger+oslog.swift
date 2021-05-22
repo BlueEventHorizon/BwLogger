@@ -20,9 +20,11 @@ public class OsLogger: LogOutput {
     public init(subsystem: String = "com.beowulf-tech", category: String = "App") {}
 
     public func log(_ context: LogInformation) {
+        let separator: String = context.message.isEmpty ? "" : " --"
+        
         let message = context.level == .info ?
-            "\(context.prefix)\(context.addSpacer(" ", to: context.message)) -- \(context.fileName):\(context.line)" :
-            "\(context.prefix) [\(context.threadName)]\(context.addSpacer(" ", to: context.message)) -- \(context.methodName) \(context.fileName):\(context.line))"
+            "\(context.prefix)\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName)" :
+            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
 
         if #available(iOS 14.0, *) {
             switch context.level {
