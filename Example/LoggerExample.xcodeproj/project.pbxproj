@@ -41,6 +41,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		520D4E912660059A00AFCFD8 /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ..; sourceTree = "<group>"; };
 		52C511092393AECA0053F533 /* LoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C5110C2393AECA0053F533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52C5110E2393AECA0053F533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		52C511002393AECA0053F533 = {
 			isa = PBXGroup;
 			children = (
+				520D4E912660059A00AFCFD8 /* BwLogger */,
 				52C5110B2393AECA0053F533 /* LoggerExample */,
 				52C511222393AECB0053F533 /* LoggerExampleTests */,
 				52C5110A2393AECA0053F533 /* Products */,
