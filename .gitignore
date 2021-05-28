@@ -1,11 +1,3 @@
-.DS_Store
-/.build
-/Packages
-/*.xcodeproj
-xcuserdata/
-DerivedData/
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
-
 # ==================================================
 # 一般設定
 # ==================================================
@@ -24,7 +16,7 @@ Build/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata
+xcuserdata/
 *.xccheckout
 *.moved-aside
 DerivedData
@@ -61,7 +53,7 @@ infer-out/
 .build/
 /Packages
 Package.resolved
-.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.swiftpm/
 
 # Carthage
 Carthage/
