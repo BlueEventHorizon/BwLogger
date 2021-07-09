@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		525232BA2698AA4400E6C200 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525232B92698AA4400E6C200 /* TextFileWriter.swift */; };
 		52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110C2393AECA0053F533 /* AppDelegate.swift */; };
 		52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5110E2393AECA0053F533 /* SceneDelegate.swift */; };
 		52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C511102393AECA0053F533 /* ExampleViewController.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		520D4E912660059A00AFCFD8 /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ..; sourceTree = "<group>"; };
+		525232B92698AA4400E6C200 /* TextFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFileWriter.swift; sourceTree = "<group>"; };
 		52C511092393AECA0053F533 /* LoggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoggerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52C5110C2393AECA0053F533 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52C5110E2393AECA0053F533 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				52C5110C2393AECA0053F533 /* AppDelegate.swift */,
 				52C5110E2393AECA0053F533 /* SceneDelegate.swift */,
 				52C511102393AECA0053F533 /* ExampleViewController.swift */,
+				525232B92698AA4400E6C200 /* TextFileWriter.swift */,
 				52C511122393AECA0053F533 /* Main.storyboard */,
 				52C511152393AECB0053F533 /* Assets.xcassets */,
 				52C511172393AECB0053F533 /* LaunchScreen.storyboard */,
@@ -225,6 +228,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				52C511112393AECA0053F533 /* ExampleViewController.swift in Sources */,
+				525232BA2698AA4400E6C200 /* TextFileWriter.swift in Sources */,
 				52C5110D2393AECA0053F533 /* AppDelegate.swift in Sources */,
 				52C5110F2393AECA0053F533 /* SceneDelegate.swift in Sources */,
 			);
