@@ -15,7 +15,9 @@ public final class TextFileWriter {
     public init(name: String) {
         let docs: URL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).last!
         fileURL = docs.appendingPathComponent(name)
+
         guard let url = fileURL else { return }
+
         if !FileManager.default.fileExists(atPath: url.path) {
             FileManager.default.createFile(atPath: url.path, contents: nil, attributes: nil)
         }
@@ -41,3 +43,4 @@ public final class TextFileWriter {
         fileHandle.write(data)
     }
 }
+
