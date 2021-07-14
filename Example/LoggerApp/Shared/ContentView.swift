@@ -11,7 +11,8 @@ struct ContentView: View {
     
     @StateObject var logger: PublishedLogger = PublishedLogger.shared
     @State private var fullText: String = ""
-    @State private var text: String = "ここに何か書いてボタンを押す"
+    @State private var text: String = ""
+    @State var placeHolder: String = "ここに何か書いてボタンを押す"
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -21,13 +22,7 @@ struct ContentView: View {
             
             Spacer()
 
-            TextEditor(text: $text)
-                .frame(height: 44)
-                .lineLimit(nil)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
+            TextFeild(text: $text, placeHolder: $placeHolder)
 
             HStack {
                 Button {
@@ -43,12 +38,19 @@ struct ContentView: View {
                     .padding(10)
                     .background(Color.red)
                     .foregroundColor(Color.white)
+                    // バックグラウンドのコーナー
+                    .cornerRadius(10)
                     .overlay(
+                        // ボーダーライン
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.black, lineWidth: 1)
                     )
                 }
             }
+        }
+        .onAppear {
+            // TextEditorのplaceholder表示のため
+            UITextView.appearance().backgroundColor = .clear
         }
         .onReceive(logger.$logMessage) { message in
             fullText = fullText + "\n" + message

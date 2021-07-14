@@ -12,8 +12,9 @@ struct BorderedText: View {
     @State var selected: Bool = true
 
     var color: Color = .blue
+    var fontSize: CGFloat = 14
     var weight: Font.Weight = .bold
-    var lineLimit: Int = 3
+    var lineLimit: Int? = nil
     var cornerRadius: CGFloat = 10
 
     var body: some View {
@@ -23,7 +24,7 @@ struct BorderedText: View {
         Text(text)
             .multilineTextAlignment(.center)
             .lineLimit(lineLimit)
-            .font(.system(size: 18.0, weight: weight))
+            .font(.system(size: fontSize, weight: weight))
             .padding(10)
             // .padding(.vertical, 10)
             // .padding(.horizontal, 10)
@@ -43,7 +44,7 @@ struct BorderedText: View {
 struct BorderButton_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            BorderedText(text: "これはテストだよ", selected: true)
+            BorderedText(text: "これはテストだよ\nこれはテストだよ\nこれはテストだよ\nこれはテストだよ\nこれはテストだよ\nこれはテストだよ", selected: true)
             BorderedText(text: "これはテストだよ", selected: false)
         }
     }

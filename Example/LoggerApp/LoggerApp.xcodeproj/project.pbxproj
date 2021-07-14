@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5205EB98269D950600E60AA1 /* TextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5205EB97269D950600E60AA1 /* TextFeild.swift */; };
+		5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5205EB97269D950600E60AA1 /* TextFeild.swift */; };
 		526440412698B95F00A19F99 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526440402698B95F00A19F99 /* BorderedText.swift */; };
 		526440422698B95F00A19F99 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526440402698B95F00A19F99 /* BorderedText.swift */; };
 		52AA05982698AAF100296968 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA05972698AAF100296968 /* Tests_iOS.swift */; };
@@ -42,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5205EB97269D950600E60AA1 /* TextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFeild.swift; sourceTree = "<group>"; };
 		526440402698B95F00A19F99 /* BorderedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedText.swift; sourceTree = "<group>"; };
 		52AA057C2698AAF000296968 /* LoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerApp.swift; sourceTree = "<group>"; };
 		52AA057D2698AAF000296968 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,6 +114,7 @@
 			children = (
 				52AA057C2698AAF000296968 /* LoggerApp.swift */,
 				52AA057D2698AAF000296968 /* ContentView.swift */,
+				5205EB97269D950600E60AA1 /* TextFeild.swift */,
 				52F299472698AB9300FADC26 /* TextFileWriter.swift */,
 				526440402698B95F00A19F99 /* BorderedText.swift */,
 				52F2994D2698AE8800FADC26 /* Log.swift */,
@@ -333,6 +337,7 @@
 				52AA05A72698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994E2698AE8800FADC26 /* Log.swift in Sources */,
 				52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */,
+				5205EB98269D950600E60AA1 /* TextFeild.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -345,6 +350,7 @@
 				52AA05A82698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994F2698AE8800FADC26 /* Log.swift in Sources */,
 				52AA05A62698AAF100296968 /* LoggerApp.swift in Sources */,
+				5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
