@@ -35,9 +35,18 @@ extension LogOutput {
     public func getStandardMessage(with information: LogInformation) -> String {
         let separator: String = information.message.isEmpty ? "" : " --"
 
+        let prefix: String
+        if let _prefix = information.prefix {
+            // information内にprefixがあれば優先して使用する
+            prefix = _prefix
+        }
+        else {
+            prefix = self.prefix(for: information.level)
+        }
+
         return information.level == .info ?
-            "\(prefix(for: information.level))\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-            "\(prefix(for: information.level)) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+            "\(prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
+            "\(prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
     }
 }
 

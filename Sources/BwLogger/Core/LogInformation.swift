@@ -11,26 +11,26 @@ import Foundation
 /// Logの基本情報を保持する構造体
 public struct LogInformation {
     public let level: Logger.Level
-    public let prefix: String
-
     public let message: String
-    public let instance: Any?
     public let date: Date
 
     public let function: StaticString
     public let file: StaticString
     public let line: Int
+    
+    public let prefix: String?
+    public let instance: Any?
 
     /// 初期化
     /// - Parameters:
     ///   - level: ログレベル
-    ///   - prefix: 先頭のアイコン等
     ///   - message: メッセージ。オブジェクトでも構わない
-    ///   - instance: 呼び出しているインスタンスを渡すと、ログに「クラス名:関数名」を出力する。
     ///   - function: 関数名
     ///   - file: ファイル名
     ///   - line: ファイル内の行数
-    public init(level: Logger.Level, message: Any, function: StaticString, file: StaticString, line: Int, prefix: String = "", instance: Any? = nil) {
+    ///   - prefix: 先頭のアイコン等
+    ///   - instance: 呼び出しているインスタンスを渡すと、ログに「クラス名:関数名」を出力する。
+    public init(level: Logger.Level, message: Any, function: StaticString, file: StaticString, line: Int, prefix: String? = nil, instance: Any? = nil) {
         self.level = level
         self.prefix = prefix
 
