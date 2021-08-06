@@ -20,11 +20,7 @@ public class OsLogger: LogOutput {
     public init(subsystem: String = "com.beowulf-tech", category: String = "App") {}
 
     public func log(_ information: LogInformation) {
-        let separator: String = information.message.isEmpty ? "" : " --"
-        
-        let message = information.level == .info ?
-            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+        let message = getStandardMessage(with: information)
 
         if #available(iOS 14.0, *) {
             switch information.level {

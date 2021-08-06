@@ -24,11 +24,7 @@ public final class FileLogger: LogOutput {
     }
 
     public func log(_ information: LogInformation) {
-        let separator: String = information.message.isEmpty ? "" : " --"
-        
-        let message = information.level == .info ?
-            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+        let message = getStandardMessage(with: information)
 
         dependency.open()
         dependency.write(message)

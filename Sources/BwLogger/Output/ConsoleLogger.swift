@@ -1,26 +1,31 @@
 //
-//  LogOutput.swift
-//  
+//  Logger+print.swift
+//  BwTools
 //
-//  Created by Katsuhiko Terada on 2021/08/06.
+//  Created by k_terada on 2020/09/15.
+//  Copyright © 2020 k2moons. All rights reserved.
 //
 
 import Foundation
 
-public protocol LogOutput {
-    func log(_ information: LogInformation)
-    func prefix(for level: Logger.Level) -> String
-    func getStandardMessage(with information: LogInformation) -> String
+public class ConsoleLogger: LogOutput {
+    private static let semaphore = DispatchSemaphore(value: 1)
+
+    public init() {}
+
+    public func log(_ information: LogInformation) {
+        ConsoleLogger.semaphore.wait()
+        defer {
+            ConsoleLogger.semaphore.signal()
+        }
+
+        let message = getStandardMessage(with: information)
+
+        print(message)
+    }
 }
 
-extension LogOutput {
-    // stringが空でなければstringの前にspacerを追加する
-    public func addSpacer(_ spacer: String, before string: String) -> String {
-        guard string.isNotEmpty else { return "" }
-
-        return "\(spacer)\(string)"
-    }
-
+extension ConsoleLogger {    
     public func prefix(for level: Logger.Level) -> String {
         switch level {
         case .log: return ""
@@ -40,15 +45,3 @@ extension LogOutput {
             "\(prefix(for: information.level)) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
     }
 }
-
-#if LOGGER_PRIVATE_EXTENSION_ENABLED
-    // swiftlint:disable strict_fileprivate
-
-    extension String {
-        fileprivate var isNotEmpty: Bool {
-            !self.isEmpty
-        }
-    }
-
-    // swiftlint:enable strict_fileprivate
-#endif

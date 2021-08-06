@@ -60,12 +60,14 @@ public extension Logger {
 
 /// Loggerを拡張する構造体
 public struct LogExtraInformation: CustomStringConvertible {
-    let prefix: String?
+    let function: StaticString
     let message: Any?
+    let prefix: String?
 
-    public init(prefix: String? = nil, message: Any? = nil) {
-        self.prefix = prefix
+    public init(function: StaticString = #function, message: Any? = nil, prefix: String? = nil) {
+        self.function = function
         self.message = message
+        self.prefix = prefix
     }
 
     public var description: String {

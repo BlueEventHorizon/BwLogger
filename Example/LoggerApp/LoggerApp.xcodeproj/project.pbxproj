@@ -24,6 +24,8 @@
 		52F2994F2698AE8800FADC26 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* Log.swift */; };
 		76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
 		76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
+		76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461C26BD952D005A7DF8 /* ImageText.swift */; };
+		76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461C26BD952D005A7DF8 /* ImageText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,7 @@
 		52F2994D2698AE8800FADC26 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		76E8461826BD50A5005A7DF8 /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ../..; sourceTree = "<group>"; };
 		76E8461926BD5147005A7DF8 /* TextFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFileWriter.swift; sourceTree = "<group>"; };
+		76E8461C26BD952D005A7DF8 /* ImageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,10 +118,11 @@
 			isa = PBXGroup;
 			children = (
 				52AA057C2698AAF000296968 /* LoggerApp.swift */,
-				76E8461926BD5147005A7DF8 /* TextFileWriter.swift */,
 				52AA057D2698AAF000296968 /* ContentView.swift */,
 				5205EB97269D950600E60AA1 /* TextFeild.swift */,
 				526440402698B95F00A19F99 /* BorderedText.swift */,
+				76E8461C26BD952D005A7DF8 /* ImageText.swift */,
+				76E8461926BD5147005A7DF8 /* TextFileWriter.swift */,
 				52F2994D2698AE8800FADC26 /* Log.swift */,
 				52AA057E2698AAF000296968 /* Assets.xcassets */,
 			);
@@ -338,6 +342,7 @@
 				52AA05A72698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994E2698AE8800FADC26 /* Log.swift in Sources */,
 				76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
+				76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB98269D950600E60AA1 /* TextFeild.swift in Sources */,
 			);
@@ -351,6 +356,7 @@
 				52AA05A82698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994F2698AE8800FADC26 /* Log.swift in Sources */,
 				76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
+				76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A62698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */,
 			);

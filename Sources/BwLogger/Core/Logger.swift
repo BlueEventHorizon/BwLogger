@@ -10,15 +10,15 @@ import Foundation
 
 open class Logger {
     public enum Level: String, Codable, CaseIterable {
-        case log = "log"
-        case debug = "debug"
-        case info = "info"
-        case warning = "warning"
-        case error = "error"
-        case fault = "fault"
+        case log
+        case debug
+        case info
+        case warning
+        case error
+        case fault
     }
 
-    public static let `default` = Logger(PrintLogger())
+    public static let `default` = Logger(ConsoleLogger())
 
     /// ログのアウトプット先
     public private(set) var output: LogOutput

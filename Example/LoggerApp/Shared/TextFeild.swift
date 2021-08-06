@@ -24,7 +24,7 @@ struct TextFeild: View {
             }
 
             TextEditor(text: $text)
-                .frame(height: 44)
+                //.frame(height: 44)
                 .lineLimit(nil)
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)

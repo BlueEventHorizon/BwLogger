@@ -24,29 +24,38 @@ struct ContentView: View {
 
             TextFeild(text: $text, placeHolder: $placeHolder)
 
-            HStack {
-                Button {
-                    log.error(text)
-                } label: {
-                    HStack {
-                        Image(systemName: "flame.fill")
-                        Text("as Error")
+            VStack {
+                HStack(spacing: 20) {
+                    Button {
+                        log.error(text)
+                    } label: {
+                        ImageText(title: "as Error", image: "flame.fill", backgroundColor: .red)
                     }
-                    .multilineTextAlignment(.center)
-                    .lineLimit(1)
-                    .font(.system(size: 18.0, weight: .bold))
-                    .padding(10)
-                    .background(Color.red)
-                    .foregroundColor(Color.white)
-                    // バックグラウンドのコーナー
-                    .cornerRadius(10)
-                    .overlay(
-                        // ボーダーライン
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.black, lineWidth: 1)
-                    )
+                    
+                    Button {
+                        log.debug(text)
+                    } label: {
+                        ImageText(title: "as Debug", image: "ant", backgroundColor: .orange)
+                    }
                 }
+                .padding(5)
+                
+                HStack(spacing: 20) {
+                    Button {
+                        log.warning(text)
+                    } label: {
+                        ImageText(title: "as Warnig", image: "exclamationmark.triangle", backgroundColor: .yellow)
+                    }
+                    
+                    Button {
+                        log.info(text)
+                    } label: {
+                        ImageText(title: "as Info", image: "info.circle", backgroundColor: .blue)
+                    }
+                }
+                .padding(5)
             }
+
         }
         .onAppear {
             // TextEditorのplaceholder表示のため

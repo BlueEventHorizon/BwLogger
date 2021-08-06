@@ -18,12 +18,21 @@ class PublishedLogger: ObservableObject, LogOutput {
     @Published var logMessage: String = ""
 
     func log(_ information: LogInformation) {
-        let separator: String = information.message.isEmpty ? "" : " --"
-        
-        let message = information.level == .info ?
-            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+        let message = getStandardMessage(with: information)
 
         logMessage = message
+    }
+}
+
+extension LogOutput {
+    public func prefix(for level: Logger.Level) -> String {
+        switch level {
+        case .log: return ""
+        case .debug: return "✴️"
+        case .info: return "✳️"
+        case .warning: return "⚠️"
+        case .error: return "🔥"
+        case .fault: return "🔴"
+        }
     }
 }
