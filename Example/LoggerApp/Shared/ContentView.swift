@@ -24,33 +24,55 @@ struct ContentView: View {
 
             TextFeild(text: $text, placeHolder: $placeHolder)
 
-            VStack {
-                HStack(spacing: 20) {
+            VStack(alignment: .leading, spacing: 0) {
+                HStack(spacing: 10) {
+                    
+                    Button {
+                        log.fault(text)
+                    } label: {
+                        ImageText(title: "fault", image: "flame.fill", backgroundColor: .red)
+                    }
+                    
                     Button {
                         log.error(text)
                     } label: {
-                        ImageText(title: "as Error", image: "flame.fill", backgroundColor: .red)
+                        ImageText(title: "error", image: "flame.fill", backgroundColor: .red)
                     }
                     
                     Button {
                         log.debug(text)
                     } label: {
-                        ImageText(title: "as Debug", image: "ant", backgroundColor: .orange)
+                        ImageText(title: "debug", image: "ant", backgroundColor: .orange)
                     }
                 }
                 .padding(5)
                 
-                HStack(spacing: 20) {
+                HStack(spacing: 10) {
                     Button {
                         log.warning(text)
                     } label: {
-                        ImageText(title: "as Warnig", image: "exclamationmark.triangle", backgroundColor: .yellow)
+                        ImageText(title: "warnig", image: "exclamationmark.triangle", backgroundColor: .yellow)
                     }
                     
                     Button {
                         log.info(text)
                     } label: {
-                        ImageText(title: "as Info", image: "info.circle", backgroundColor: .blue)
+                        ImageText(title: "info", image: "info.circle", backgroundColor: .blue)
+                    }
+                }
+                .padding(5)
+                
+                HStack(spacing: 10) {
+                    Button {
+                        log.entered(self)
+                    } label: {
+                        ImageText(title: "entered", image: "arrow.right.to.line.alt", backgroundColor: .green)
+                    }
+                    
+                    Button {
+                        log.deinit()
+                    } label: {
+                        ImageText(title: "deinit", image: "arrow.down.to.line.alt", backgroundColor: .black)
                     }
                 }
                 .padding(5)

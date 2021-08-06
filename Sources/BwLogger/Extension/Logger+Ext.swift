@@ -83,13 +83,13 @@ extension Logger {
         // LogExtraInformationをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
         // let extra = LogExtraInformation(prefix: "", message: message)
 
-        log(LogInformation(level: .log, prefix: "➡️", message: message, instance: instance, function: function, file: file, line: line))
+        log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "➡️", instance: instance))
     }
 
     @inlinable
     public func `deinit`(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
-        log(LogInformation(level: .log, prefix: "❎", message: message, instance: instance, function: function, file: file, line: line))
+        log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "❎", instance: instance))
     }
 }

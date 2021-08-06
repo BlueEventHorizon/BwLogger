@@ -30,7 +30,7 @@ public struct LogInformation {
     ///   - function: 関数名
     ///   - file: ファイル名
     ///   - line: ファイル内の行数
-    public init(level: Logger.Level, prefix: String, message: Any, instance: Any? = nil, function: StaticString, file: StaticString, line: Int) {
+    public init(level: Logger.Level, message: Any, function: StaticString, file: StaticString, line: Int, prefix: String = "", instance: Any? = nil) {
         self.level = level
         self.prefix = prefix
 
