@@ -1,5 +1,5 @@
 //
-//  LogContext.swift
+//  LogInformation.swift
 //  BwTools
 //
 //  Created by k_terada on 2020/09/15.

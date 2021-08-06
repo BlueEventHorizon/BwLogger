@@ -13,17 +13,17 @@ public class PrintLogger: LogOutput {
 
     public init() {}
 
-    public func log(_ context: LogInformation) {
+    public func log(_ information: LogInformation) {
         PrintLogger.semaphore.wait()
         defer {
             PrintLogger.semaphore.signal()
         }
 
-        let separator: String = context.message.isEmpty ? "" : " --"
+        let separator: String = information.message.isEmpty ? "" : " --"
         
-        let message = context.level == .info ?
-            "\(context.prefix)\(addSpacer(" ", before: context.message))\(separator) \(context.methodName)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(addSpacer(" ", before: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
+        let message = information.level == .info ?
+            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
+            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
 
         print(message)
     }

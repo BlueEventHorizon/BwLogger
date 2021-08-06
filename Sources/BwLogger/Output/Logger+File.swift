@@ -23,12 +23,12 @@ public final class FileLogger: LogOutput {
         self.dependency = dependency
     }
 
-    public func log(_ context: LogInformation) {
-        let separator: String = context.message.isEmpty ? "" : " --"
+    public func log(_ information: LogInformation) {
+        let separator: String = information.message.isEmpty ? "" : " --"
         
-        let message = context.level == .info ?
-            "\(context.prefix)\(addSpacer(" ", before: context.message))\(separator) \(context.methodName)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(addSpacer(" ", before: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
+        let message = information.level == .info ?
+            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
+            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
 
         dependency.open()
         dependency.write(message)

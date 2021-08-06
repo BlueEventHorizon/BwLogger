@@ -19,15 +19,15 @@ private let oslog = os.Logger(subsystem: ".app", category: "App")
 public class OsLogger: LogOutput {
     public init(subsystem: String = "com.beowulf-tech", category: String = "App") {}
 
-    public func log(_ context: LogInformation) {
-        let separator: String = context.message.isEmpty ? "" : " --"
+    public func log(_ information: LogInformation) {
+        let separator: String = information.message.isEmpty ? "" : " --"
         
-        let message = context.level == .info ?
-            "\(context.prefix)\(addSpacer(" ", before: context.message))\(separator) \(context.methodName)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(addSpacer(" ", before: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
+        let message = information.level == .info ?
+            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
+            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
 
         if #available(iOS 14.0, *) {
-            switch context.level {
+            switch information.level {
                 case .log:
                     oslog.log("\(message)")
 

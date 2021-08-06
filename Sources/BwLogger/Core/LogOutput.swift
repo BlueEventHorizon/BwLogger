@@ -8,7 +8,7 @@
 import Foundation
 
 public protocol LogOutput {
-    func log(_ context: LogInformation)
+    func log(_ information: LogInformation)
 }
 
 extension LogOutput {

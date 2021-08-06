@@ -17,12 +17,12 @@ class PublishedLogger: ObservableObject, LogOutput {
     
     @Published var logMessage: String = ""
 
-    func log(_ context: LogInformation) {
-        let separator: String = context.message.isEmpty ? "" : " --"
+    func log(_ information: LogInformation) {
+        let separator: String = information.message.isEmpty ? "" : " --"
         
-        let message = context.level == .info ?
-            "\(context.prefix)\(addSpacer(" ", before: context.message))\(separator) \(context.methodName)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(addSpacer(" ", before: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
+        let message = information.level == .info ?
+            "\(information.prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
+            "\(information.prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
 
         logMessage = message
     }

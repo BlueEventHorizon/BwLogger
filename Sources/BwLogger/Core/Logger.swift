@@ -49,9 +49,9 @@ open class Logger {
     }
 
     /// ログ出力する
-    /// - Parameter context: ログの情報を保持する構造体
-    public func log(_ context: LogInformation) {
-        output.log(context)
+    /// - Parameter information: ログの情報を保持する構造体
+    public func log(_ information: LogInformation) {
+        output.log(information)
     }
 
     /// ログ出力可否を返す

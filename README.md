@@ -81,27 +81,27 @@ public class OsLogger: LoggerDependency {
 
     public init() {}
 
-    public func log(_ context: LogContext) {
+    public func log(_ information: LogInformation) {
 
         var formattedMessage = ""
 
-        switch context.level {
+        switch information.level {
             case .trace:
-                formattedMessage = "\("➡️") \(context.methodName())\(context.addSpacer(" -- ", to: context.message))"
+                formattedMessage = "\("➡️") \(information.methodName())\(information.addSpacer(" -- ", to: information.message))"
             case .debug:
-                formattedMessage = "\("🟠") [\(context.threadName())]\(context.message) -- \(context.lineInfo())"
+                formattedMessage = "\("🟠") [\(information.threadName())]\(information.message) -- \(information.lineInfo())"
             case .info:
-                formattedMessage = "\("🔵")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("🔵")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
             case .notice:
-                formattedMessage = "\("🟢")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("🟢")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
             case .warning:
-                formattedMessage = "\("⚠️") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("⚠️") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
             case .error:
-                formattedMessage = "\("❌") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("❌") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
             case .fatal:
-                formattedMessage = "\("🔥") [\(context.threadName())]\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("🔥") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
             case .deinit:
-                formattedMessage = "\("❎ DEINIT")\(context.addSpacer(" ", to: context.message)) -- \(context.lineInfo())"
+                formattedMessage = "\("❎ DEINIT")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
         }
 
         os_log("%s", formattedMessage)
