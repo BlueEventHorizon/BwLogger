@@ -8,6 +8,8 @@
 
 import Foundation
 
+public typealias PrintLogger = ConsoleLogger
+
 public class ConsoleLogger: LogOutput {
     private static let semaphore = DispatchSemaphore(value: 1)
 
