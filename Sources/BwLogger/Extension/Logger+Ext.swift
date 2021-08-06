@@ -78,18 +78,16 @@ extension Logger {
     public func entered(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
-        // LoggerExtraContextをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
-        // let extra = LoggerExtraContext(prefix: "", message: message)
+        // LogExtraInformationをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
+        // let extra = LogExtraInformation(prefix: "", message: message)
 
-        let context = LogInformation(level: .log, prefix: "➡️", message: message, instance: instance, function: function, file: file, line: line)
-        log(context)
+        log(LogInformation(level: .log, prefix: "➡️", message: message, instance: instance, function: function, file: file, line: line))
     }
 
     @inlinable
     public func `deinit`(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
-        let context = LogInformation(level: .log, prefix: "❎", message: message, instance: instance, function: function, file: file, line: line)
-        log(context)
+        log(LogInformation(level: .log, prefix: "❎", message: message, instance: instance, function: function, file: file, line: line))
     }
 }
