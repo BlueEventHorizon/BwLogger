@@ -79,12 +79,6 @@ public struct LogInformation {
         let result = "\(String(describing: type(of: instance))):\(function)"
         return result
     }
-
-    public func addSpacer(_ spacer: String, to string: String) -> String {
-        guard string.isNotEmpty else { return "" }
-
-        return "\(spacer)\(string)"
-    }
 }
 
 // MARK: - Private extension

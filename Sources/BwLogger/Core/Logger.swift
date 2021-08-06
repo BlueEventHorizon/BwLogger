@@ -8,14 +8,6 @@
 
 import Foundation
 
-// MARK: - LogOutput
-
-public protocol LogOutput {
-    func log(_ context: LogInformation)
-}
-
-// MARK: - Logger
-
 open class Logger {
     public enum Level: String, Codable, CaseIterable {
         case log = "log"

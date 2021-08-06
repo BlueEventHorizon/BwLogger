@@ -22,8 +22,8 @@ public class PrintLogger: LogOutput {
         let separator: String = context.message.isEmpty ? "" : " --"
         
         let message = context.level == .info ?
-            "\(context.prefix)\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName)" :
-            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(context.addSpacer(" ", to: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
+            "\(context.prefix)\(addSpacer(" ", before: context.message))\(separator) \(context.methodName)" :
+            "\(context.prefix) [\(context.timestamp())] [\(context.threadName)]\(addSpacer(" ", before: context.message))\(separator) \(context.methodName) \(context.fileName):\(context.line))"
 
         print(message)
     }
