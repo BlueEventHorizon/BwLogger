@@ -10,13 +10,12 @@ import BwLogger
 import Foundation
 
 public protocol FileLoggerDependency {
-     func open()
-     func close()
-     func write(_ text: String)
+    func open()
+    func close()
+    func write(_ text: String)
 }
 
 public final class FileLogger: LogOutput {
-
     let dependency: FileLoggerDependency
 
     public init(dependency: FileLoggerDependency) {

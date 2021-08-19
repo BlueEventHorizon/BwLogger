@@ -27,15 +27,15 @@ public class ConsoleLogger: LogOutput {
     }
 }
 
-extension ConsoleLogger {    
+extension ConsoleLogger {
     public func prefix(for level: Logger.Level) -> String {
         switch level {
-        case .log: return ""
-        case .debug: return "🛠"
-        case .info: return "🔵"
-        case .warning: return "⚠️"
-        case .error: return "🚫"
-        case .fault: return "🔥"
+            case .log: return ""
+            case .debug: return "🛠"
+            case .info: return "🔵"
+            case .warning: return "⚠️"
+            case .error: return "🚫"
+            case .fault: return "🔥"
         }
     }
 

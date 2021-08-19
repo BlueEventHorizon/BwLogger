@@ -17,7 +17,7 @@ public struct LogInformation {
     public let function: StaticString
     public let file: StaticString
     public let line: Int
-    
+
     public let prefix: String?
     public let instance: Any?
 

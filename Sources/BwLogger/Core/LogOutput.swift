@@ -1,6 +1,6 @@
 //
 //  LogOutput.swift
-//  
+//
 //
 //  Created by Katsuhiko Terada on 2021/08/06.
 //
@@ -23,12 +23,12 @@ extension LogOutput {
 
     public func prefix(for level: Logger.Level) -> String {
         switch level {
-        case .log: return ""
-        case .debug: return "🛠"
-        case .info: return "🔵"
-        case .warning: return "⚠️"
-        case .error: return "🚫"
-        case .fault: return "🔥"
+            case .log: return ""
+            case .debug: return "🛠"
+            case .info: return "🔵"
+            case .warning: return "⚠️"
+            case .error: return "🚫"
+            case .fault: return "🔥"
         }
     }
 
@@ -39,8 +39,7 @@ extension LogOutput {
         if let _prefix = information.prefix {
             // information内にprefixがあれば優先して使用する
             prefix = _prefix
-        }
-        else {
+        } else {
             prefix = self.prefix(for: information.level)
         }
 

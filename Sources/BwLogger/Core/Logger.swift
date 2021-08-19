@@ -28,23 +28,23 @@ open class Logger {
     public private(set) var levels: [Level]?
 
     #if DEBUG
-    public static let defaultLevels: [Level]? = nil
+        public static let defaultLevels: [Level]? = nil
     #else
-    public static let defaultLevels: [Level]? = []
+        public static let defaultLevels: [Level]? = []
     #endif
-    
+
     public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
         self.output = output
         self.levels = levels
     }
-    
+
     /// ログレベルを変更する
     /// - Parameter levels: ログレベル
     /// - Returns: Loggerインスタンス
     /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
     public func setLevel(_ levels: [Level]?) -> Self {
         self.levels = levels
-        
+
         return self
     }
 
