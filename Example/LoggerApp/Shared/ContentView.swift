@@ -8,37 +8,35 @@
 import SwiftUI
 
 struct ContentView: View {
-    
     @StateObject var logger: PublishedLogger = PublishedLogger.shared
     @State private var fullText: String = ""
     @State private var text: String = ""
     @State var placeHolder: String = "ここに何か書いてボタンを押す"
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             Text(fullText)
                 .font(.footnote)
                 .padding()
-            
+
             Spacer()
 
             TextFeild(text: $text, placeHolder: $placeHolder)
 
             VStack(alignment: .leading, spacing: 0) {
                 HStack(spacing: 10) {
-                    
                     Button {
                         log.fault(text)
                     } label: {
                         ImageText(title: "fault", image: "flame.fill", backgroundColor: .red)
                     }
-                    
+
                     Button {
                         log.error(text)
                     } label: {
                         ImageText(title: "error", image: "flame.fill", backgroundColor: .red)
                     }
-                    
+
                     Button {
                         log.debug(text)
                     } label: {
@@ -46,14 +44,14 @@ struct ContentView: View {
                     }
                 }
                 .padding(5)
-                
+
                 HStack(spacing: 10) {
                     Button {
                         log.warning(text)
                     } label: {
                         ImageText(title: "warnig", image: "exclamationmark.triangle", backgroundColor: .yellow)
                     }
-                    
+
                     Button {
                         log.info(text)
                     } label: {
@@ -61,14 +59,14 @@ struct ContentView: View {
                     }
                 }
                 .padding(5)
-                
+
                 HStack(spacing: 10) {
                     Button {
                         log.entered(self)
                     } label: {
                         ImageText(title: "entered", image: "arrow.right.to.line.alt", backgroundColor: .green)
                     }
-                    
+
                     Button {
                         log.deinit()
                     } label: {
@@ -77,14 +75,13 @@ struct ContentView: View {
                 }
                 .padding(5)
             }
-
         }
         .onAppear {
             // TextEditorのplaceholder表示のため
             UITextView.appearance().backgroundColor = .clear
         }
         .onReceive(logger.$logMessage) { message in
-            fullText = fullText + "\n" + message
+            fullText += "\n" + message
         }
         .padding(20)
     }

@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct TextFeild: View {
-    
     @Binding var text: String
     @Binding var placeHolder: String
-    
+
     var body: some View {
         ZStack(alignment: .topLeading) {
             if text.isEmpty {
@@ -30,9 +29,9 @@ struct TextFeild: View {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.gray, lineWidth: 1)
                 )
-                .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, 5)
+                .padding(/*@START_MENU_TOKEN@*/ .all/*@END_MENU_TOKEN@*/, 5)
         }
-        .onAppear{
+        .onAppear {
             // TextEditorのplaceholder表示のため
             UITextView.appearance().backgroundColor = .clear
         }
@@ -40,7 +39,6 @@ struct TextFeild: View {
 }
 
 struct TextFeild_Previews: PreviewProvider {
-    
     @State static var text: String = ""
     @State static var placeHolder: String = "ここに何か書いてボタンを押す"
 

@@ -23,12 +23,23 @@ extension LogOutput {
 
     public func prefix(for level: Logger.Level) -> String {
         switch level {
-            case .log: return ""
-            case .debug: return "🛠"
-            case .info: return "🔵"
-            case .warning: return "⚠️"
-            case .error: return "🚫"
-            case .fault: return "🔥"
+            case .log:
+                return ""
+
+            case .debug:
+                return "🛠"
+
+            case .info:
+                return "🔵"
+
+            case .warning:
+                return "⚠️"
+
+            case .error:
+                return "🚫"
+
+            case .fault:
+                return "🔥"
         }
     }
 
@@ -36,9 +47,9 @@ extension LogOutput {
         let separator: String = information.message.isEmpty ? "" : " --"
 
         let prefix: String
-        if let _prefix = information.prefix {
+        if let prefixtmp = information.prefix {
             // information内にprefixがあれば優先して使用する
-            prefix = _prefix
+            prefix = prefixtmp
         } else {
             prefix = self.prefix(for: information.level)
         }

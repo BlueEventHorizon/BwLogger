@@ -1,9 +1,7 @@
-import XCTest
 @testable import BwLogger
+import XCTest
 
 final class LoggerTests: XCTestCase {
-
-
     func testPrintLogger() throws {
         let log = Logger(PrintLogger())
 
@@ -88,5 +86,4 @@ final class LoggerTests: XCTestCase {
         log.error("")
         log.deinit()
     }
-    
 }

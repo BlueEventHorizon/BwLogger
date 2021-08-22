@@ -182,6 +182,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 52AA05AD2698AAF100296968 /* Build configuration list for PBXNativeTarget "LoggerApp (iOS)" */;
 			buildPhases = (
+				52896B1026D243C00092DC9E /* Run swiftformat Script */,
+				52896B0E26D20F3A0092DC9E /* Run swiftlint Script */,
 				52AA057F2698AAF000296968 /* Sources */,
 				52AA05802698AAF000296968 /* Frameworks */,
 				52AA05812698AAF000296968 /* Resources */,
@@ -332,6 +334,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		52896B0E26D20F3A0092DC9E /* Run swiftlint Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run swiftlint Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n    #swiftlint autocorrect\n    swiftlint ../../\n    #echo \"⚠️warning: swiftlint is disabled\"\nelse\n    echo \"⚠️warning: swiftlint not installed\"\nfi\n";
+		};
+		52896B1026D243C00092DC9E /* Run swiftformat Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run swiftformat Script";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --exclude Carthage,Pods,Generated --decimalgrouping 3 --stripunusedargs closure-only --extensionacl on-declarations --indentcase true --disable redundanttype,redundantRawValues,redundantSelf,trailingCommas,wrapMultilineStatementBraces,blankLinesAroundMark ${SRCROOT}/../../\n    #echo \"⚠️warning: swiftformat id disabled\"\nelse\n    echo \"⚠️warning: swiftformat not installed\"\nfi\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		52AA057F2698AAF000296968 /* Sources */ = {

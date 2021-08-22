@@ -29,7 +29,13 @@ extension Logger {
     }
 
     public static func frame2String(_ frame: CGRect, format: String = "%.2f") -> String {
-        return "x= \(String(format: format, frame.origin.x)), y= \(String(format: format, frame.origin.y)), w= \(String(format: format, frame.size.width)), h= \(String(format: format, frame.size.height))"
+        return
+            """
+            x= \(String(format: format, frame.origin.x)),
+            y= \(String(format: format, frame.origin.y)),
+            w= \(String(format: format, frame.size.width)),
+            h= \(String(format: format, frame.size.height))
+            """
     }
 
     public static func url2String(_ url: URL) -> String {

@@ -13,7 +13,8 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
             name: "BwLogger",
-            targets: ["BwLogger"]),
+            targets: ["BwLogger"]
+        ),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -28,13 +29,15 @@ let package = Package(
             cSettings: nil,
             cxxSettings: nil,
             swiftSettings: [.define("LOGGER_PRIVATE_EXTENSION_ENABLED")],
-            linkerSettings: nil),
+            linkerSettings: nil
+        ),
         .testTarget(
             name: "BwLoggerTests",
             dependencies: ["BwLogger"],
             cSettings: nil,
             cxxSettings: nil,
             swiftSettings: [.define("LOGGER_PRIVATE_EXTENSION_ENABLED")],
-            linkerSettings: nil),
+            linkerSettings: nil
+        ),
     ]
 )
