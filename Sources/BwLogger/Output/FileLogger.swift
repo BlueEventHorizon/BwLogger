@@ -6,7 +6,6 @@
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
-import BwLogger
 import Foundation
 
 public protocol FileLoggerDependency {
