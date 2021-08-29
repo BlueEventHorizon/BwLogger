@@ -2,8 +2,8 @@
 import XCTest
 
 final class LoggerTests: XCTestCase {
-    func testPrintLogger() throws {
-        let log = Logger(PrintLogger())
+    func testConsoleLogger() throws {
+        let log = Logger(ConsoleLogger())
 
         log.info("----- 通常Logger【開始】 ----")
 
@@ -43,7 +43,7 @@ final class LoggerTests: XCTestCase {
     }
 
     func testDisable() throws {
-        let log = Logger(PrintLogger())
+        let log = Logger(ConsoleLogger())
 
         log.info("----- NO 自インスタンス 非表示テスト【開始】 ----")
 

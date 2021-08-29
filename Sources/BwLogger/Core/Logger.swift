@@ -28,9 +28,9 @@ open class Logger {
     public private(set) var levels: [Level]?
 
     #if DEBUG
-        public static let defaultLevels: [Level]? = nil
+    public static let defaultLevels: [Level]? =  [.fault, .error, .warning, .debug, .info] // nil
     #else
-        public static let defaultLevels: [Level]? = []
+        public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
 
     public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
