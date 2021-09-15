@@ -68,42 +68,42 @@ open class Logger {
     }
 
     @inlinable
-    public func log(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     @inlinable
-    public func info(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.info) else { return }
 
         log(LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     @inlinable
-    public func debug(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.debug) else { return }
 
         log(LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     @inlinable
-    public func warning(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.warning) else { return }
 
         log(LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     @inlinable
-    public func error(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.error) else { return }
 
         log(LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     @inlinable
-    public func fault(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.fault) else { return }
 
         log(LogInformation(level: .fault, message: message, function: function, file: file, line: line, instance: instance))

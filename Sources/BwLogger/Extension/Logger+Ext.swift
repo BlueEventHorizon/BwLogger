@@ -65,11 +65,11 @@ extension Logger {
 
 /// Loggerを拡張する構造体
 public struct LogExtraInformation: CustomStringConvertible {
-    let function: StaticString
+    let function: String
     let message: Any?
     let prefix: String?
 
-    public init(function: StaticString = #function, message: Any? = nil, prefix: String? = nil) {
+    public init(function: String = #function, message: Any? = nil, prefix: String? = nil) {
         self.function = function
         self.message = message
         self.prefix = prefix
@@ -82,7 +82,7 @@ public struct LogExtraInformation: CustomStringConvertible {
 
 extension Logger {
     @inlinable
-    public func entered(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func entered(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         // LogExtraInformationをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
@@ -92,7 +92,7 @@ extension Logger {
     }
 
     @inlinable
-    public func `deinit`(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #file, line: Int = #line) {
+    public func `deinit`(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "❎", instance: instance))

@@ -14,8 +14,8 @@ public struct LogInformation {
     public let message: String
     public let date: Date
 
-    public let function: StaticString
-    public let file: StaticString
+    public let function: String
+    public let file: String
     public let line: Int
 
     public let prefix: String?
@@ -30,7 +30,7 @@ public struct LogInformation {
     ///   - line: ファイル内の行数
     ///   - prefix: 先頭のアイコン等
     ///   - instance: 呼び出しているインスタンスを渡すと、ログに「クラス名:関数名」を出力する。
-    public init(level: Logger.Level, message: Any, function: StaticString, file: StaticString, line: Int, prefix: String? = nil, instance: Any? = nil) {
+    public init(level: Logger.Level, message: Any, function: String, file: String, line: Int, prefix: String? = nil, instance: Any? = nil) {
         self.level = level
         self.prefix = prefix
 
