@@ -8,7 +8,7 @@
 
 import Foundation
 
-open class Logger {
+public final class Logger {
     public enum Level: String, Codable, CaseIterable {
         case log
         case debug
