@@ -28,13 +28,18 @@ public final class Logger {
     public private(set) var levels: [Level]?
 
     #if DEBUG
-    public static let defaultLevels: [Level]? =  [.fault, .error, .warning, .debug, .info] // nil
+        public static let defaultLevels: [Level]? =  [.fault, .error, .warning, .debug, .info] // nil
     #else
         public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
 
     public init(_ outputs: [LogOutput], levels: [Level]? = Logger.defaultLevels) {
         self.outputs = outputs
+        self.levels = levels
+    }
+    
+    public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
+        self.outputs = [output]
         self.levels = levels
     }
 
