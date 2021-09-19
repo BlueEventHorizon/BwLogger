@@ -37,10 +37,9 @@ public final class Logger {
         self.outputs = outputs
         self.levels = levels
     }
-    
-    public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
-        self.outputs = [output]
-        self.levels = levels
+
+    public convenience init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
+        self.init([output], levels: levels)
     }
 
     /// ログレベルを変更する
