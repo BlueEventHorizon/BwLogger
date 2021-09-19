@@ -9,7 +9,7 @@ import BwLogger
 import Combine
 import Foundation
 
-let log = Logger(PublishedLogger.shared)
+let log = Logger([PublishedLogger.shared])
 
 class PublishedLogger: ObservableObject, LogOutput {
     static let shared = PublishedLogger()

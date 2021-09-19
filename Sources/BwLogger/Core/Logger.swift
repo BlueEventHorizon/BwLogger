@@ -18,10 +18,10 @@ public final class Logger {
         case fault
     }
 
-    public static let `default` = Logger(ConsoleLogger())
+    public static let `default` = Logger([OsLogger()])
 
     /// ログのアウトプット先
-    public private(set) var output: LogOutput
+    public private(set) var outputs: [LogOutput]
 
     /// 出力可能なログレベルを保持する。niであれば全てを出力する。
     // swiftlint:disable:next discouraged_optional_collection
@@ -33,8 +33,8 @@ public final class Logger {
         public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
 
-    public init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
-        self.output = output
+    public init(_ outputs: [LogOutput], levels: [Level]? = Logger.defaultLevels) {
+        self.outputs = outputs
         self.levels = levels
     }
 
@@ -51,7 +51,9 @@ public final class Logger {
     /// ログ出力する
     /// - Parameter information: ログの情報を保持する構造体
     public func log(_ information: LogInformation) {
-        output.log(information)
+        for output in outputs {
+            output.log(information)
+        }
     }
 
     /// ログ出力可否を返す
