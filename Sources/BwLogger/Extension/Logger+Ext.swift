@@ -63,38 +63,29 @@ extension Logger {
 
 // MARK: - Logger 追加エントリー
 
-/// Loggerを拡張する構造体
-public struct LogExtraInformation: CustomStringConvertible {
-    let function: String
-    let message: Any?
-    let prefix: String?
-
-    public init(function: String = #function, message: Any? = nil, prefix: String? = nil) {
-        self.function = function
-        self.message = message
-        self.prefix = prefix
-    }
-
-    public var description: String {
-        "\(prefix ?? "") \((message ?? "") as? String ?? "")"
-    }
-}
-
 extension Logger {
+    // instanceを渡すことで、正確なオブジェクト名が得られます。
     @inlinable
     public func entered(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
-        // LogExtraInformationをmessageとして与えることで、descriptionを呼び出させ、これをログ出力する。
-        // let extra = LogExtraInformation(prefix: "", message: message)
-
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "➡️", instance: instance))
     }
 
+    // instanceを渡すことで、正確なオブジェクト名が得られます。
     @inlinable
     public func `deinit`(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "❎", instance: instance))
+    }
+    
+    @inlinable
+    public func json(jsonData: Data, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+        guard isEnabled(.log) else { return }
+        
+        let jsonString = Logger.decodeJsonData(jsonData)
+
+        log(LogInformation(level: .log, message: jsonString, function: function, file: file, line: line, prefix: "🌍", instance: instance))
     }
 }

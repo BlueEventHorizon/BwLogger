@@ -20,7 +20,7 @@ public class OsLogger: LogOutput {
     public init(subsystem: String = "com.beowulf-tech", category: String = "App") {}
 
     public func log(_ information: LogInformation) {
-        let message = getStandardMessage(with: information)
+        let message = generateMessage(with: information)
 
         if #available(iOS 14.0, *) {
             switch information.level {

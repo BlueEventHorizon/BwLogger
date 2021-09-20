@@ -21,7 +21,7 @@ public class ConsoleLogger: LogOutput {
             ConsoleLogger.semaphore.signal()
         }
 
-        let message = getStandardMessage(with: information)
+        let message = generateMessage(with: information)
 
         print(message)
     }

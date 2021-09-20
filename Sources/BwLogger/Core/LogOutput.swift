@@ -10,15 +10,15 @@ import Foundation
 public protocol LogOutput {
     func log(_ information: LogInformation)
     func prefix(for level: Logger.Level) -> String
-    func getStandardMessage(with information: LogInformation) -> String
+    func generateMessage(with information: LogInformation) -> String
 }
 
 extension LogOutput {
     // stringが空でなければstringの前にspacerを追加する
-    public func addSpacer(_ spacer: String, before string: String) -> String {
+    public func prefixIfNotEmpty(string: String, prefix: String = " ") -> String {
         guard string.isNotEmpty else { return "" }
 
-        return "\(spacer)\(string)"
+        return "\(prefix)\(string)"
     }
 
     public func prefix(for level: Logger.Level) -> String {
@@ -43,7 +43,7 @@ extension LogOutput {
         }
     }
 
-    public func getStandardMessage(with information: LogInformation) -> String {
+    public func generateMessage(with information: LogInformation) -> String {
         let separator: String = information.message.isEmpty ? "" : " --"
 
         let prefix: String
@@ -55,8 +55,8 @@ extension LogOutput {
         }
 
         return information.level == .info ?
-            "\(prefix)\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-            "\(prefix) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName)" :
+            "\(prefix) [\(information.timestamp())] [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
     }
 }
 

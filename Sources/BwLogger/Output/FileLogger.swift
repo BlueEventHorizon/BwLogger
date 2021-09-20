@@ -22,7 +22,7 @@ public final class FileLogger: LogOutput {
     }
 
     public func log(_ information: LogInformation) {
-        let message = getStandardMessage(with: information)
+        let message = generateMessage(with: information)
 
         dependency.open()
         dependency.write(message)

@@ -24,7 +24,7 @@ public struct LogInformation {
     /// 初期化
     /// - Parameters:
     ///   - level: ログレベル
-    ///   - message: メッセージ。オブジェクトでも構わない
+    ///   - message: メッセージ。String以外にも、CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleも可
     ///   - function: 関数名
     ///   - file: ファイル名
     ///   - line: ファイル内の行数
@@ -34,7 +34,7 @@ public struct LogInformation {
         self.level = level
         self.prefix = prefix
 
-        // メッセージのdescriptionを取り出す（よってCustomStringConvertible/TextOutputStreamable/CustomDebugStringConvertibleを持つclassであれば何でも良いことになる）
+        // メッセージのdescriptionを取り出す（よってCustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleを持つclassであれば何でも良いことになる）
         self.message = (message as? String) ?? String(describing: message)
         self.instance = instance
         self.date = Date()
