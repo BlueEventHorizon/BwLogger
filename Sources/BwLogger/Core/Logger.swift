@@ -18,14 +18,14 @@ public final class Logger {
         case fault
     }
 
-    public static let `default` = Logger([OsLogger()])
-    
+    public static let `default` = Logger([OsLogger(subsystem: "Logger default", category: "")])
+
     #if DEBUG
         public static let defaultLevels: [Level]? =  [.fault, .error, .warning, .debug, .info] // nil
     #else
         public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
-    
+
     // ------------------------------------------------------------------------------------------
     // MARK: - public private(set)
     // ------------------------------------------------------------------------------------------
