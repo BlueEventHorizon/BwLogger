@@ -21,7 +21,7 @@ public final class Logger {
     public static let `default` = Logger([OsLogger(subsystem: "Logger default", category: "")])
 
     #if DEBUG
-        public static let defaultLevels: [Level]? =  [.fault, .error, .warning, .debug, .info] // nil
+    public static let defaultLevels: [Level]? =  [.log, .fault, .error, .warning, .debug, .info] // nil
     #else
         public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
