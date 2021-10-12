@@ -11,16 +11,10 @@ import Foundation
 public typealias PrintLogger = ConsoleLogger
 
 public class ConsoleLogger: LogOutput {
-    private static let semaphore = DispatchSemaphore(value: 1)
 
     public init() {}
 
     public func log(_ information: LogInformation) {
-        ConsoleLogger.semaphore.wait()
-        defer {
-            ConsoleLogger.semaphore.signal()
-        }
-
         let message = generateMessage(with: information)
 
         print(message)

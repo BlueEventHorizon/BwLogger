@@ -20,6 +20,8 @@ public final class Logger {
 
     public static let `default` = Logger([OsLogger(subsystem: "Logger default", category: "")])
 
+    private static let semaphore = DispatchSemaphore(value: 1)
+
     #if DEBUG
     public static let defaultLevels: [Level]? =  [.log, .fault, .error, .warning, .debug, .info] // nil
     #else
@@ -59,6 +61,11 @@ public final class Logger {
     /// - Returns: Loggerインスタンス
     /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
     public func setLevel(_ levels: [Level]?) -> Self {
+        Logger.semaphore.wait()
+        defer {
+            Logger.semaphore.signal()
+        }
+
         self.levels = levels
 
         return self
@@ -85,6 +92,11 @@ public final class Logger {
     /// @inlinableのためにpublic宣言
     /// - Parameter information: ログの情報を保持する構造体
     public func log(_ information: LogInformation) {
+        Logger.semaphore.wait()
+        defer {
+            Logger.semaphore.signal()
+        }
+
         for output in outputs {
             output.log(information)
         }
