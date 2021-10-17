@@ -65,7 +65,6 @@ extension Logger {
 
 extension Logger {
     // instanceを渡すことで、正確なオブジェクト名が得られます。
-    @inlinable
     public func entered(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
@@ -73,14 +72,12 @@ extension Logger {
     }
 
     // instanceを渡すことで、正確なオブジェクト名が得られます。
-    @inlinable
     public func `deinit`(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "❎", instance: instance))
     }
-    
-    @inlinable
+
     public func json(jsonData: Data, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
         

@@ -89,9 +89,8 @@ public final class Logger {
     // ------------------------------------------------------------------------------------------
 
     /// ログ出力する
-    /// @inlinableのためにpublic宣言
     /// - Parameter information: ログの情報を保持する構造体
-    public func log(_ information: LogInformation) {
+    func log(_ information: LogInformation) {
         semaphore.wait()
         defer {
             semaphore.signal()
@@ -115,7 +114,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
@@ -129,7 +127,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.info) else { return }
 
@@ -143,7 +140,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.debug) else { return }
 
@@ -157,7 +153,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.warning) else { return }
 
@@ -171,7 +166,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.error) else { return }
 
@@ -185,7 +179,6 @@ public final class Logger {
     ///   - function: 関数名（変更不可）
     ///   - file: ファイル名（変更不可）
     ///   - line: ライン数（変更不可）
-    @inlinable
     public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.fault) else { return }
 
