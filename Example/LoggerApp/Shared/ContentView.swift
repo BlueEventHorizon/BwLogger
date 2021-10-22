@@ -49,7 +49,7 @@ struct ContentView: View {
                     Button {
                         log.warning(text)
                     } label: {
-                        ImageText(title: "warnig", image: "exclamationmark.triangle", backgroundColor: .yellow)
+                        ImageText(title: "warning", image: "exclamationmark.triangle", backgroundColor: .yellow)
                     }
 
                     Button {
