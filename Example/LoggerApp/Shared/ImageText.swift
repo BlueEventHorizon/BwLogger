@@ -18,7 +18,7 @@ struct ImageText: View {
                 Image(systemName: image)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 20, height: 20, alignment: .center)
                 Text(title)
             }
             .multilineTextAlignment(.center)

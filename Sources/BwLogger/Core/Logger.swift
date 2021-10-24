@@ -23,7 +23,7 @@ public final class Logger {
     private let semaphore = DispatchSemaphore(value: 1)
 
     #if DEBUG
-    public static let defaultLevels: [Level]? =  [.log, .fault, .error, .warning, .debug, .info] // nil
+        public static let defaultLevels: [Level]? = [.log, .fault, .error, .warning, .debug, .info] // nil
     #else
         public static let defaultLevels: [Level]? = [.fault, .error]
     #endif
@@ -42,7 +42,7 @@ public final class Logger {
     // ------------------------------------------------------------------------------------------
     // MARK: - Lifecycle
     // ------------------------------------------------------------------------------------------
-    
+
     public init(_ outputs: [LogOutput], levels: [Level]? = Logger.defaultLevels) {
         self.outputs = outputs
         self.levels = levels
@@ -51,7 +51,7 @@ public final class Logger {
     public convenience init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
         self.init([output], levels: levels)
     }
-    
+
     // ------------------------------------------------------------------------------------------
     // MARK: - Configuration
     // ------------------------------------------------------------------------------------------
@@ -83,7 +83,7 @@ public final class Logger {
 
         return true
     }
-    
+
     // ------------------------------------------------------------------------------------------
     // MARK: - public func
     // ------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ public final class Logger {
     // messageにはStringだけでなく、CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertible等を渡すこともできます
     // instanceを渡すことで、正確なオブジェクト名が得られます。
     // ------------------------------------------------------------------------------------------
-    
+
     /// 特に分類しないログ出力を行う
     /// - Parameters:
     ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）

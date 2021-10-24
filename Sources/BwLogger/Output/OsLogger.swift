@@ -27,13 +27,12 @@ private class Os14Wrapper {
 }
 
 public class OsLogger: LogOutput {
-    
     let subsystem: String
     let category: String
 
     @available(iOS 14.0, *)
-    lazy private var os14: Os14Wrapper = {
-        if subsystem.isEmpty && category.isEmpty {
+    private lazy var os14: Os14Wrapper = {
+        if subsystem.isEmpty, category.isEmpty {
             return Os14Wrapper()
         } else {
             return Os14Wrapper(subsystem: subsystem, category: category)
@@ -77,7 +76,7 @@ public class OsLogger: LogOutput {
             os_log("%s", message)
         }
     }
-    
+
     public func generateMessage(with information: LogInformation) -> String {
         let separator: String = information.message.isEmpty ? "" : " --"
 

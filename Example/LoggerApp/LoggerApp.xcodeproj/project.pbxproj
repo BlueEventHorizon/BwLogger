@@ -20,8 +20,8 @@
 		52AA05A92698AAF100296968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AA057E2698AAF000296968 /* Assets.xcassets */; };
 		52AA05AA2698AAF100296968 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 52AA057E2698AAF000296968 /* Assets.xcassets */; };
 		52F2994C2698ABD000FADC26 /* BwLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 52F2994B2698ABD000FADC26 /* BwLogger */; };
-		52F2994E2698AE8800FADC26 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* Log.swift */; };
-		52F2994F2698AE8800FADC26 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* Log.swift */; };
+		52F2994E2698AE8800FADC26 /* PublishedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* PublishedLogger.swift */; };
+		52F2994F2698AE8800FADC26 /* PublishedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* PublishedLogger.swift */; };
 		76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
 		76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
 		76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461C26BD952D005A7DF8 /* ImageText.swift */; };
@@ -62,8 +62,7 @@
 		52AA059E2698AAF100296968 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AA05A22698AAF100296968 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		52AA05A42698AAF100296968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52F2994D2698AE8800FADC26 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		76E8461826BD50A5005A7DF8 /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ../..; sourceTree = "<group>"; };
+		52F2994D2698AE8800FADC26 /* PublishedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishedLogger.swift; sourceTree = "<group>"; };
 		76E8461926BD5147005A7DF8 /* TextFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFileWriter.swift; sourceTree = "<group>"; };
 		76E8461C26BD952D005A7DF8 /* ImageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,7 +103,6 @@
 		52AA05762698AAF000296968 = {
 			isa = PBXGroup;
 			children = (
-				76E8461826BD50A5005A7DF8 /* BwLogger */,
 				52AA057B2698AAF000296968 /* Shared */,
 				52AA05852698AAF000296968 /* iOS */,
 				52AA058C2698AAF100296968 /* macOS */,
@@ -123,7 +121,7 @@
 				526440402698B95F00A19F99 /* BorderedText.swift */,
 				76E8461C26BD952D005A7DF8 /* ImageText.swift */,
 				76E8461926BD5147005A7DF8 /* TextFileWriter.swift */,
-				52F2994D2698AE8800FADC26 /* Log.swift */,
+				52F2994D2698AE8800FADC26 /* PublishedLogger.swift */,
 				52AA057E2698AAF000296968 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -260,7 +258,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1250;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1310;
 				TargetAttributes = {
 					52AA05822698AAF000296968 = {
 						CreatedOnToolsVersion = 12.5.1;
@@ -370,7 +368,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n    swiftformat --exclude Carthage,Pods,Generated --decimalgrouping 3 --stripunusedargs closure-only --extensionacl on-declarations --indentcase true --disable redundanttype,redundantRawValues,redundantSelf,trailingCommas,wrapMultilineStatementBraces,blankLinesAroundMark ${SRCROOT}/../../\n    #echo \"⚠️warning: swiftformat id disabled\"\nelse\n    echo \"⚠️warning: swiftformat not installed\"\nfi\n\n";
+			shellScript = "if which swiftformat >/dev/null; then\n    # swiftformat --exclude Carthage,Pods,Generated --decimalgrouping 3 --stripunusedargs closure-only --extensionacl on-declarations --indentcase true --disable redundanttype,redundantRawValues,redundantSelf,trailingCommas,wrapMultilineStatementBraces,blankLinesAroundMark ${SRCROOT}/../../\n    echo \"⚠️warning: swiftformat id disabled\"\nelse\n    echo \"⚠️warning: swiftformat not installed\"\nfi\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -381,7 +379,7 @@
 			files = (
 				526440412698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A72698AAF100296968 /* ContentView.swift in Sources */,
-				52F2994E2698AE8800FADC26 /* Log.swift in Sources */,
+				52F2994E2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
 				76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
 				76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */,
@@ -395,7 +393,7 @@
 			files = (
 				526440422698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A82698AAF100296968 /* ContentView.swift in Sources */,
-				52F2994F2698AE8800FADC26 /* Log.swift in Sources */,
+				52F2994F2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
 				76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
 				76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A62698AAF100296968 /* LoggerApp.swift in Sources */,
@@ -597,6 +595,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D6A5KP29BP;
@@ -621,6 +620,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = D6A5KP29BP;

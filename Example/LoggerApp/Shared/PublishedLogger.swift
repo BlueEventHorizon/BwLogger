@@ -1,5 +1,5 @@
 //
-//  Log.swift
+//  PublishedLogger.swift
 //  LoggerApp
 //
 //  Created by Katsuhiko Terada on 2021/07/10.
@@ -9,6 +9,7 @@ import BwLogger
 import Combine
 import Foundation
 
+// swiftlint:disable:next prefixed_toplevel_constant
 let log = Logger([PublishedLogger.shared])
 
 class PublishedLogger: ObservableObject, LogOutput {
@@ -17,7 +18,7 @@ class PublishedLogger: ObservableObject, LogOutput {
     @Published var logMessage: String = ""
 
     func log(_ information: LogInformation) {
-        let message = getStandardMessage(with: information)
+        let message = generateMessage(with: information)
 
         logMessage = message
     }

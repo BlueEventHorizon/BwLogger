@@ -80,7 +80,7 @@ extension Logger {
 
     public func json(jsonData: Data, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
-        
+
         let jsonString = Logger.decodeJsonData(jsonData)
 
         log(LogInformation(level: .log, message: jsonString, function: function, file: file, line: line, prefix: "🌍", instance: instance))

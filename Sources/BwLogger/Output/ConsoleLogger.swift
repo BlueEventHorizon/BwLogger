@@ -11,7 +11,6 @@ import Foundation
 public typealias PrintLogger = ConsoleLogger
 
 public class ConsoleLogger: LogOutput {
-
     public init() {}
 
     public func log(_ information: LogInformation) {
