@@ -20,7 +20,7 @@ public final class Logger {
 
     public static let `default` = Logger([OsLogger(subsystem: "Logger default", category: "")])
 
-    private let semaphore = DispatchSemaphore(value: 1)
+    private static let semaphore = DispatchSemaphore(value: 1)
 
     #if DEBUG
         public static let defaultLevels: [Level]? = [.log, .fault, .error, .warning, .debug, .info] // nil
@@ -48,10 +48,6 @@ public final class Logger {
         self.levels = levels
     }
 
-    public convenience init(_ output: LogOutput, levels: [Level]? = Logger.defaultLevels) {
-        self.init([output], levels: levels)
-    }
-
     // ------------------------------------------------------------------------------------------
     // MARK: - Configuration
     // ------------------------------------------------------------------------------------------
@@ -61,9 +57,9 @@ public final class Logger {
     /// - Returns: Loggerインスタンス
     /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
     public func setLevel(_ levels: [Level]?) -> Self {
-        semaphore.wait()
+        Logger.semaphore.wait()
         defer {
-            semaphore.signal()
+            Logger.semaphore.signal()
         }
 
         self.levels = levels
@@ -90,10 +86,10 @@ public final class Logger {
 
     /// ログ出力する
     /// - Parameter information: ログの情報を保持する構造体
-    func log(_ information: LogInformation) {
-        semaphore.wait()
+    private func log(_ information: LogInformation) {
+        Logger.semaphore.wait()
         defer {
-            semaphore.signal()
+            Logger.semaphore.signal()
         }
 
         for output in outputs {
@@ -107,78 +103,42 @@ public final class Logger {
     // instanceを渡すことで、正確なオブジェクト名が得られます。
     // ------------------------------------------------------------------------------------------
 
-    /// 特に分類しないログ出力を行う
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// 汎用
     public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
     }
 
-    /// 簡潔な情報のみを表示したい時に使用する
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// 情報表示
     public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.info) else { return }
 
         log(LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
     }
 
-    /// デバッグ情報を表示したい時に使用する
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// デバッグ情報
     public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.debug) else { return }
 
         log(LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
     }
 
-    /// 警告を表示したい時に使用する
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// 警告
     public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.warning) else { return }
 
         log(LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
     }
 
-    /// エラーを表示したい時に使用する
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// エラー
     public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.error) else { return }
 
         log(LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
     }
 
-    /// 致命的なエラーを表示したい時に使用する。実装によってはasseertする。
-    /// - Parameters:
-    ///   - message: ログ表示したい文字列（CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleでも可）
-    ///   - instance: 呼び出し元のオブジェクト。ここで渡すことで正確なオブジェクト名が表示される（省略可能）
-    ///   - function: 関数名（変更不可）
-    ///   - file: ファイル名（変更不可）
-    ///   - line: ライン数（変更不可）
+    /// 致命的なエラー
     public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.fault) else { return }
 

@@ -23,23 +23,12 @@ extension LogOutput {
 
     public func prefix(for level: Logger.Level) -> String {
         switch level {
-            case .log:
-                return ""
-
-            case .debug:
-                return "🛠"
-
-            case .info:
-                return "🔵"
-
-            case .warning:
-                return "⚠️"
-
-            case .error:
-                return "🚫"
-
-            case .fault:
-                return "🔥"
+            case .log: return ""
+            case .debug: return "🛠"
+            case .info: return "🔵"
+            case .warning: return "⚠️"
+            case .error: return "🚫"
+            case .fault: return "🔥"
         }
     }
 
@@ -55,19 +44,7 @@ extension LogOutput {
         }
 
         return information.level == .info ?
-            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName)" :
-            "\(prefix) [\(information.timestamp())] [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName)" :
+            "\(prefix) [\(information.timestamp())] [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName) \(information.fileName):\(information.line))"
     }
 }
-
-#if LOGGER_PRIVATE_EXTENSION_ENABLED
-    // swiftlint:disable strict_fileprivate
-
-    extension String {
-        fileprivate var isNotEmpty: Bool {
-            !self.isEmpty
-        }
-    }
-
-    // swiftlint:enable strict_fileprivate
-#endif

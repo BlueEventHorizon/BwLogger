@@ -73,7 +73,7 @@ public class OsLogger: LogOutput {
                     os14.log.fault("\(message)")
             }
         } else {
-            os_log("%s", message)
+            os_log("%@", message)
         }
     }
 
@@ -89,7 +89,7 @@ public class OsLogger: LogOutput {
         }
 
         return information.level == .info ?
-            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName)" :
-            "\(prefix) [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
+            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName)" :
+            "\(prefix) [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName) \(information.fileName):\(information.line))"
     }
 }

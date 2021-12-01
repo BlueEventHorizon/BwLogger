@@ -70,7 +70,7 @@ public struct LogInformation {
 
     /// 関数名を返す。
     /// instanceがインスタンス・オブジェクトの場合は、class名を取得する。
-    public var methodName: String {
+    public var objectName: String {
         guard let instance = self.instance else {
             return "\(function)"
         }
@@ -81,38 +81,3 @@ public struct LogInformation {
     }
 }
 
-// MARK: - Private extension
-
-#if LOGGER_PRIVATE_EXTENSION_ENABLED
-
-    // swiftlint:disable strict_fileprivate
-
-    extension String {
-        fileprivate var isNotEmpty: Bool {
-            !self.isEmpty
-        }
-    }
-
-    extension Date {
-        // Date → String
-        fileprivate func string(dateFormat: String) -> String {
-            let formatter = DateFormatter.standard
-            formatter.dateFormat = dateFormat
-            return formatter.string(from: self)
-        }
-    }
-
-    extension DateFormatter {
-        // 現在タイムゾーンの標準フォーマッタ
-        fileprivate static let standard: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.timeZone = TimeZone.current
-            formatter.locale = Locale(identifier: "en_US_POSIX")
-            formatter.calendar = Calendar(identifier: .gregorian)
-            return formatter
-        }()
-    }
-
-    // swiftlint:enable strict_fileprivate
-
-#endif
