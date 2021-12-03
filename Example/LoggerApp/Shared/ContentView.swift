@@ -15,11 +15,13 @@ struct ContentView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text(fullText)
-                .font(.footnote)
-                .padding()
+            ScrollView {
+                Text(fullText)
+                    .font(.footnote)
+                    .padding()
 
-            Spacer()
+                Spacer()
+            }
 
             TextFeild(text: $text, placeHolder: $placeHolder)
 
@@ -62,7 +64,7 @@ struct ContentView: View {
 
                 HStack(spacing: 10) {
                     Button {
-                        log.entered(self)
+                        log.entered()
                     } label: {
                         ImageText(title: "entered", image: "arrow.right.to.line.alt", backgroundColor: .green)
                     }
@@ -80,7 +82,7 @@ struct ContentView: View {
             // TextEditorのplaceholder表示のため
             UITextView.appearance().backgroundColor = .clear
         }
-        .onReceive(logger.$logMessage) { message in
+        .onReceive(logger.logMessage) { message in
             fullText += "\n" + message
         }
         .padding(20)

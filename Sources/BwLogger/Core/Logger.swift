@@ -86,7 +86,7 @@ public final class Logger {
 
     /// ログ出力する
     /// - Parameter information: ログの情報を保持する構造体
-    private func log(_ information: LogInformation) {
+    func log(with information: LogInformation) {
         Logger.semaphore.wait()
         defer {
             Logger.semaphore.signal()
@@ -107,41 +107,41 @@ public final class Logger {
     public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
-        log(LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 情報表示
     public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.info) else { return }
 
-        log(LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// デバッグ情報
     public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.debug) else { return }
 
-        log(LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 警告
     public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.warning) else { return }
 
-        log(LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// エラー
     public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.error) else { return }
 
-        log(LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 致命的なエラー
     public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
         guard isEnabled(.fault) else { return }
 
-        log(LogInformation(level: .fault, message: message, function: function, file: file, line: line, instance: instance))
+        log(with: LogInformation(level: .fault, message: message, function: function, file: file, line: line, instance: instance))
     }
 }

@@ -15,12 +15,12 @@ let log = Logger([PublishedLogger.shared])
 class PublishedLogger: ObservableObject, LogOutput {
     static let shared = PublishedLogger()
 
-    @Published var logMessage: String = ""
+    var logMessage = PassthroughSubject<String, Never>()
 
     func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
 
-        logMessage = message
+        logMessage.send(message)
     }
 }
 

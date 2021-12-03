@@ -10,6 +10,7 @@ import XCTest
 // swiftlint:disable:next type_name
 class Tests_macOS: XCTestCase {
     override func setUpWithError() throws {
+        super.setUpWithError()
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
         // In UI tests it is usually best to stop immediately when a failure occurs.
@@ -19,6 +20,7 @@ class Tests_macOS: XCTestCase {
     }
 
     override func tearDownWithError() throws {
+        super.tearDownWithError()
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 

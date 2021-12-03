@@ -28,11 +28,13 @@ open class FileHandler {
         }
     }
 
+    // swiftlint:disable strict_fileprivate
     fileprivate let directory: URL
     fileprivate(set) var file: URL
 
     fileprivate var fileHandle: FileHandle?
     fileprivate let dispatchQueue: DispatchQueue
+    // swiftlint:enable strict_fileprivate
 
     public init(directory: URL, names: [String]) {
         self.directory = directory
