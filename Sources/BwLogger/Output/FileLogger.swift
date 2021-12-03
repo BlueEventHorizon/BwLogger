@@ -9,13 +9,12 @@
 import Foundation
 
 public final class FileLogger: LogOutput {
-    
     let writer: FileWriter
 
     init() {
         writer = FileWriter(directoryType: .document, names: ["logs", "log"])
     }
-    
+
     public func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
         writer.writeAtOnce(text: message)

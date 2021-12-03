@@ -27,7 +27,7 @@ open class FileHandler {
             }
         }
     }
-    
+
     fileprivate let directory: URL
     fileprivate(set) var file: URL
 
@@ -48,14 +48,14 @@ open class FileHandler {
     public init(directoryType: DirectoryType, names: [String]) {
         self.directory = directoryType.url
         self.file = self.directory
-        
+
         for name in names {
             self.file = self.file.appendingPathComponent(name)
         }
 
         self.dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
     }
-    
+
     public func list() -> [URL] {
         let list: [URL] = (try? FileManager.default.contentsOfDirectory(at: directory, includingPropertiesForKeys: nil, options: [])) ?? []
 
@@ -113,7 +113,7 @@ public final class FileReader: FileHandler {
                     data = try self.fileHandle?.readToEnd()
                 } catch {
                     data = nil
-                    
+
                     self.assertionFailure(error, description: "failed to read at once")
                 }
             } else {

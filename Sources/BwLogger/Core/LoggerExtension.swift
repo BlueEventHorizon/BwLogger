@@ -8,8 +8,6 @@
 
 import Foundation
 
-// swiftlint:disable strict_fileprivate
-
 extension String {
     var isNotEmpty: Bool {
         !self.isEmpty
@@ -35,5 +33,3 @@ extension DateFormatter {
         return formatter
     }()
 }
-
-// swiftlint:enable strict_fileprivate
