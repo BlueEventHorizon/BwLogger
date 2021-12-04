@@ -21,6 +21,7 @@ public class ConsoleLogger: LogOutput {
 }
 
 extension ConsoleLogger {
+    // swiftlint:disable switch_case_on_newline
     public func prefix(for level: Logger.Level) -> String {
         switch level {
             case .log: return ""
@@ -31,12 +32,5 @@ extension ConsoleLogger {
             case .fault: return "🔥"
         }
     }
-
-//    public func getStandardMessage(with information: LogInformation) -> String {
-//        let separator: String = information.message.isEmpty ? "" : " --"
-//
-//        return information.level == .info ?
-//            "\(prefix(for: information.level))\(addSpacer(" ", before: information.message))\(separator) \(information.methodName)" :
-//            "\(prefix(for: information.level)) [\(information.timestamp())] [\(information.threadName)]\(addSpacer(" ", before: information.message))\(separator) \(information.methodName) \(information.fileName):\(information.line))"
-//    }
+    // swiftlint:enable switch_case_on_newline
 }

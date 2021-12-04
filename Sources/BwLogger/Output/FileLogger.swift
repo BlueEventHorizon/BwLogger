@@ -9,10 +9,10 @@
 import Foundation
 
 public final class FileLogger: LogOutput {
-    let writer: FileWriter
+    private let writer: FileWriter
 
-    init() {
-        writer = FileWriter(directoryType: .document, names: ["logs", "log"])
+    public init() {
+        writer = FileWriter(directoryType: .document, name: "log", sub: "logs")
     }
 
     public func log(_ information: LogInformation) {

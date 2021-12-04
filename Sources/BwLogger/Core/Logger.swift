@@ -18,7 +18,7 @@ public final class Logger {
         case fault
     }
 
-    public static let `default` = Logger([OsLogger(subsystem: "Logger default", category: "")])
+    public static let `default` = Logger([OsLogger(subsystem: "default", category: "Logger")])
 
     private static let semaphore = DispatchSemaphore(value: 1)
 
@@ -36,7 +36,6 @@ public final class Logger {
     public private(set) var outputs: [LogOutput]
 
     /// 出力可能なログレベルを保持する。niであれば全てを出力する。
-    // swiftlint:disable:next discouraged_optional_collection
     public private(set) var levels: [Level]?
 
     // ------------------------------------------------------------------------------------------
