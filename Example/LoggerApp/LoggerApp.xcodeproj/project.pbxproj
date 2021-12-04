@@ -22,8 +22,6 @@
 		52F2994C2698ABD000FADC26 /* BwLogger in Frameworks */ = {isa = PBXBuildFile; productRef = 52F2994B2698ABD000FADC26 /* BwLogger */; };
 		52F2994E2698AE8800FADC26 /* PublishedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* PublishedLogger.swift */; };
 		52F2994F2698AE8800FADC26 /* PublishedLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F2994D2698AE8800FADC26 /* PublishedLogger.swift */; };
-		76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
-		76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461926BD5147005A7DF8 /* TextFileWriter.swift */; };
 		76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461C26BD952D005A7DF8 /* ImageText.swift */; };
 		76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76E8461C26BD952D005A7DF8 /* ImageText.swift */; };
 /* End PBXBuildFile section */
@@ -64,7 +62,6 @@
 		52AA05A42698AAF100296968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		52BF280C275A07CF0062ADFB /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ../..; sourceTree = "<group>"; };
 		52F2994D2698AE8800FADC26 /* PublishedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishedLogger.swift; sourceTree = "<group>"; };
-		76E8461926BD5147005A7DF8 /* TextFileWriter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFileWriter.swift; sourceTree = "<group>"; };
 		76E8461C26BD952D005A7DF8 /* ImageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,7 +119,6 @@
 				5205EB97269D950600E60AA1 /* TextFeild.swift */,
 				526440402698B95F00A19F99 /* BorderedText.swift */,
 				76E8461C26BD952D005A7DF8 /* ImageText.swift */,
-				76E8461926BD5147005A7DF8 /* TextFileWriter.swift */,
 				52F2994D2698AE8800FADC26 /* PublishedLogger.swift */,
 				52AA057E2698AAF000296968 /* Assets.xcassets */,
 			);
@@ -382,7 +378,6 @@
 				526440412698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A72698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994E2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
-				76E8461A26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
 				76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB98269D950600E60AA1 /* TextFeild.swift in Sources */,
@@ -396,7 +391,6 @@
 				526440422698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A82698AAF100296968 /* ContentView.swift in Sources */,
 				52F2994F2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
-				76E8461B26BD5147005A7DF8 /* TextFileWriter.swift in Sources */,
 				76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A62698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */,

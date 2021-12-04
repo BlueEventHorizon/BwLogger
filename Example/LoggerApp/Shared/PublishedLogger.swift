@@ -10,7 +10,7 @@ import Combine
 import Foundation
 
 // swiftlint:disable:next prefixed_toplevel_constant
-let log = Logger([PublishedLogger.shared])
+let log = Logger([PublishedLogger.shared, FileLogger()])
 
 class PublishedLogger: ObservableObject, LogOutput {
     static let shared = PublishedLogger()

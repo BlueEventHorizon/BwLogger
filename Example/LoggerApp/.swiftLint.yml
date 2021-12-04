@@ -122,11 +122,11 @@ opt_in_rules:
   - convenience_type
   - discouraged_object_literal
   - discouraged_optional_boolean
-  - discouraged_optional_collection
+  #- discouraged_optional_collection          # levels指定で[Level]?を使うため
   - empty_collection_literal
   - empty_count
   - empty_string
-  #- empty_xctest_method                     # デフォルトで記述されているので、無視する
+  #- empty_xctest_method                      # デフォルトで記述されているので、無視する
   - enum_case_associated_values_count
   - expiring_todo
   #- explicit_acl                             # internalは省略可能とするため
