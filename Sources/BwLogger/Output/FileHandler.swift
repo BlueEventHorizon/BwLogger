@@ -29,31 +29,33 @@ open class FileHandler {
     }
 
     // swiftlint:disable strict_fileprivate
-    fileprivate let directory: URL
+    fileprivate(set) var directory: URL
     fileprivate(set) var file: URL
 
     fileprivate var fileHandle: FileHandle?
     fileprivate let dispatchQueue: DispatchQueue
     // swiftlint:enable strict_fileprivate
 
-    public init(directory: URL, names: [String]) {
+    public init(directory: URL, name: String, sub: String? = nil) {
         self.directory = directory
-        self.file = self.directory
-
-        for name in names {
-            self.file = self.file.appendingPathComponent(name)
+        if let sub = sub {
+            self.directory = self.directory.appendingPathComponent(sub)
         }
+
+        self.file = self.directory
+        self.file = self.file.appendingPathComponent(name)
 
         self.dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
     }
 
-    public init(directoryType: DirectoryType, names: [String]) {
+    public init(directoryType: DirectoryType, name: String, sub: String? = nil) {
         self.directory = directoryType.url
-        self.file = self.directory
-
-        for name in names {
-            self.file = self.file.appendingPathComponent(name)
+        if let sub = sub {
+            self.directory = self.directory.appendingPathComponent(sub)
         }
+
+        self.file = self.directory
+        self.file = self.file.appendingPathComponent(name)
 
         self.dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
     }
@@ -105,6 +107,7 @@ public final class FileReader: FileHandler {
     public func readAtOnce(completion: ((Data?) -> Void)?) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
+            guard let fileHandle = self.fileHandle else { return }
 
             let data: Data?
 
@@ -112,14 +115,14 @@ public final class FileReader: FileHandler {
 
             if #available(iOS 13.4, *) {
                 do {
-                    data = try self.fileHandle?.readToEnd()
+                    data = try fileHandle.readToEnd()
                 } catch {
                     data = nil
 
                     self.assertionFailure(error, description: "failed to read at once")
                 }
             } else {
-                data = self.fileHandle?.readDataToEndOfFile()
+                data = fileHandle.readDataToEndOfFile()
             }
 
             self.close()
@@ -150,20 +153,21 @@ public final class FileWriter: FileHandler {
     public func write(data: Data) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
+            guard let fileHandle = self.fileHandle else { return }
 
             if #available(iOS 13.4, *) {
                 do {
-                    try self.fileHandle?.write(contentsOf: data)
+                    try fileHandle.write(contentsOf: data)
                 } catch {
                     self.assertionFailure(error, description: "failed to write")
                 }
             } else {
-                self.fileHandle?.write(data)
+                fileHandle.write(data)
             }
         }
     }
 
-    public func writeAtOnce(data: Data, completion: (() -> Void)?) {
+    public func writeAtOnce(data: Data, completion: (() -> Void)? = nil) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
 
@@ -171,15 +175,36 @@ public final class FileWriter: FileHandler {
             self.write(data: data)
             self.close()
 
+            // self.list()
+
             completion?()
         }
     }
 
-    public func writeAtOnce(text: String, completion: (() -> Void)? = nil) {
+    public func writeAtOnce(text: String, completion: (() -> Void)? = nil ) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
 
-            try? text.write(to: self.file, atomically: true, encoding: .utf8)
+            print(self.file.path)
+
+            var isDir: ObjCBool = false
+            let exist = FileManager.default.fileExists(atPath: self.directory.path, isDirectory: &isDir)
+
+            if !exist {
+                do {
+                    try FileManager.default.createDirectory(at: self.directory, withIntermediateDirectories: true, attributes: nil)
+                } catch {
+                    print("🔥")
+                }
+            }
+
+            do {
+                try text.write(to: self.file, atomically: true, encoding: .utf8)
+            } catch {
+                print("🔥")
+            }
+
+            // self.list()
 
             completion?()
         }
