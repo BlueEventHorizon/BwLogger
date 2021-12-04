@@ -194,14 +194,14 @@ public final class FileWriter: FileHandler {
                 do {
                     try FileManager.default.createDirectory(at: self.directory, withIntermediateDirectories: true, attributes: nil)
                 } catch {
-                    print("🔥")
+                    self.assertionFailure(error, description: "failed to create Directory")
                 }
             }
 
             do {
                 try text.write(to: self.file, atomically: true, encoding: .utf8)
             } catch {
-                print("🔥")
+                self.assertionFailure(error, description: "failed to write text")
             }
 
             // self.list()
