@@ -15,7 +15,7 @@ public protocol LogOutput {
 
 extension LogOutput {
     // stringが空でなければstringの前にspacerを追加する
-    public func prefixIfNotEmpty(string: String, prefix: String = " ") -> String {
+    public func addBlankBefore(_ string: String, prefix: String = " ") -> String {
         guard string.isNotEmpty else { return "" }
 
         return "\(prefix)\(string)"
@@ -24,19 +24,17 @@ extension LogOutput {
     // swiftlint:disable switch_case_on_newline
     public func prefix(for level: Logger.Level) -> String {
         switch level {
-            case .log: return ""
-            case .debug: return "🛠"
-            case .info: return "🔵"
-            case .warning: return "⚠️"
-            case .error: return "🚫"
-            case .fault: return "🔥"
+            case .log:      return ""
+            case .debug:    return "🛠DEBUG"
+            case .info:     return "🔵INFOM"
+            case .warning:  return "⚠️WARNG"
+            case .error:    return "🔥ERROR"
+            case .fault:    return "🔥🔥🔥🔥"
         }
     }
     // swiftlint:enable switch_case_on_newline
 
     public func generateMessage(with info: LogInformation) -> String {
-        let separator: String = info.message.isEmpty ? "" : " --"
-
         let prefix: String
         if let prefixtmp = info.prefix {
             // information内にprefixがあれば優先して使用する
@@ -46,7 +44,7 @@ extension LogOutput {
         }
 
         return info.level == .info ?
-            "\(prefix)\(prefixIfNotEmpty(string: info.message))\(separator) \(info.objectName)" :
-            "\(prefix) [\(info.timestamp())] [\(info.threadName)]\(prefixIfNotEmpty(string: info.message))\(separator) \(info.objectName) \(info.fileName):\(info.line))"
+            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
+            "\(prefix) [\(info.timestamp())]\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }

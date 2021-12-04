@@ -21,16 +21,6 @@ public class ConsoleLogger: LogOutput {
 }
 
 extension ConsoleLogger {
-    // swiftlint:disable switch_case_on_newline
-    public func prefix(for level: Logger.Level) -> String {
-        switch level {
-            case .log: return ""
-            case .debug: return "🛠"
-            case .info: return "🔵"
-            case .warning: return "⚠️"
-            case .error: return "🚫"
-            case .fault: return "🔥"
-        }
-    }
-    // swiftlint:enable switch_case_on_newline
+
+    
 }

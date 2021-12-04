@@ -45,8 +45,8 @@ public class OsLogger: LogOutput {
     }
 
     public init() {
-        self.subsystem = ""
-        self.category = ""
+        self.subsystem = "beowulf-tech"
+        self.category = "Logger"
     }
 
     public func log(_ information: LogInformation) {
@@ -77,19 +77,17 @@ public class OsLogger: LogOutput {
         }
     }
 
-    public func generateMessage(with information: LogInformation) -> String {
-        let separator: String = information.message.isEmpty ? "" : " --"
-
+    public func generateMessage(with info: LogInformation) -> String {
         let prefix: String
-        if let prefixtmp = information.prefix {
+        if let prefixtmp = info.prefix {
             // information内にprefixがあれば優先して使用する
             prefix = prefixtmp
         } else {
-            prefix = self.prefix(for: information.level)
+            prefix = self.prefix(for: info.level)
         }
 
-        return information.level == .info ?
-            "\(prefix)\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName)" :
-            "\(prefix) [\(information.threadName)]\(prefixIfNotEmpty(string: information.message))\(separator) \(information.objectName) \(information.fileName):\(information.line))"
+        return info.level == .info ?
+            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
+            "\(prefix)\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }
