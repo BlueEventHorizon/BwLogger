@@ -181,7 +181,7 @@ public final class FileWriter: FileHandler {
         }
     }
 
-    public func writeAtOnce(text: String, completion: (() -> Void)? = nil ) {
+    public func writeAtOnce(text: String, completion: (() -> Void)? = nil) {
         dispatchQueue.async { [weak self] in
             guard let self = self else { return }
 

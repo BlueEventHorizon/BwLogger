@@ -32,6 +32,7 @@ extension LogOutput {
             case .fault:    return "🔥🔥🔥🔥"
         }
     }
+
     // swiftlint:enable switch_case_on_newline
 
     public func generateMessage(with info: LogInformation) -> String {

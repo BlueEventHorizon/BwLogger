@@ -20,7 +20,4 @@ public class ConsoleLogger: LogOutput {
     }
 }
 
-extension ConsoleLogger {
-
-    
-}
+extension ConsoleLogger {}
