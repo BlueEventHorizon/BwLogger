@@ -2,6 +2,10 @@
 
 **Simple and customizable Logging API package for Swift**
 
+![](https://img.shields.io/badge/license-Apache%202-green.svg)
+![](https://img.shields.io/badge/Platforms-iOS-blue)
+![](https://img.shields.io/badge/Swift_Package_Manager-compatible-orange)
+
 You can customize and use BwLogger. You can inject by describing the output format and output destination.
 
 The standard output destination is
@@ -10,54 +14,57 @@ The standard output destination is
 3) If it is less than iOS14, os_log
 It has become.
 
-APIs are
+log functions are below.
+
+`message` is the message to be logged out.
+
+`instance` is the auxiliary information for the log output. For example, if the log output side is "class" and "instance" is "self", the class name can be displayed in addition to the file name, line number, and function name when the log is output.
+Passing `instance` is not required.
+
+Use the default values for `function`, `file` and `line` without passing anything.
 
 ```swift
 
-/// Appropriate for messages that contain information only when debugging a program.
-func entered(_ instance: Any = "", message: String = "")
+    public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
-/// Appropriate for informational messages.
-func info(_ message: Any, instance: Any = "")
+    public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
-/// Appropriate for messages that contain information normally of use only when
-/// debugging a program.
-func debug(_ message: Any, instance: Any = "")
+    public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
-/// Appropriate for conditions that are not error conditions, but that may require
-/// special handling.
-func notice(_ message: Any, instance: Any = "")
+    public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
-/// Appropriate for messages that are not error conditions, but more severe than
-func warning(_ message: Any, instance: Any = "")
+    public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
-/// Appropriate for error conditions.
-func error(_ message: Any, instance: Any = "")
-
-/// Appropriate for critical error conditions that usually require immediate
-/// attention.
-func fatal(_ message: Any, instance: Any = "")
-
-func `deinit`(_ instance: Any = "", message: Any = "")
+    public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line)
 
 ```
 
-#### Usage
+
+
+#### Initialization and usage
 
 ```swift
 
 // 1) import the logging API package
 import BwLogger
 
-// 2) create a logger
+// 2) create a logger and initialization
 let log = Logger.default
 
-// 3) use it
+or 
+
+let log = Logger([OsLogger(subsystem: "com.xxxxxx.xxxx", category: "App")])
+
+// 3) You can call the log function as follows
 logger.degub("Hello World!")
 
 ```
 
-#### Output
+#### Output (For Example)
+
+BwLogger allows you to change the format at will, and the following is a case where the default formatter is used.
+
+In the example below, the following information is output in order from the top: log type, date and time, thread name, message, class name, function name, file name, and number of lines.
 
 ```
 [🟠 DEBG] [2020/07/26 00:53:26.938 GMT+9] [main] Hello World! -- ExampleViewController:showLog(title:) ExampleViewController.swift:45
@@ -65,47 +72,35 @@ logger.degub("Hello World!")
 
 #### Customization
 
-If you use declare below, Logger uses os_log provided Apple.
+You can freely customize the log output by defining a MyDefinedLogger that conforms to the LogOutput protocol as shown below.
 
 ```swift
 
-log.setDependency(OsLogger())
-
-```
-
-You could make dependency code implements LoggerDependency protocol for Logger like class OsLogger below
-
-```swift
-
-public class OsLogger: LoggerDependency {
-
+public class MyDefinedLogger: LogOutput {
     public init() {}
 
     public func log(_ information: LogInformation) {
+        let message = generateMessage(with: information)
 
-        var formattedMessage = ""
+        print(message)
+    }
 
-        switch information.level {
-            case .trace:
-                formattedMessage = "\("➡️") \(information.methodName())\(information.addSpacer(" -- ", to: information.message))"
-            case .debug:
-                formattedMessage = "\("🟠") [\(information.threadName())]\(information.message) -- \(information.lineInfo())"
-            case .info:
-                formattedMessage = "\("🔵")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
-            case .notice:
-                formattedMessage = "\("🟢")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
-            case .warning:
-                formattedMessage = "\("⚠️") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
-            case .error:
-                formattedMessage = "\("❌") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
-            case .fatal:
-                formattedMessage = "\("🔥") [\(information.threadName())]\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
-            case .deinit:
-                formattedMessage = "\("❎ DEINIT")\(information.addSpacer(" ", to: information.message)) -- \(information.lineInfo())"
+    public func prefix(for level: Logger.Level) -> String {
+        switch level {
+            case .log:      return ""
+            case .debug:    return "MY DEBUG PREFIX"
+            case .info:     return "MY INFORM PREFIX"
+            case .warning:  return "MY WARNING PREFIX"
+            case .error:    return "MY ERROR PREFIX"
+            case .fault:    return "MY FAULT PREFIX"
         }
+    }
 
-        os_log("%s", formattedMessage)
+    public func generateMessage(with info: LogInformation) -> String {
+        "\(info.prefix) [\(info.timestamp())]\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }
+
+let log = Logger([MyDefinedLogger(subsystem: "com.xxxxxx.xxxx", category: "App")])
 
 ```
