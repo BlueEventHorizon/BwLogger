@@ -33,8 +33,6 @@ extension LogOutput {
         }
     }
 
-    // swiftlint:enable switch_case_on_newline
-
     public func generateMessage(with info: LogInformation) -> String {
         let prefix: String
         if let prefixtmp = info.prefix {

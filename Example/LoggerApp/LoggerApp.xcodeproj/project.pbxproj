@@ -60,7 +60,6 @@
 		52AA059E2698AAF100296968 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		52AA05A22698AAF100296968 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		52AA05A42698AAF100296968 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		52BF280C275A07CF0062ADFB /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = folder; name = BwLogger; path = ../..; sourceTree = "<group>"; };
 		52F2994D2698AE8800FADC26 /* PublishedLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublishedLogger.swift; sourceTree = "<group>"; };
 		76E8461C26BD952D005A7DF8 /* ImageText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageText.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +100,6 @@
 		52AA05762698AAF000296968 = {
 			isa = PBXGroup;
 			children = (
-				52BF280C275A07CF0062ADFB /* BwLogger */,
 				52AA057B2698AAF000296968 /* Shared */,
 				52AA05852698AAF000296968 /* iOS */,
 				52AA058C2698AAF100296968 /* macOS */,
