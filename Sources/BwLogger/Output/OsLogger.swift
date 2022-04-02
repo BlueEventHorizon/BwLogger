@@ -1,8 +1,8 @@
 //
-//  Logger+oslog.swift
-//  BwTools
+//  OsLogger.swift
+//  BwCore
 //
-//  Created by k_terada on 2020/09/15.
+//  Created by k2moons on 2020/09/15.
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
@@ -26,7 +26,7 @@ private class Os14Wrapper {
     }
 }
 
-public class OsLogger: LogOutput {
+public class OsLogger {
     let subsystem: String
     let category: String
 
@@ -45,10 +45,20 @@ public class OsLogger: LogOutput {
     }
 
     public init() {
-        self.subsystem = "beowulf-tech"
+        self.subsystem = "k2moons"
         self.category = "Logger"
     }
 
+    private func generateMessage(with info: LogInformation) -> String {
+        let prefix = prefix(with: info)
+
+        return info.level == .info ?
+            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
+            "\(prefix)\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
+    }
+}
+
+extension OsLogger: LogOutput {
     public func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
 
@@ -75,19 +85,5 @@ public class OsLogger: LogOutput {
         } else {
             os_log("%@", message)
         }
-    }
-
-    public func generateMessage(with info: LogInformation) -> String {
-        let prefix: String
-        if let prefixtmp = info.prefix {
-            // information内にprefixがあれば優先して使用する
-            prefix = prefixtmp
-        } else {
-            prefix = self.prefix(for: info.level)
-        }
-
-        return info.level == .info ?
-            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
-            "\(prefix)\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }

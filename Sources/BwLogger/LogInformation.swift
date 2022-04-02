@@ -1,12 +1,13 @@
 //
 //  LogInformation.swift
-//  BwTools
+//  BwCore
 //
-//  Created by k_terada on 2020/09/15.
+//  Created by k2moons on 2020/09/15.
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
 import Foundation
+import BwTips
 
 /// Logの基本情報を保持する構造体
 public struct LogInformation {
@@ -46,7 +47,7 @@ public struct LogInformation {
 
     // タイムスタンプを生成
     public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
-        self.date.string(dateFormat: format)
+        self.date.string(dateFormat: format, timeZone: .current)
     }
 
     /// スレッド名を取得する

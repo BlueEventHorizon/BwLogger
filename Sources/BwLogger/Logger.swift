@@ -1,6 +1,6 @@
 //
 //  Logger.swift
-//  BwTools
+//  BwCore
 //
 //  Created by k2moons on 2017/08/18.
 //  Copyright (c) 2017 k2moons. All rights reserved.
@@ -18,7 +18,7 @@ public final class Logger {
         case fault
     }
 
-    public static let `default` = Logger([OsLogger(subsystem: "beowulf-tech.logger", category: "App")])
+    public static let `default` = Logger([OsLogger(subsystem: "k2moons.logger", category: "App")])
 
     private static let semaphore = DispatchSemaphore(value: 1)
 
@@ -51,10 +51,35 @@ public final class Logger {
     // MARK: - Configuration
     // ------------------------------------------------------------------------------------------
 
+    @discardableResult
+    public func setLogOutput(_ outputs: [LogOutput]) -> Self {
+        Logger.semaphore.wait()
+        defer {
+            Logger.semaphore.signal()
+        }
+
+        self.outputs = outputs
+
+        return self
+    }
+
+    @discardableResult
+    public func appendLogOutput(_ output: LogOutput) -> Self {
+        Logger.semaphore.wait()
+        defer {
+            Logger.semaphore.signal()
+        }
+
+        self.outputs.append(output)
+
+        return self
+    }
+
     /// ログレベルを変更する
     /// - Parameter levels: ログレベル
     /// - Returns: Loggerインスタンス
     /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
+    @discardableResult
     public func setLevel(_ levels: [Level]?) -> Self {
         Logger.semaphore.wait()
         defer {
