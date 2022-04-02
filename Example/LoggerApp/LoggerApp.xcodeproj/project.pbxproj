@@ -11,6 +11,10 @@
 		5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5205EB97269D950600E60AA1 /* TextFeild.swift */; };
 		526440412698B95F00A19F99 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526440402698B95F00A19F99 /* BorderedText.swift */; };
 		526440422698B95F00A19F99 /* BorderedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526440402698B95F00A19F99 /* BorderedText.swift */; };
+		52A39CFE27F801A900074CB1 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A39CFD27F801A900074CB1 /* FileLogger.swift */; };
+		52A39CFF27F801A900074CB1 /* FileLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A39CFD27F801A900074CB1 /* FileLogger.swift */; };
+		52A39D0127F8029500074CB1 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A39D0027F8029500074CB1 /* FileHandler.swift */; };
+		52A39D0227F8029500074CB1 /* FileHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A39D0027F8029500074CB1 /* FileHandler.swift */; };
 		52AA05982698AAF100296968 /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA05972698AAF100296968 /* Tests_iOS.swift */; };
 		52AA05A32698AAF100296968 /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA05A22698AAF100296968 /* Tests_macOS.swift */; };
 		52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52AA057C2698AAF000296968 /* LoggerApp.swift */; };
@@ -46,6 +50,9 @@
 /* Begin PBXFileReference section */
 		5205EB97269D950600E60AA1 /* TextFeild.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFeild.swift; sourceTree = "<group>"; };
 		526440402698B95F00A19F99 /* BorderedText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderedText.swift; sourceTree = "<group>"; };
+		52A39CFC27F7FD3500074CB1 /* BwLogger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BwLogger; path = ../..; sourceTree = "<group>"; };
+		52A39CFD27F801A900074CB1 /* FileLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileLogger.swift; sourceTree = "<group>"; };
+		52A39D0027F8029500074CB1 /* FileHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileHandler.swift; sourceTree = "<group>"; };
 		52AA057C2698AAF000296968 /* LoggerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerApp.swift; sourceTree = "<group>"; };
 		52AA057D2698AAF000296968 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		52AA057E2698AAF000296968 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +107,7 @@
 		52AA05762698AAF000296968 = {
 			isa = PBXGroup;
 			children = (
+				52A39CFC27F7FD3500074CB1 /* BwLogger */,
 				52AA057B2698AAF000296968 /* Shared */,
 				52AA05852698AAF000296968 /* iOS */,
 				52AA058C2698AAF100296968 /* macOS */,
@@ -114,6 +122,8 @@
 			children = (
 				52AA057C2698AAF000296968 /* LoggerApp.swift */,
 				52AA057D2698AAF000296968 /* ContentView.swift */,
+				52A39CFD27F801A900074CB1 /* FileLogger.swift */,
+				52A39D0027F8029500074CB1 /* FileHandler.swift */,
 				5205EB97269D950600E60AA1 /* TextFeild.swift */,
 				526440402698B95F00A19F99 /* BorderedText.swift */,
 				76E8461C26BD952D005A7DF8 /* ImageText.swift */,
@@ -375,10 +385,12 @@
 			files = (
 				526440412698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A72698AAF100296968 /* ContentView.swift in Sources */,
+				52A39D0127F8029500074CB1 /* FileHandler.swift in Sources */,
 				52F2994E2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
 				76E8461D26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A52698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB98269D950600E60AA1 /* TextFeild.swift in Sources */,
+				52A39CFE27F801A900074CB1 /* FileLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,10 +400,12 @@
 			files = (
 				526440422698B95F00A19F99 /* BorderedText.swift in Sources */,
 				52AA05A82698AAF100296968 /* ContentView.swift in Sources */,
+				52A39D0227F8029500074CB1 /* FileHandler.swift in Sources */,
 				52F2994F2698AE8800FADC26 /* PublishedLogger.swift in Sources */,
 				76E8461E26BD952D005A7DF8 /* ImageText.swift in Sources */,
 				52AA05A62698AAF100296968 /* LoggerApp.swift in Sources */,
 				5205EB99269D950600E60AA1 /* TextFeild.swift in Sources */,
+				52A39CFF27F801A900074CB1 /* FileLogger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
