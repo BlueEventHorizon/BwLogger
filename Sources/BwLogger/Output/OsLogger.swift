@@ -45,8 +45,8 @@ public class OsLogger {
     }
 
     public init() {
-        self.subsystem = "k2moons"
-        self.category = "Logger"
+        subsystem = "k2moons"
+        category = "Logger"
     }
 
     private func generateMessage(with info: LogInformation) -> String {

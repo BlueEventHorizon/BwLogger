@@ -6,8 +6,8 @@
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
-import Foundation
 import BwLogger
+import Foundation
 
 public final class FileLogger: LogOutput {
     private let writer: FileWriter

@@ -42,22 +42,22 @@ open class FileHandler {
             self.directory = self.directory.appendingPathComponent(sub)
         }
 
-        self.file = self.directory
-        self.file = self.file.appendingPathComponent(name)
+        file = self.directory
+        file = file.appendingPathComponent(name)
 
-        self.dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
+        dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
     }
 
     public init(directoryType: DirectoryType, name: String, sub: String? = nil) {
-        self.directory = directoryType.url
+        directory = directoryType.url
         if let sub = sub {
-            self.directory = self.directory.appendingPathComponent(sub)
+            directory = directory.appendingPathComponent(sub)
         }
 
-        self.file = self.directory
-        self.file = self.file.appendingPathComponent(name)
+        file = directory
+        file = file.appendingPathComponent(name)
 
-        self.dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
+        dispatchQueue = DispatchQueue(label: "\(Bundle.main.bundleIdentifier ?? "").\(UUID().uuidString)")
     }
 
     public func list() -> [URL] {
@@ -79,7 +79,7 @@ open class FileHandler {
     }
 
     func assertionFailure(_ error: Error, description: String) {
-        Swift.assertionFailure("\("🔥")\(error) \(description) \(self.file.absoluteString)")
+        Swift.assertionFailure("\("🔥")\(error) \(description) \(file.absoluteString)")
     }
 
     func remove() {
@@ -98,7 +98,7 @@ open class FileHandler {
 public final class FileReader: FileHandler {
     public func open() {
         do {
-            self.fileHandle = try FileHandle(forReadingFrom: self.file)
+            fileHandle = try FileHandle(forReadingFrom: file)
         } catch {
             assertionFailure(error, description: "failed to read open")
         }
@@ -134,16 +134,16 @@ public final class FileReader: FileHandler {
 
 public final class FileWriter: FileHandler {
     public func open() {
-        if !FileManager.default.fileExists(atPath: self.file.path) {
-            FileManager.default.createFile(atPath: self.file.path, contents: nil, attributes: nil)
+        if !FileManager.default.fileExists(atPath: file.path) {
+            FileManager.default.createFile(atPath: file.path, contents: nil, attributes: nil)
         }
 
         do {
-            self.fileHandle = try FileHandle(forWritingTo: self.file)
+            fileHandle = try FileHandle(forWritingTo: file)
             if #available(iOS 13.4, *) {
                 try self.fileHandle?.seekToEnd()
             } else {
-                self.fileHandle?.seekToEndOfFile()
+                fileHandle?.seekToEndOfFile()
             }
         } catch {
             assertionFailure(error, description: "failed to write open")

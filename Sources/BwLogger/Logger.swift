@@ -70,7 +70,7 @@ public final class Logger {
             Logger.semaphore.signal()
         }
 
-        self.outputs.append(output)
+        outputs.append(output)
 
         return self
     }

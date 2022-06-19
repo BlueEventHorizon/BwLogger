@@ -6,8 +6,8 @@
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
-import Foundation
 import BwTips
+import Foundation
 
 /// Logの基本情報を保持する構造体
 public struct LogInformation {
@@ -38,7 +38,7 @@ public struct LogInformation {
         // メッセージのdescriptionを取り出す（よってCustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleを持つclassであれば何でも良いことになる）
         self.message = (message as? String) ?? String(describing: message)
         self.instance = instance
-        self.date = Date()
+        date = Date()
 
         self.function = function
         self.file = file
@@ -47,7 +47,7 @@ public struct LogInformation {
 
     // タイムスタンプを生成
     public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
-        self.date.string(dateFormat: format, timeZone: .current)
+        date.string(dateFormat: format, timeZone: .current)
     }
 
     /// スレッド名を取得する
@@ -72,7 +72,7 @@ public struct LogInformation {
     /// 関数名を返す。
     /// instanceがインスタンス・オブジェクトの場合は、class名を取得する。
     public var objectName: String {
-        guard let instance = self.instance else {
+        guard let instance = instance else {
             return "\(function)"
         }
 
