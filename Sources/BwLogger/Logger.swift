@@ -18,7 +18,7 @@ public final class Logger {
         case fault
     }
 
-    public static let `default` = Logger([OsLogger(subsystem: "k2moons.logger", category: "App")])
+    public static let `default` = Logger([OSLogger(subsystem: "com.beowulf-tech", category: "Logger")])
 
     private static let semaphore = DispatchSemaphore(value: 1)
 

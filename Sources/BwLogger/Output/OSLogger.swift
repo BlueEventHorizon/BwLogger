@@ -14,7 +14,7 @@ import os
 
 // OsLogger内に@availableを使っても直接宣言できない（ランタイムエラー）ためにWrapper Classを作って対応
 @available(iOS 14.0, *)
-private class Os14Wrapper {
+private class OS14Wrapper {
     var log: os.Logger
 
     init(subsystem: String, category: String) {
@@ -26,18 +26,9 @@ private class Os14Wrapper {
     }
 }
 
-public class OsLogger {
+public class OSLogger {
     let subsystem: String
     let category: String
-
-    @available(iOS 14.0, *)
-    private lazy var os14: Os14Wrapper = {
-        if subsystem.isEmpty, category.isEmpty {
-            return Os14Wrapper()
-        } else {
-            return Os14Wrapper(subsystem: subsystem, category: category)
-        }
-    }()
 
     public init(subsystem: String, category: String) {
         self.subsystem = subsystem
@@ -45,8 +36,8 @@ public class OsLogger {
     }
 
     public init() {
-        subsystem = "k2moons"
-        category = "Logger"
+        self.subsystem = "com.beowulf-tech"
+        self.category = "OSLogger"
     }
 
     private func generateMessage(with info: LogInformation) -> String {
@@ -58,11 +49,18 @@ public class OsLogger {
     }
 }
 
-extension OsLogger: LogOutput {
+extension OSLogger: LogOutput {
     public func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
 
         if #available(iOS 14.0, *) {
+            let os14: OS14Wrapper
+            if subsystem.isEmpty, category.isEmpty {
+                os14 = OS14Wrapper()
+            } else {
+                os14 = OS14Wrapper(subsystem: subsystem, category: category)
+            }
+            
             switch information.level {
                 case .log:
                     os14.log.log("\(message)")
