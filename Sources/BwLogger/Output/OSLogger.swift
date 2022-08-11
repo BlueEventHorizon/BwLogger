@@ -13,7 +13,7 @@ import os
 // https://developer.apple.com/documentation/os/os_log
 
 // OsLogger内に@availableを使っても直接宣言できない（ランタイムエラー）ためにWrapper Classを作って対応
-@available(iOS 14.0, *)
+@available(iOS 14.0, macOS 11.0, *)
 private class OS14Wrapper {
     var log: os.Logger
 
@@ -53,7 +53,7 @@ extension OSLogger: LogOutput {
     public func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
 
-        if #available(iOS 14.0, *) {
+        if #available(iOS 14.0, macOS 11.0, *) {
             let os14: OS14Wrapper
             if subsystem.isEmpty, category.isEmpty {
                 os14 = OS14Wrapper()

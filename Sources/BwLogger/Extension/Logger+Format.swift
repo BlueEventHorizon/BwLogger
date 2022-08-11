@@ -6,7 +6,11 @@
 //  Copyright © 2019 k2moons. All rights reserved.
 //
 
+import Foundation
+
+#if canImport(UIKit)
 import UIKit
+#endif
 
 extension Logger {
     // MARK: - 文字列への変換
