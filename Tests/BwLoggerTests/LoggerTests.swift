@@ -62,7 +62,7 @@ final class LoggerTests: XCTestCase {
     }
 
     func testOsLogger() throws {
-        let log = Logger([OsLogger()])
+        let log = Logger([OSLogger()])
 
         log.info("----- NO 自インスタンス ----")
 

@@ -1,5 +1,5 @@
 //
-//  OsLogger.swift
+//  OSLogger.swift
 //  BwCore
 //
 //  Created by k2moons on 2020/09/15.
@@ -12,7 +12,7 @@ import os
 // https://developer.apple.com/documentation/os/logging
 // https://developer.apple.com/documentation/os/os_log
 
-// OsLogger内に@availableを使っても直接宣言できない（ランタイムエラー）ためにWrapper Classを作って対応
+// OSLogger内に@availableを使っても直接宣言できない（ランタイムエラー）ためにWrapper Classを作って対応
 @available(iOS 14.0, macOS 11.0, *)
 private class OS14Wrapper {
     var log: os.Logger
