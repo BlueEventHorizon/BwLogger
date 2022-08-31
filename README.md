@@ -53,7 +53,7 @@ let log = Logger.default
 
 or 
 
-let log = Logger([OsLogger(subsystem: "com.xxxxxx.xxxx", category: "App")])
+let log = Logger([OSLogger(subsystem: "com.xxxxxx.xxxx", category: "App")])
 
 // 3) You can call the log function as follows
 logger.degub("Hello World!")
