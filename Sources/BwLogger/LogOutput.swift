@@ -12,16 +12,16 @@ public protocol LogOutput {
     func log(_ information: LogInformation)
 }
 
-extension LogOutput {
+public extension LogOutput {
     // stringが空でなければstringの前にspacerを追加する
-    public func addBlankBefore(_ string: String, prefix: String = " ") -> String {
+    func addBlankBefore(_ string: String, prefix: String = " ") -> String {
         guard string.isNotEmpty else { return "" }
 
         return "\(prefix)\(string)"
     }
 
     // swiftlint:disable switch_case_on_newline
-    public func prefix(with info: LogInformation) -> String {
+    func prefix(with info: LogInformation) -> String {
         if let prefix = info.prefix {
             return prefix
         }
@@ -36,7 +36,7 @@ extension LogOutput {
         }
     }
 
-    public func generateMessage(with info: LogInformation) -> String {
+    func generateMessage(with info: LogInformation) -> String {
         let prefix = prefix(with: info)
         return info.level == .info ?
             "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :

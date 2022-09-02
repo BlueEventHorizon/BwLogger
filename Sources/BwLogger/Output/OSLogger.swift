@@ -36,8 +36,8 @@ public class OSLogger {
     }
 
     public init() {
-        self.subsystem = "com.beowulf-tech"
-        self.category = "OSLogger"
+        subsystem = "com.beowulf-tech"
+        category = "OSLogger"
     }
 
     private func generateMessage(with info: LogInformation) -> String {
@@ -60,7 +60,7 @@ extension OSLogger: LogOutput {
             } else {
                 os14 = OS14Wrapper(subsystem: subsystem, category: category)
             }
-            
+
             switch information.level {
                 case .log:
                     os14.log.log("\(message)")

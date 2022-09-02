@@ -28,8 +28,8 @@ public class ExampleLogger: LogOutput {
     }
 }
 
-extension ExampleLogger {
-    public func log(_ information: LogInformation) {
+public extension ExampleLogger {
+    func log(_ information: LogInformation) {
         let message = generateMessage(with: information)
 
         if information.level == .fault {

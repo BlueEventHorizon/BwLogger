@@ -8,14 +8,14 @@
 
 import Foundation
 
-extension String {
-    public var isNotEmpty: Bool {
+public extension String {
+    var isNotEmpty: Bool {
         !isEmpty
     }
 }
 
-extension Optional where Wrapped == String {
-    public var isEmpty: Bool {
+public extension Optional where Wrapped == String {
+    var isEmpty: Bool {
         switch self {
             case let .some(str):
                 return str.isEmpty
@@ -25,7 +25,7 @@ extension Optional where Wrapped == String {
         }
     }
 
-    public var isNotEmpty: Bool {
+    var isNotEmpty: Bool {
         switch self {
             case let .some(str):
                 return !str.isEmpty

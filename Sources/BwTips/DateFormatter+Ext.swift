@@ -17,11 +17,11 @@ public enum FormatterType: String {
 
 // MARK: - DateFormatter
 
-extension DateFormatter {
+public extension DateFormatter {
     // 現在タイムゾーンの標準フォーマッタ
-    public static let standard: DateFormatter = withTimeZone(.current)
+    static let standard: DateFormatter = withTimeZone(.current)
 
-    public static func withTimeZone(_ timeZone: TimeZone) -> DateFormatter {
+    static func withTimeZone(_ timeZone: TimeZone) -> DateFormatter {
         let formatter = DateFormatter()
         formatter.timeZone = timeZone
         formatter.locale = Locale(identifier: "en_US_POSIX")
