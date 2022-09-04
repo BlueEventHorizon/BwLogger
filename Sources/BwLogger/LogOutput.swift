@@ -10,11 +10,15 @@ import Foundation
 
 public protocol LogOutput {
     func log(_ information: LogInformation)
+
+    func addSeparater(_ string: String, prefix: String) -> String
+    func prefix(with info: LogInformation) -> String
+    func generateMessage(with info: LogInformation) -> String
 }
 
 public extension LogOutput {
     // stringが空でなければstringの前にspacerを追加する
-    func addBlankBefore(_ string: String, prefix: String = " ") -> String {
+    func addSeparater(_ string: String, prefix: String = " ") -> String {
         guard string.isNotEmpty else { return "" }
 
         return "\(prefix)\(string)"
@@ -39,7 +43,7 @@ public extension LogOutput {
     func generateMessage(with info: LogInformation) -> String {
         let prefix = prefix(with: info)
         return info.level == .info ?
-            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
-            "\(prefix) [\(info.timestamp())]\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
+            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
+            "\(prefix) [\(info.timestamp())]\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }

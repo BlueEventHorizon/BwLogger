@@ -40,12 +40,12 @@ public class OSLogger {
         category = "OSLogger"
     }
 
-    private func generateMessage(with info: LogInformation) -> String {
+    public func generateMessage(with info: LogInformation) -> String {
         let prefix = prefix(with: info)
 
         return info.level == .info ?
-            "\(prefix)\(addBlankBefore(info.message)) [\(info.objectName)]" :
-            "\(prefix)\(addBlankBefore(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
+            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
+            "\(prefix)\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }
 
