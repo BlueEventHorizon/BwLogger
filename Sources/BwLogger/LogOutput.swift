@@ -31,11 +31,11 @@ public extension LogOutput {
 
         switch info.level {
             case .log: return ""
-            case .debug: return "🛠DEBUG"
-            case .info: return "🔵INFOM"
-            case .warning: return "⚠️WARNG"
-            case .error: return "🔥ERROR"
-            case .fault: return "🔥🔥🔥🔥"
+            case .debug: return "#DEBUG"
+            case .info: return "#INFOM"
+            case .warning: return "#WARNG"
+            case .error: return "#ERROR"
+            case .fault: return "#🔥"
         }
     }
 

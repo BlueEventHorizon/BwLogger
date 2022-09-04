@@ -24,26 +24,4 @@ extension ConsoleLogger: LogOutput {
             print(message)
         }
     }
-    
-    public func prefix(with info: LogInformation) -> String {
-        if let prefix = info.prefix {
-            return prefix
-        }
-
-        switch info.level {
-            case .log: return ""
-            case .debug: return "#DEBUG"
-            case .info: return "#INFOM"
-            case .warning: return "#WARNG"
-            case .error: return "#ERROR"
-            case .fault: return "#🔥"
-        }
-    }
-    
-    public func generateMessage(with info: LogInformation) -> String {
-        let prefix = prefix(with: info)
-        return info.level == .info ?
-            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
-            "\(prefix) [\(info.timestamp())]\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
-    }
 }
