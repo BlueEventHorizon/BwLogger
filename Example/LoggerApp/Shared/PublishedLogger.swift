@@ -24,8 +24,8 @@ final class PublishedLogger: ObservableObject, LogOutput {
     }
 }
 
-extension LogOutput {
-    public func prefix(for level: Logger.Level) -> String {
+public extension LogOutput {
+    func prefix(for level: Logger.Level) -> String {
         switch level {
             case .log:
                 return ""

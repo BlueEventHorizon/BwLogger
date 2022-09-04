@@ -9,16 +9,16 @@
 import Foundation
 
 #if canImport(UIKit)
-import UIKit
+    import UIKit
 #endif
 
-extension Logger {
+public extension Logger {
     // MARK: - 文字列への変換
 
     /// JSONによるレスポンスなどを文字列に変換して返却します。
     /// - Parameter jsonData: JSONデータ
     /// - Returns: JSON文字列
-    public static func decodeJsonData(_ jsonData: Data?) -> String {
+    static func decodeJsonData(_ jsonData: Data?) -> String {
         if let jsonData = jsonData,
            let jsonObject = try? JSONSerialization.jsonObject(with: jsonData),
            let data = try? JSONSerialization.data(withJSONObject: jsonObject, options: []),
@@ -28,11 +28,11 @@ extension Logger {
         return ""
     }
 
-    public static func point2String(_ point: CGPoint, format: String = "%.2f") -> String {
+    static func point2String(_ point: CGPoint, format: String = "%.2f") -> String {
         return "x=" + String(format: format, point.x) + ", y=" + String(format: format, point.y)
     }
 
-    public static func frame2String(_ frame: CGRect, format: String = "%.2f") -> String {
+    static func frame2String(_ frame: CGRect, format: String = "%.2f") -> String {
         return
             """
             x= \(String(format: format, frame.origin.x)),
@@ -42,7 +42,7 @@ extension Logger {
             """
     }
 
-    public static func url2String(_ url: URL) -> String {
+    static func url2String(_ url: URL) -> String {
         var result: String = "url : \(url.absoluteString)"
 
         if let scheme = url.scheme {

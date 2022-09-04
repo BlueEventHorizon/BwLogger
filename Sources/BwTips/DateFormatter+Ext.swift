@@ -8,24 +8,58 @@
 
 import Foundation
 
-public enum FormatterType: String {
+// https://developer.apple.com/documentation/foundation/dateformatter
+
+public enum FormatStringType: String {
     case detail = "yyyy/MM/dd HH:mm:ss.SSS z"
     case full = "yyyy-MM-dd'T'HH:mm:ssZ"
     case std = "yyyy-MM-dd HH:mm:ss"
     case birthday = "yyyy-MM-dd"
 }
 
-// MARK: - DateFormatter
+public enum FormatTemplateType: String {
+    case dayMonth = "MMMMd"
+}
 
-extension DateFormatter {
-    // 現在タイムゾーンの標準フォーマッタ
-    public static let standard: DateFormatter = withTimeZone(.current)
+public extension DateFormatter {
+    // MARK: - User-Visible Representations
 
-    public static func withTimeZone(_ timeZone: TimeZone) -> DateFormatter {
+    static func visibleFormatter(style: DateFormatter.Style, locale: Locale = Locale.current) -> DateFormatter {
         let formatter = DateFormatter()
-        formatter.timeZone = timeZone
-        formatter.locale = Locale(identifier: "en_US_POSIX")
         formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = locale
+        formatter.dateStyle = style
+        formatter.timeStyle = style
         return formatter
     }
+
+    static func visibleFormatter(template: String, locale: Locale = Locale.current) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = locale
+        formatter.setLocalizedDateFormatFromTemplate(template)
+        return formatter
+    }
+
+    static func visibleFormatter(locale: Locale = Locale.current, templateType: FormatTemplateType) -> DateFormatter {
+        visibleFormatter(template: templateType.rawValue, locale: locale)
+    }
+
+    // MARK: - Fixed Format Date Representations
+
+    static func fixedFormatter(dateFormat: String, timeZone: TimeZone? = .current) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = timeZone
+        formatter.dateFormat = dateFormat
+        return formatter
+    }
+
+    static func fixedFormatter(formatStringType: FormatStringType, timeZone: TimeZone? = .current) -> DateFormatter {
+        fixedFormatter(dateFormat: formatStringType.rawValue, timeZone: timeZone)
+    }
+
+    /// 現在タイムゾーンの標準フォーマッタ
+    static let standard: DateFormatter = fixedFormatter(dateFormat: "", timeZone: .current)
 }

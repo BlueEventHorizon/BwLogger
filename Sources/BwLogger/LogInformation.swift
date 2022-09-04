@@ -6,8 +6,11 @@
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
-import BwTips
 import Foundation
+
+#if canImport(BwTips)
+    import BwTips
+#endif
 
 /// Logの基本情報を保持する構造体
 public struct LogInformation {
@@ -15,8 +18,8 @@ public struct LogInformation {
     public let message: String
     public let date: Date
 
-    public let function: String
-    public let file: String
+    public let function: StaticString
+    public let file: StaticString
     public let line: Int
 
     public let prefix: String?
@@ -31,7 +34,7 @@ public struct LogInformation {
     ///   - line: ファイル内の行数
     ///   - prefix: 先頭のアイコン等
     ///   - instance: 呼び出しているインスタンスを渡すと、ログに「クラス名:関数名」を出力する。
-    public init(level: Logger.Level, message: Any, function: String, file: String, line: Int, prefix: String? = nil, instance: Any? = nil) {
+    public init(level: Logger.Level, message: Any, function: StaticString, file: StaticString, line: Int, prefix: String? = nil, instance: Any? = nil) {
         self.level = level
         self.prefix = prefix
 
@@ -45,9 +48,9 @@ public struct LogInformation {
         self.line = line
     }
 
-    // タイムスタンプを生成
+    /// タイムスタンプを生成
     public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
-        date.string(dateFormat: format, timeZone: .current)
+        DateFormatter.fixedFormatter(dateFormat: format, timeZone: .current).string(from: date)
     }
 
     /// スレッド名を取得する

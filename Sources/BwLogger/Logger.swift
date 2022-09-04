@@ -128,44 +128,46 @@ public final class Logger {
     // ------------------------------------------------------------------------------------------
 
     /// 汎用
-    public func log(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func log(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(with: LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 情報表示
-    public func info(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func info(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.info) else { return }
 
         log(with: LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// デバッグ情報
-    public func debug(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func debug(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.debug) else { return }
 
         log(with: LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 警告
-    public func warning(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func warning(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.warning) else { return }
 
         log(with: LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// エラー
-    public func error(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func error(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.error) else { return }
 
         log(with: LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
     }
 
     /// 致命的なエラー
-    public func fault(_ message: Any, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    public func fault(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.fault) else { return }
 
         log(with: LogInformation(level: .fault, message: message, function: function, file: file, line: line, instance: instance))
+
+        assertionFailure("\(message)")
     }
 }
