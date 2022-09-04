@@ -10,20 +10,20 @@ import Foundation
 
 public extension Logger {
     // instanceを渡すことで、正確なオブジェクト名が得られます。
-    func entered(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
+    func entered(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(with: LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "➡️ENTER", instance: instance))
     }
 
     // instanceを渡すことで、正確なオブジェクト名が得られます。
-    func `deinit`(_ instance: Any? = nil, message: Any = "", function: String = #function, file: String = #file, line: Int = #line) {
+    func `deinit`(_ instance: Any? = nil, message: Any = "", function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         log(with: LogInformation(level: .log, message: message, function: function, file: file, line: line, prefix: "❎DEINIT", instance: instance))
     }
 
-    func json(jsonData: Data, instance: Any? = nil, function: String = #function, file: String = #file, line: Int = #line) {
+    func json(jsonData: Data, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
         guard isEnabled(.log) else { return }
 
         let jsonString = Logger.decodeJsonData(jsonData)

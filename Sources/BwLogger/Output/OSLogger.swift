@@ -39,14 +39,6 @@ public class OSLogger {
         subsystem = "com.beowulf-tech"
         category = "OSLogger"
     }
-
-    public func generateMessage(with info: LogInformation) -> String {
-        let prefix = prefix(with: info)
-
-        return info.level == .info ?
-            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
-            "\(prefix)\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
-    }
 }
 
 extension OSLogger: LogOutput {
@@ -83,5 +75,13 @@ extension OSLogger: LogOutput {
         } else {
             os_log("%@", message)
         }
+    }
+
+    public func generateMessage(with info: LogInformation) -> String {
+        let prefix = prefix(with: info)
+
+        return info.level == .info ?
+            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
+            "\(prefix)\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }

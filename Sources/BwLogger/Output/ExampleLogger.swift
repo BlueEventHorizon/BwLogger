@@ -10,14 +10,6 @@ import Foundation
 
 public class ExampleLogger: LogOutput {
     public init() {}
-
-    public func generateMessage(with info: LogInformation) -> String {
-        let prefix = prefix(with: info)
-
-        return info.level == .info ?
-            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
-            "\(prefix)\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
-    }
 }
 
 public extension ExampleLogger {
@@ -30,12 +22,20 @@ public extension ExampleLogger {
             print(message)
         }
     }
-    
+
     func prefix(with info: LogInformation) -> String {
         if let prefix = info.prefix {
             return prefix
         }
 
         return "🔹 \(info.level.rawValue)"
+    }
+
+    func generateMessage(with info: LogInformation) -> String {
+        let prefix = prefix(with: info)
+
+        return info.level == .info ?
+            "\(prefix)\(addSeparater(info.message)) [\(info.objectName)]" :
+            "\(prefix)\(addSeparater(info.message)) [\(info.threadName)] [\(info.objectName)] \(info.fileName): \(info.line))"
     }
 }
