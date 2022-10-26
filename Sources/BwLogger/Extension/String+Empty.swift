@@ -6,15 +6,17 @@
 //  Copyright © 2019 k2moons. All rights reserved.
 //
 
+#if LOGGER_PRIVATE_EXTENSION_ENABLED
+
 import Foundation
 
-public extension String {
+extension String {
     var isNotEmpty: Bool {
         !isEmpty
     }
 }
 
-public extension Optional where Wrapped == String {
+extension Optional where Wrapped == String {
     var isEmpty: Bool {
         switch self {
             case let .some(str):
@@ -35,3 +37,6 @@ public extension Optional where Wrapped == String {
         }
     }
 }
+
+#endif
+

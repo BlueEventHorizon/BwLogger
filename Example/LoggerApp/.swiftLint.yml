@@ -167,7 +167,7 @@ opt_in_rules:
   - multiline_parameters
   #- multiline_parameters_brackets            # 開始と終了行における括弧とパラメータの同行内記述を許可するため
   - nimble_operator
-  - no_extension_access_modifier
+  # - no_extension_access_modifier            # コード量が多くなるので、無しをデフォルトにしたい
   #- no_grouping_extension                   # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
   - nslocalizedstring_key
   - nslocalizedstring_require_bundle

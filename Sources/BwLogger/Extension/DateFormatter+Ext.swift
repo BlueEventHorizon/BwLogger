@@ -6,22 +6,24 @@
 //  Copyright © 2021 k2moons. All rights reserved.
 //
 
+#if LOGGER_PRIVATE_EXTENSION_ENABLED
+
 import Foundation
 
 // https://developer.apple.com/documentation/foundation/dateformatter
 
-public enum FormatStringType: String {
+enum FormatStringType: String {
     case detail = "yyyy/MM/dd HH:mm:ss.SSS z"
     case full = "yyyy-MM-dd'T'HH:mm:ssZ"
     case std = "yyyy-MM-dd HH:mm:ss"
     case birthday = "yyyy-MM-dd"
 }
 
-public enum FormatTemplateType: String {
+enum FormatTemplateType: String {
     case dayMonth = "MMMMd"
 }
 
-public extension DateFormatter {
+extension DateFormatter {
     // MARK: - User-Visible Representations
 
     static func visibleFormatter(style: DateFormatter.Style, locale: Locale = Locale.current) -> DateFormatter {
@@ -63,3 +65,5 @@ public extension DateFormatter {
     /// 現在タイムゾーンの標準フォーマッタ
     static let standard: DateFormatter = fixedFormatter(dateFormat: "", timeZone: .current)
 }
+
+#endif

@@ -1,6 +1,6 @@
 //
 //  ConsoleLogger.swift
-//  BwCore
+//  BwLogger
 //
 //  Created by k2moons on 2020/09/15.
 //  Copyright © 2020 k2moons. All rights reserved.

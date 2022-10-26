@@ -1,6 +1,6 @@
 //
 //  Logger.swift
-//  BwCore
+//  BwLogger
 //
 //  Created by k2moons on 2017/08/18.
 //  Copyright (c) 2017 k2moons. All rights reserved.
