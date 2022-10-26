@@ -6,6 +6,8 @@
 //  Copyright © 2021 k2moons. All rights reserved.
 //
 
+#if LOGGER_PRIVATE_EXTENSION_ENABLED
+
 import Foundation
 
 // https://developer.apple.com/documentation/foundation/dateformatter
@@ -63,3 +65,5 @@ public extension DateFormatter {
     /// 現在タイムゾーンの標準フォーマッタ
     static let standard: DateFormatter = fixedFormatter(dateFormat: "", timeZone: .current)
 }
+
+#endif

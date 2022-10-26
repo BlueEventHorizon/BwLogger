@@ -6,6 +6,8 @@
 //  Copyright © 2019 k2moons. All rights reserved.
 //
 
+#if LOGGER_PRIVATE_EXTENSION_ENABLED
+
 import Foundation
 
 public extension String {
@@ -35,3 +37,6 @@ public extension Optional where Wrapped == String {
         }
     }
 }
+
+#endif
+

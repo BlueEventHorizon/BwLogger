@@ -1,16 +1,12 @@
 //
 //  LogInformation.swift
-//  BwCore
+//  BwLogger
 //
 //  Created by k2moons on 2020/09/15.
 //  Copyright © 2020 k2moons. All rights reserved.
 //
 
 import Foundation
-
-#if canImport(BwTips)
-    import BwTips
-#endif
 
 /// Logの基本情報を保持する構造体
 public struct LogInformation {
