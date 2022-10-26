@@ -12,18 +12,18 @@ import Foundation
 
 // https://developer.apple.com/documentation/foundation/dateformatter
 
-public enum FormatStringType: String {
+enum FormatStringType: String {
     case detail = "yyyy/MM/dd HH:mm:ss.SSS z"
     case full = "yyyy-MM-dd'T'HH:mm:ssZ"
     case std = "yyyy-MM-dd HH:mm:ss"
     case birthday = "yyyy-MM-dd"
 }
 
-public enum FormatTemplateType: String {
+enum FormatTemplateType: String {
     case dayMonth = "MMMMd"
 }
 
-public extension DateFormatter {
+extension DateFormatter {
     // MARK: - User-Visible Representations
 
     static func visibleFormatter(style: DateFormatter.Style, locale: Locale = Locale.current) -> DateFormatter {
