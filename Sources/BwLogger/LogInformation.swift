@@ -9,17 +9,15 @@
 import Foundation
 
 /// Logの基本情報を保持する構造体
-public struct LogInformation {
+public struct LogInformation: Codable {
     public let level: Logger.Level
     public let message: String
     public let date: Date
-
-    public let function: StaticString
-    public let file: StaticString
+    public let objectName: String
+    public let function: String
+    public let file: String
     public let line: Int
-
     public let prefix: String?
-    public let instance: Any?
 
     /// 初期化
     /// - Parameters:
@@ -36,12 +34,17 @@ public struct LogInformation {
 
         // メッセージのdescriptionを取り出す（よってCustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleを持つclassであれば何でも良いことになる）
         self.message = (message as? String) ?? String(describing: message)
-        self.instance = instance
         date = Date()
 
-        self.function = function
-        self.file = file
+        self.function = "\(function)"
+        self.file = "\(file)"
         self.line = line
+        
+        if let instance = instance {
+            objectName = "\(String(describing: type(of: instance))):\(function)"
+        } else {
+            objectName = "\(function)"
+        }
     }
 
     /// タイムスタンプを生成
@@ -66,17 +69,5 @@ public struct LogInformation {
     /// ファイル名を取得する
     public var fileName: String {
         URL(fileURLWithPath: "\(file)").lastPathComponent
-    }
-
-    /// 関数名を返す。
-    /// instanceがインスタンス・オブジェクトの場合は、class名を取得する。
-    public var objectName: String {
-        guard let instance = instance else {
-            return "\(function)"
-        }
-
-        // instanceがインスタンス・オブジェクトの場合は、class名を取得する。
-        let result = "\(String(describing: type(of: instance))):\(function)"
-        return result
     }
 }
