@@ -1,14 +1,26 @@
 //
 //  Logger.swift
-//  BwLogger
+//  BwLog
 //
-//  Created by k2moons on 2017/08/18.
-//  Copyright (c) 2017 k2moons. All rights reserved.
+//  Created by k2moons on 2022/10/28.
+//  Copyright (c) 2022 k2moons. All rights reserved.
 //
 
 import Foundation
 
-public final class Logger {
+// ------------------------------------------------------------------------------------------
+// MARK: - LoggerProtocol
+// ------------------------------------------------------------------------------------------
+
+public protocol LoggerProtocol {
+    func log(_ log: LogInformation)
+}
+
+// ------------------------------------------------------------------------------------------
+// MARK: - BwLogger
+// ------------------------------------------------------------------------------------------
+
+public class Logger: LoggerProtocol {
     public enum Level: String, Codable, CaseIterable {
         case log
         case debug
@@ -17,157 +29,181 @@ public final class Logger {
         case error
         case fault
     }
-
-    public static let `default` = Logger([OSLogger(subsystem: "com.beowulf-tech", category: "Logger")])
+    
+    // MARK: - Property
 
     private static let semaphore = DispatchSemaphore(value: 1)
-
-    #if DEBUG
-        public static let defaultLevels: [Level]? = [.log, .fault, .error, .warning, .debug, .info] // nil
-    #else
-        public static let defaultLevels: [Level]? = [.fault, .error]
-    #endif
-
-    // ------------------------------------------------------------------------------------------
-    // MARK: - public private(set)
-    // ------------------------------------------------------------------------------------------
-
+    
     /// ログのアウトプット先
-    public private(set) var outputs: [LogOutput]
+    public private(set) var outputs: [LogOutput] = []
 
-    /// 出力可能なログレベルを保持する。niであれば全てを出力する。
-    public private(set) var levels: [Level]?
+    ///  ログの出力制御 （初期値：出力しない）
+    public private(set) var levels: [Level]? = []
 
-    // ------------------------------------------------------------------------------------------
-    // MARK: - Lifecycle
-    // ------------------------------------------------------------------------------------------
+    // MARK: - Private Function
 
-    public init(_ outputs: [LogOutput], levels: [Level]? = Logger.defaultLevels) {
-        self.outputs = outputs
-        self.levels = levels
-    }
-
-    // ------------------------------------------------------------------------------------------
-    // MARK: - Configuration
-    // ------------------------------------------------------------------------------------------
-
-    @discardableResult
-    public func setLogOutput(_ outputs: [LogOutput]) -> Self {
-        Logger.semaphore.wait()
-        defer {
-            Logger.semaphore.signal()
-        }
-
-        self.outputs = outputs
-
-        return self
-    }
-
-    @discardableResult
-    public func appendLogOutput(_ output: LogOutput) -> Self {
-        Logger.semaphore.wait()
-        defer {
-            Logger.semaphore.signal()
-        }
-
-        outputs.append(output)
-
-        return self
-    }
-
-    /// ログレベルを変更する
-    /// - Parameter levels: ログレベル
-    /// - Returns: Loggerインスタンス
-    /// - Usage: Logger.default.setLevel([.warning, .error, .fault])
-    @discardableResult
-    public func setLevel(_ levels: [Level]?) -> Self {
-        Logger.semaphore.wait()
-        defer {
-            Logger.semaphore.signal()
-        }
-
-        self.levels = levels
-
-        return self
-    }
-
-    /// ログ出力可否を返す
-    /// - Parameter level: ログレベル
-    /// - Returns: ログ出力可否
-    public func isEnabled(_ level: Level) -> Bool {
-        // 設定なしで全てを出力
+    func isEnabled(_ level: Level) -> Bool {
+        // levels == nil : 全てを出力
         guard let levels = levels else { return true }
 
-        // 設定に含まれていないと出力しない
+        // levels に含まれていれば出力する
         guard levels.contains(level) else { return false }
 
         return true
     }
 
-    // ------------------------------------------------------------------------------------------
-    // MARK: - public func
-    // ------------------------------------------------------------------------------------------
+    // MARK: - Public Function
 
-    /// ログ出力する
-    /// - Parameter information: ログの情報を保持する構造体
-    func log(with information: LogInformation) {
+    public init(_ outputs: [LogOutput], levels: [Level]? = nil) {
+        self.outputs = outputs
+        self.levels = levels
+    }
+
+    /// ログのアウトプット先設定
+    @discardableResult
+    public func setOutput(_ outputs: [LogOutput]) -> Self {
         Logger.semaphore.wait()
-        defer {
-            Logger.semaphore.signal()
-        }
+        defer { Logger.semaphore.signal() }
 
-        for output in outputs {
-            output.log(information)
+        self.outputs = outputs
+        return self
+    }
+
+    /// 出力レベルの設定
+    /// - Parameter levels: 出力するログレベルの配列
+    /// - Returns: 自インスタンス
+    @discardableResult
+    public func setLevel(_ levels: [Level]?) -> Self {
+        Logger.semaphore.wait()
+        defer { Logger.semaphore.signal() }
+
+        self.levels = levels
+
+        return self
+    }
+
+    public func log(_ log: LogInformation) {
+        guard isEnabled(log.level) else { return }
+
+        outputs.forEach { output in
+            output.log(log)
         }
     }
 
-    // ------------------------------------------------------------------------------------------
-    // Loggerの呼び出し関数
-    // messageにはStringだけでなく、CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertible等を渡すこともできます
-    // instanceを渡すことで、正確なオブジェクト名が得られます。
-    // ------------------------------------------------------------------------------------------
+    @discardableResult
+    public func setLogOutput(_ outputs: [LogOutput]) -> Self {
+        setOutput(outputs)
+    }
+}
 
+// ------------------------------------------------------------------------------------------
+// MARK: - LogInformation
+// ------------------------------------------------------------------------------------------
+
+/// Logの基本情報を保持する構造体
+public struct LogInformation: Codable {
+    public let level: Logger.Level
+    public let message: String
+    public let date: Date
+    public let objectName: String
+    public let function: String
+    public let file: String
+    public let line: Int
+    public let prefix: String?
+
+    /// 初期化
+    /// - Parameters:
+    ///   - message: ログ内容（String以外にも、CustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleも可）
+    ///   - level: ログレベル
+    ///   - function: 関数名（自動で付加）
+    ///   - file: ファイル名（自動で付加）
+    ///   - line: ファイル行（自動で付加）
+    ///   - prefix: 先頭に追加する文字列（初期値は無し）
+    ///   - instance: インスタンスを渡すと、ログに「クラス名:関数名」を出力
+    public init(_ message: Any, level: Logger.Level = .log, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line, prefix: String? = nil, instance: Any? = nil) {
+        self.level = level
+        self.prefix = prefix
+
+        // メッセージのdescriptionを取り出す（よってCustomStringConvertible / TextOutputStreamable / CustomDebugStringConvertibleを持つclassであれば何でも良いことになる）
+        self.message = (message as? String) ?? String(describing: message)
+        date = Date()
+
+        self.function = "\(function)"
+        self.file = "\(file)"
+        self.line = line
+
+        if let instance = instance {
+            objectName = "\(String(describing: type(of: instance))):\(function)"
+        } else {
+            objectName = "\(function)"
+        }
+    }
+
+    /// タイムスタンプを生成
+    public func timestamp(_ format: String = "yyyy/MM/dd HH:mm:ss.SSS z") -> String {
+        DateFormatter.fixedFormatter(dateFormat: format, timeZone: .current).string(from: date)
+    }
+
+    /// スレッド名を取得する
+    public var threadName: String {
+        if Thread.isMainThread {
+            return "main"
+        }
+        if let threadName = Thread.current.name, threadName.isNotEmpty {
+            return threadName
+        }
+        if let threadName = String(validatingUTF8: __dispatch_queue_get_label(nil)), threadName.isNotEmpty {
+            return threadName
+        }
+        return Thread.current.description
+    }
+
+    /// ファイル名を取得する
+    public var fileName: String {
+        URL(fileURLWithPath: "\(file)").lastPathComponent
+    }
+}
+
+// ------------------------------------------------------------------------------------------
+// MARK: - LogOutput
+// ------------------------------------------------------------------------------------------
+
+public protocol LogOutput {
+    func log(_ information: LogInformation)
+}
+
+// ------------------------------------------------------------------------------------------
+// MARK: - extension BwLogger
+// ------------------------------------------------------------------------------------------
+
+extension Logger {
     /// 汎用
     public func log(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.log) else { return }
-
-        log(with: LogInformation(level: .log, message: message, function: function, file: file, line: line, instance: instance))
+        log(LogInformation(message, level: .log, function: function, file: file, line: line, instance: instance))
     }
 
     /// 情報表示
     public func info(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.info) else { return }
-
-        log(with: LogInformation(level: .info, message: message, function: function, file: file, line: line, instance: instance))
+        log(LogInformation(message, level: .info, function: function, file: file, line: line, instance: instance))
     }
 
     /// デバッグ情報
     public func debug(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.debug) else { return }
-
-        log(with: LogInformation(level: .debug, message: message, function: function, file: file, line: line, instance: instance))
+        log(LogInformation(message, level: .debug, function: function, file: file, line: line, instance: instance))
     }
 
     /// 警告
     public func warning(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.warning) else { return }
-
-        log(with: LogInformation(level: .warning, message: message, function: function, file: file, line: line, instance: instance))
+        log(LogInformation(message, level: .warning, function: function, file: file, line: line, instance: instance))
     }
 
     /// エラー
     public func error(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.error) else { return }
-
-        log(with: LogInformation(level: .error, message: message, function: function, file: file, line: line, instance: instance))
+        log(LogInformation(message, level: .error, function: function, file: file, line: line, instance: instance))
     }
 
     /// 致命的なエラー
     public func fault(_ message: Any, instance: Any? = nil, function: StaticString = #function, file: StaticString = #fileID, line: Int = #line) {
-        guard isEnabled(.fault) else { return }
-
-        log(with: LogInformation(level: .fault, message: message, function: function, file: file, line: line, instance: instance))
-
-        assertionFailure("\(message)")
+        log(LogInformation(message, level: .fault, function: function, file: file, line: line, instance: instance))
     }
 }
